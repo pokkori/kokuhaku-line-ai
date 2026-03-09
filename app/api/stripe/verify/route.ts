@@ -18,6 +18,8 @@ export async function GET(req: NextRequest) {
       const res = NextResponse.json({ ok: true });
       res.cookies.set("stripe_premium", "1", {
         httpOnly: true,
+        secure: true,
+        sameSite: "lax",
         maxAge: 60 * 60 * 24 * 366,
         path: "/",
       });
