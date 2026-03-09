@@ -21,7 +21,7 @@ export default function Home() {
       {/* Hero */}
       <section className="pt-20 pb-16 px-4 text-center">
         <div className="inline-block bg-blue-900 text-blue-300 text-xs font-bold px-3 py-1 rounded-full mb-6">
-          💬 告白LINE返信AI — 完全無料で3回試せる
+          💬 恋愛LINE解析AI — 脈あり判定 × 返信例文 × 告白文 — 無料3回
         </div>
         <h1 className="text-4xl md:text-6xl font-black mb-6 leading-tight">
           好きな子のLINE、<br />
@@ -29,7 +29,7 @@ export default function Home() {
         </h1>
         <p className="text-slate-300 text-lg max-w-2xl mx-auto mb-8">
           コピペするだけで<strong className="text-white">脈あり度</strong>を0〜100%判定。<br />
-          最適な返信例文・告白文・告白タイミングまでAIが生成します。
+          心理分析・返信例文・告白文・告白タイミングまで全部AIが生成します。
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link
