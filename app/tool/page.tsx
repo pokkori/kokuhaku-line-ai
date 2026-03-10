@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import PayjpModal from "@/components/PayjpModal";
 
 type Result = {
   score: number;
@@ -74,8 +75,6 @@ export default function ToolPage() {
   const [showPaywall, setShowPaywall] = useState(false);
   const [tab, setTab] = useState<Tab>("score");
   const [copied, setCopied] = useState<string | null>(null);
-  const [checkoutLoading, setCheckoutLoading] = useState(false);
-
   useEffect(() => {
     fetch("/api/auth/status").then((r) => r.json()).then((d) => {
       setIsPremium(d.premium);
@@ -107,16 +106,8 @@ export default function ToolPage() {
     setLoading(false);
   }
 
-  async function startCheckout() {
-    setCheckoutLoading(true);
-    try {
-      const res = await fetch("/api/stripe/checkout", { method: "POST", headers: { "Content-Type": "application/json" } });
-      const data = await res.json();
-      if (data.url) window.location.href = data.url;
-    } catch {
-      setCheckoutLoading(false);
-    }
-  }
+  const [showPayjp, setShowPayjp] = useState(false);
+  const startCheckout = () => setShowPayjp(true);
 
   function copy(text: string, key: string) {
     navigator.clipboard.writeText(text);
@@ -158,8 +149,8 @@ export default function ToolPage() {
         {!isPremium && remaining === 0 && !result && (
           <div className="bg-blue-900/40 border border-blue-600 rounded-xl p-4 text-center">
             <p className="text-sm text-blue-200 mb-3">無料回数を使い切りました。月額¥980で使い放題！</p>
-            <button onClick={startCheckout} disabled={checkoutLoading} className="bg-blue-500 hover:bg-blue-400 text-white font-bold px-6 py-2 rounded-xl text-sm transition disabled:opacity-50">
-              {checkoutLoading ? "処理中..." : "プレミアムにアップグレード"}
+            <button onClick={startCheckout} disabled={false} className="bg-blue-500 hover:bg-blue-400 text-white font-bold px-6 py-2 rounded-xl text-sm transition disabled:opacity-50">
+              プレミアムにアップグレード
             </button>
           </div>
         )}
@@ -180,8 +171,8 @@ export default function ToolPage() {
             <div className="text-4xl mb-4">🔒</div>
             <h3 className="text-xl font-bold mb-2">無料回数が終わりました</h3>
             <p className="text-slate-400 text-sm mb-6">月額¥980で解析し放題 + 告白文テンプレ完全解放</p>
-            <button onClick={startCheckout} disabled={checkoutLoading} className="bg-blue-500 hover:bg-blue-400 text-white font-black px-8 py-4 rounded-xl text-lg transition disabled:opacity-50 w-full">
-              {checkoutLoading ? "処理中..." : "¥980/月でアップグレード"}
+            <button onClick={startCheckout} disabled={false} className="bg-blue-500 hover:bg-blue-400 text-white font-black px-8 py-4 rounded-xl text-lg transition disabled:opacity-50 w-full">
+              ¥980/月でアップグレード
             </button>
           </div>
         )}
@@ -252,8 +243,8 @@ export default function ToolPage() {
                   <div className="text-center py-8">
                     <div className="text-4xl mb-4">🔒</div>
                     <p className="text-slate-400 text-sm mb-4">告白文テンプレはプレミアム限定機能です</p>
-                    <button onClick={startCheckout} disabled={checkoutLoading} className="bg-blue-500 hover:bg-blue-400 text-white font-bold px-6 py-3 rounded-xl text-sm transition disabled:opacity-50">
-                      {checkoutLoading ? "処理中..." : "¥980/月でアップグレード"}
+                    <button onClick={startCheckout} disabled={false} className="bg-blue-500 hover:bg-blue-400 text-white font-bold px-6 py-3 rounded-xl text-sm transition disabled:opacity-50">
+                      ¥980/月でアップグレード
                     </button>
                   </div>
                 )
@@ -272,6 +263,14 @@ export default function ToolPage() {
         <Link href="/privacy" className="hover:underline">プライバシーポリシー</Link>
         <Link href="/" className="hover:underline">トップへ戻る</Link>
       </footer>
+      {showPayjp && (
+        <PayjpModal
+          publicKey={process.env.NEXT_PUBLIC_PAYJP_PUBLIC_KEY!}
+          planLabel="プレミアムプラン ¥980/月 — LINE解析 無制限"
+          onSuccess={() => { setShowPayjp(false); setIsPremium(true); }}
+          onClose={() => setShowPayjp(false)}
+        />
+      )}
     </main>
   );
 }

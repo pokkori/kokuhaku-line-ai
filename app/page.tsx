@@ -1,19 +1,15 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import PayjpModal from "@/components/PayjpModal";
+
+const PAYJP_PUBLIC_KEY = process.env.NEXT_PUBLIC_PAYJP_PUBLIC_KEY ?? "";
 
 export default function Home() {
-  const [loading, setLoading] = useState(false);
+  const [showPayjp, setShowPayjp] = useState(false);
 
-  async function startCheckout() {
-    setLoading(true);
-    try {
-      const res = await fetch("/api/stripe/checkout", { method: "POST", headers: { "Content-Type": "application/json" } });
-      const data = await res.json();
-      if (data.url) window.location.href = data.url;
-    } catch {
-      setLoading(false);
-    }
+  function startCheckout() {
+    setShowPayjp(true);
   }
 
   return (
@@ -40,10 +36,9 @@ export default function Home() {
           </Link>
           <button
             onClick={startCheckout}
-            disabled={loading}
-            className="border border-blue-400 text-blue-300 hover:bg-blue-900 font-bold px-8 py-4 rounded-xl text-lg transition disabled:opacity-50"
+            className="border border-blue-400 text-blue-300 hover:bg-blue-900 font-bold px-8 py-4 rounded-xl text-lg transition"
           >
-            {loading ? "処理中..." : "月額¥980で使い放題"}
+            月額¥980で使い放題
           </button>
         </div>
       </section>
@@ -170,10 +165,9 @@ export default function Home() {
               </ul>
               <button
                 onClick={startCheckout}
-                disabled={loading}
-                className="w-full bg-blue-400 hover:bg-blue-300 text-slate-900 font-black py-3 rounded-xl transition disabled:opacity-50"
+                className="w-full bg-blue-400 hover:bg-blue-300 text-slate-900 font-black py-3 rounded-xl transition"
               >
-                {loading ? "処理中..." : "今すぐ始める"}
+                今すぐ始める
               </button>
             </div>
           </div>
@@ -197,6 +191,14 @@ export default function Home() {
         <Link href="/terms" className="hover:underline">利用規約</Link>
         <Link href="/privacy" className="hover:underline">プライバシーポリシー</Link>
       </footer>
+      {showPayjp && (
+        <PayjpModal
+          publicKey={PAYJP_PUBLIC_KEY}
+          planLabel="プレミアムプラン ¥980/月 — LINE解析 無制限"
+          onSuccess={() => setShowPayjp(false)}
+          onClose={() => setShowPayjp(false)}
+        />
+      )}
     </main>
   );
 }
