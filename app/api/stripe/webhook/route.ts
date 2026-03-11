@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
       .update({
         status,
         current_period_end: new Date(
-          sub.current_period_end * 1000
+          (sub as any).current_period_end * 1000
         ).toISOString(),
         updated_at: new Date().toISOString(),
       })
@@ -56,11 +56,11 @@ export async function POST(req: NextRequest) {
 
   if (event.type === "invoice.payment_failed") {
     const invoice = event.data.object as Stripe.Invoice;
-    if (invoice.subscription) {
+    if ((invoice as any).subscription) {
       await supabase
         .from("subscriptions")
         .update({ status: "past_due", updated_at: new Date().toISOString() })
-        .eq("stripe_subscription_id", invoice.subscription as string);
+        .eq("stripe_subscription_id", (invoice as any).subscription as string);
     }
   }
 
