@@ -30,7 +30,7 @@ export async function GET(req: NextRequest) {
     if (subId) {
       const stripeSub = await stripe.subscriptions.retrieve(subId);
       currentPeriodEnd = new Date(
-        stripeSub.current_period_end * 1000
+        (stripeSub as any).current_period_end * 1000
       ).toISOString();
     }
 
