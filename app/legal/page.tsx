@@ -2,8 +2,8 @@ import Link from "next/link";
 
 export default function LegalPage() {
   const items = [
-    ["販売事業者", "個人事業主（pokkori）"],
-    ["運営責任者", "非公開（特商法に基づく省略）"],
+    ["販売事業者", "ポッコリラボ"],
+    ["運営責任者", "ポッコリラボ 代表 新美"],
     ["所在地", "非公開（請求があれば遅滞なく開示します）"],
     ["電話番号", "非公開（請求があれば遅滞なく開示します）"],
     ["メールアドレス", "X(Twitter) @levona_design へのDM"],
