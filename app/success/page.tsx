@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 function Confetti() {
@@ -50,30 +49,12 @@ function Confetti() {
 }
 
 function SuccessContent() {
-  const params = useSearchParams();
-  const [status, setStatus] = useState<"loading" | "ok" | "error">("loading");
-  const [showConfetti, setShowConfetti] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(true);
 
   useEffect(() => {
-    const sessionId = params.get("session_id");
-    if (!sessionId) { setStatus("error"); return; }
-    fetch(`/api/stripe/verify?session_id=${sessionId}`)
-      .then((r) => r.json())
-      .then((d) => {
-        setStatus(d.ok ? "ok" : "error");
-        if (d.ok) setShowConfetti(true);
-      });
-  }, [params]);
-
-  useEffect(() => {
-    if (showConfetti) {
-      const timer = setTimeout(() => setShowConfetti(false), 4000);
-      return () => clearTimeout(timer);
-    }
-  }, [showConfetti]);
-
-  if (status === "loading") return <p className="text-blue-400">確認中...</p>;
-  if (status === "error") return <p className="text-red-400">確認できませんでした。サポートへお問い合わせください。</p>;
+    const timer = setTimeout(() => setShowConfetti(false), 4000);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <>
