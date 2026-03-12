@@ -6,7 +6,7 @@ export default function LegalPage() {
     ["運営責任者", "非公開（特商法に基づく省略）"],
     ["所在地", "非公開（請求があれば遅滞なく開示します）"],
     ["電話番号", "非公開（請求があれば遅滞なく開示します）"],
-    ["メールアドレス", "levonadesign@gmail.com"],
+    ["メールアドレス", "X(Twitter) @levona_design へのDM"],
     ["販売価格", "月額¥980（税込）"],
     ["支払方法", "クレジットカード（PAY.JP（PAY.JP株式会社）経由）（Visa・Mastercard・American Express・JCB）"],
     ["支払時期", "お申し込み時にお支払いが確定します"],
