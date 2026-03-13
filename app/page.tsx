@@ -156,7 +156,7 @@ export default function Home() {
               </Link>
             </div>
             <div className="bg-blue-900 rounded-2xl p-8 border-2 border-blue-400 relative">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-400 text-slate-900 text-xs font-black px-4 py-1 rounded-full">人気No.1</div>
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-400 text-slate-900 text-xs font-black px-4 py-1 rounded-full">おすすめ</div>
               <h3 className="font-bold text-lg mb-2">月額プラン</h3>
               <div className="text-4xl font-black mb-4">¥980<span className="text-lg font-normal text-blue-300">/月</span></div>
               <ul className="text-blue-200 text-sm space-y-2 mb-6 text-left">
