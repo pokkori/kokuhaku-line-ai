@@ -118,7 +118,7 @@ export default function ToolPage() {
   return (
     <main className="min-h-screen bg-slate-950 text-white">
       <nav className="bg-slate-900 border-b border-slate-800 px-6 py-4 flex justify-between items-center">
-        <Link href="/" className="font-bold text-blue-400">💬 告白LINE返信AI</Link>
+        <Link href="/" className="font-bold text-blue-400">💬 恋愛コーチAI</Link>
         {!isPremium && remaining !== null && (
           <span className="text-xs text-slate-400">残り無料 {remaining}回</span>
         )}
