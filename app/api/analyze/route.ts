@@ -75,7 +75,7 @@ ${context ? `【関係性・状況】\n${context}` : ""}
     const anthropic = getAnthropic();
     const response = await anthropic.messages.create({
       model: "claude-haiku-4-5-20251001",
-      max_tokens: 1500,
+      max_tokens: 2500,
       messages: [{ role: "user", content: prompt }],
     });
 
