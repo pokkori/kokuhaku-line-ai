@@ -207,10 +207,22 @@ export default function Home() {
         </Link>
       </section>
 
-      <footer className="border-t border-slate-800 py-6 text-center text-xs text-slate-500 space-x-4">
-        <Link href="/legal" className="hover:underline">特定商取引法に基づく表記</Link>
-        <Link href="/terms" className="hover:underline">利用規約</Link>
-        <Link href="/privacy" className="hover:underline">プライバシーポリシー</Link>
+      <footer className="border-t border-slate-800 py-6 text-center text-xs text-slate-500">
+        <div className="space-x-4 mb-4">
+          <Link href="/legal" className="hover:underline">特定商取引法に基づく表記</Link>
+          <Link href="/terms" className="hover:underline">利用規約</Link>
+          <Link href="/privacy" className="hover:underline">プライバシーポリシー</Link>
+        </div>
+        <div className="border-t border-slate-700 pt-3 text-xs">
+          <p className="mb-1">ポッコリラボの他のサービス</p>
+          <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-slate-600">
+            <a href="https://uranai-ai-sigma.vercel.app" className="hover:text-slate-400">占いAI</a>
+            <a href="https://hada-ai.vercel.app" className="hover:text-slate-400">AI美肌診断</a>
+            <a href="https://claim-ai-beryl.vercel.app" className="hover:text-slate-400">クレームAI</a>
+            <a href="https://rougo-sim-ai.vercel.app" className="hover:text-slate-400">老後シミュレーターAI</a>
+            <a href="https://hojyokin-ai-delta.vercel.app" className="hover:text-slate-400">補助金AI</a>
+          </div>
+        </div>
       </footer>
       {showPayjp && (
         <PayjpModal
