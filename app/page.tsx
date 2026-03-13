@@ -37,7 +37,7 @@ export default function Home() {
             onClick={startCheckout}
             className="border border-blue-400 text-blue-300 hover:bg-blue-900 font-bold px-8 py-4 rounded-xl text-lg transition"
           >
-            月額¥980で使い放題
+            月額¥1,480で使い放題
           </button>
         </div>
       </section>
@@ -158,7 +158,7 @@ export default function Home() {
             <div className="bg-blue-900 rounded-2xl p-8 border-2 border-blue-400 relative">
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-400 text-slate-900 text-xs font-black px-4 py-1 rounded-full">おすすめ</div>
               <h3 className="font-bold text-lg mb-2">月額プラン</h3>
-              <div className="text-4xl font-black mb-4">¥980<span className="text-lg font-normal text-blue-300">/月</span></div>
+              <div className="text-4xl font-black mb-4">¥1,480<span className="text-lg font-normal text-blue-300">/月</span></div>
               <ul className="text-blue-200 text-sm space-y-2 mb-6 text-left">
                 <li>✓ 解析し放題（回数制限なし）</li>
                 <li>✓ 脈あり度・心理分析・返信例文</li>
@@ -215,7 +215,7 @@ export default function Home() {
       {showPayjp && (
         <PayjpModal
           publicKey={PAYJP_PUBLIC_KEY}
-          planLabel="プレミアムプラン ¥980/月 — LINE解析 無制限"
+          planLabel="プレミアムプラン ¥1,480/月 — LINE解析 無制限"
           onSuccess={() => setShowPayjp(false)}
           onClose={() => setShowPayjp(false)}
         />
