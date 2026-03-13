@@ -174,6 +174,22 @@ export default function ToolPage() {
             <button onClick={startCheckout} disabled={false} className="bg-blue-500 hover:bg-blue-400 text-white font-black px-8 py-4 rounded-xl text-lg transition disabled:opacity-50 w-full">
               ¥980/月でアップグレード
             </button>
+            <p className="text-slate-500 text-xs mt-4">
+              ※ 婚活・マッチングアプリのご相談は
+              <a href="https://konkatsu-ai.vercel.app" className="text-pink-400 underline ml-1">婚活コーチAI</a>
+              でも無料でお試しいただけます
+            </p>
+          </div>
+        )}
+
+        {result && (
+          <div className="mt-8 p-4 bg-gradient-to-r from-pink-900/30 to-rose-900/30 border border-pink-500/30 rounded-xl text-center">
+            <p className="text-pink-300 text-sm font-medium mb-2">💍 告白の次は、本格的な婚活へ</p>
+            <p className="text-slate-400 text-xs mb-3">マッチングアプリ攻略・プロフィール添削・メッセージ生成を AI がサポート</p>
+            <a href="https://konkatsu-ai.vercel.app" target="_blank" rel="noopener noreferrer"
+               className="inline-block px-4 py-2 bg-pink-600 hover:bg-pink-700 text-white text-sm rounded-lg transition-colors">
+              婚活コーチAIを試す（無料）→
+            </a>
           </div>
         )}
 

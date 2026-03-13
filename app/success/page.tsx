@@ -88,6 +88,18 @@ function SuccessContent() {
           </ul>
         </div>
 
+        <div className="mt-8 p-6 bg-gradient-to-r from-pink-900/20 to-rose-900/20 border border-pink-500/20 rounded-2xl mb-8">
+          <h3 className="text-pink-300 font-bold text-lg mb-2">💍 次のステップ：婚活コーチAI</h3>
+          <p className="text-slate-400 text-sm mb-4">
+            告白が成功したら、次は真剣な交際・婚活へ。<br />
+            マッチングアプリ戦略・プロフィール添削・メッセージ作成をAIがサポートします。
+          </p>
+          <a href="https://konkatsu-ai.vercel.app" target="_blank" rel="noopener noreferrer"
+             className="inline-block px-6 py-3 bg-pink-600 hover:bg-pink-700 text-white font-medium rounded-xl transition-colors">
+            婚活コーチAIを無料で試す →
+          </a>
+        </div>
+
         <div className="space-y-4 mb-8">
           <h2 className="font-bold text-blue-200 text-center text-sm">まずはこの3ステップ</h2>
 

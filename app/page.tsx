@@ -17,15 +17,14 @@ export default function Home() {
       {/* Hero */}
       <section className="pt-20 pb-16 px-4 text-center">
         <div className="inline-block bg-blue-900 text-blue-300 text-xs font-bold px-3 py-1 rounded-full mb-6">
-          💬 恋愛LINE解析AI — 脈あり判定 × 返信例文 × 告白文 — 無料3回
+          💬 恋愛コーチAI — 脈あり判定 × 返信例文 × 告白文 — 無料3回
         </div>
         <h1 className="text-4xl md:text-6xl font-black mb-6 leading-tight">
-          好きな子のLINE、<br />
-          <span className="text-blue-400">AIが本気で解読。</span>
+          恋愛のすべての場面で、<br />
+          <span className="text-blue-400">AIコーチが味方。</span>
         </h1>
         <p className="text-slate-300 text-lg max-w-2xl mx-auto mb-8">
-          コピペするだけで<strong className="text-white">脈あり度</strong>を0〜100%判定。<br />
-          心理分析・返信例文・告白文・告白タイミングまで全部AIが生成します。
+          告白から付き合い後まで、<strong className="text-white">LINEと恋愛のお悩み</strong>をAIが全力サポート
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link
@@ -103,6 +102,8 @@ export default function Home() {
               { emoji: "💌", title: "返信例文3パターン", body: "「距離を縮める返信」「自然なデート誘い」「余韻を残す一言」など状況別に生成" },
               { emoji: "📅", title: "告白タイミング分析", body: "「今すぐOK」「あと2週間」「もう少し仲良くなってから」とタイミングを具体的に提示" },
               { emoji: "💬", title: "告白文テンプレ", body: "LINE・直接・電話、シチュエーション別の告白文をそのまま使えるレベルで生成" },
+              { emoji: "💔", title: "付き合い後の悩みも", body: "喧嘩した後どう仲直りする？ マンネリ打開策は？ 関係をより深めるためのアドバイスをAIが提案" },
+              { emoji: "💍", title: "将来の話も", body: "結婚を意識し始めたとき、婚活を始めたいとき。次のステップへ進む際のサポートも万全" },
             ].map((f) => (
               <div key={f.title} className="bg-slate-800 rounded-2xl p-6 flex gap-4">
                 <div className="text-3xl shrink-0">{f.emoji}</div>
@@ -171,6 +172,25 @@ export default function Home() {
               </button>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* 婚活コーチAI誘導バナー */}
+      <section className="py-12 px-4">
+        <div className="max-w-2xl mx-auto bg-gradient-to-r from-pink-900/50 to-rose-900/50 border border-pink-500/40 rounded-2xl p-8 text-center">
+          <h2 className="text-xl font-bold mb-3">恋愛から婚活へ、ステップアップ</h2>
+          <p className="text-slate-300 text-sm leading-relaxed mb-6">
+            告白成功・付き合い始めた後、次のステップは「婚活コーチAI」で。<br />
+            マッチングアプリ攻略からプロフィール添削、結婚相手選びまで一気通貫サポート。
+          </p>
+          <a
+            href="https://konkatsu-ai.vercel.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block bg-pink-600 hover:bg-pink-500 text-white font-bold px-8 py-4 rounded-xl transition"
+          >
+            婚活コーチAIを見る →
+          </a>
         </div>
       </section>
 
