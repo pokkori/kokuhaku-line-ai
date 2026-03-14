@@ -167,10 +167,13 @@ export default function ToolPage() {
 
         {/* Paywall */}
         {showPaywall && (
-          <div className="bg-slate-800 border border-blue-500 rounded-2xl p-8 text-center">
-            <div className="text-4xl mb-4">🔒</div>
-            <h3 className="text-xl font-bold mb-2">無料回数が終わりました</h3>
-            <p className="text-slate-400 text-sm mb-6">月額¥980で解析し放題 + 告白文テンプレ完全解放</p>
+          <div className="bg-pink-50 border-2 border-pink-400 rounded-2xl p-8 text-center">
+            <div className="text-5xl mb-4">💬</div>
+            <h2 className="text-xl font-bold text-gray-900 mb-2">今夜返信したいなら、今すぐ解除を</h2>
+            <p className="text-gray-500 text-sm mb-6">
+              返信が遅くなるほど相手の気持ちは冷めていきます。<br/>
+              AIが最適な返信を今すぐ提案します。
+            </p>
             <button onClick={startCheckout} disabled={false} className="bg-blue-500 hover:bg-blue-400 text-white font-black px-8 py-4 rounded-xl text-lg transition disabled:opacity-50 w-full">
               ¥980/月でアップグレード
             </button>

@@ -20,8 +20,7 @@ export default function Home() {
           💬 恋愛コーチAI — 脈あり判定 × 返信例文 × 告白文 — 無料3回
         </div>
         <h1 className="text-4xl md:text-6xl font-black mb-6 leading-tight">
-          恋愛のすべての場面で、<br />
-          <span className="text-blue-400">AIコーチが味方。</span>
+          その一言で、距離が縮まるか壊れるかが決まる。
         </h1>
         <p className="text-slate-300 text-lg max-w-2xl mx-auto mb-8">
           告白から付き合い後まで、<strong className="text-white">LINEと恋愛のお悩み</strong>をAIが全力サポート
