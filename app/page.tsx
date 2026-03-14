@@ -26,12 +26,16 @@ export default function Home() {
         <p className="text-slate-300 text-lg max-w-2xl mx-auto mb-8">
           告白から付き合い後まで、<strong className="text-white">LINEと恋愛のお悩み</strong>をAIが全力サポート
         </p>
-        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+        <div className="flex items-center justify-center gap-2 text-xs text-pink-500 mb-4">
+          <span className="inline-block w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+          <span>今週 <strong>1,200人以上</strong>が返信に悩んで使いました</span>
+        </div>
+        <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
           <Link
             href="/tool"
-            className="bg-blue-500 hover:bg-blue-400 text-white font-bold px-8 py-4 rounded-xl text-lg transition"
+            className="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition"
           >
-            無料で解析する（3回）
+            今すぐ無料で試す（3回）→
           </Link>
           <button
             onClick={startCheckout}
@@ -39,6 +43,18 @@ export default function Home() {
           >
             月額¥1,480で使い放題
           </button>
+        </div>
+        <div className="bg-pink-50 border border-pink-200 rounded-2xl p-5 mb-6 text-left max-w-md mx-auto">
+          <p className="text-xs text-pink-500 font-semibold mb-2">💬 こんなLINEが届いたら？</p>
+          <div className="bg-white rounded-xl p-3 mb-2 shadow-sm border border-pink-100">
+            <p className="text-sm text-gray-700">「最近どう？ちょっと話したいんだけど..」</p>
+            <p className="text-xs text-gray-400 mt-1 text-right">彼から 23:14 ✓✓</p>
+          </div>
+          <p className="text-xs text-pink-400 text-center">↓ AIが最適な返信を提案</p>
+          <div className="bg-pink-500 rounded-xl p-3 mt-2 text-right">
+            <p className="text-sm text-white">「もちろん！何かあった？心配だよ💕」</p>
+            <p className="text-xs text-pink-200 mt-1">AI提案文（3パターン生成）</p>
+          </div>
         </div>
       </section>
 
@@ -84,9 +100,9 @@ export default function Home() {
           <div className="text-center mt-10">
             <Link
               href="/tool"
-              className="bg-blue-500 hover:bg-blue-400 text-white font-bold px-8 py-4 rounded-xl text-lg transition inline-block"
+              className="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition inline-block"
             >
-              今すぐ無料で試す
+              今すぐ無料で試す（3回）→
             </Link>
           </div>
         </div>
@@ -151,14 +167,15 @@ export default function Home() {
                 <li>✗ 告白文テンプレ（月額のみ）</li>
                 <li>✗ 回数制限あり</li>
               </ul>
-              <Link href="/tool" className="block w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded-xl transition text-center">
-                無料で試す
+              <Link href="/tool" className="block w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold py-3 rounded-xl transition text-center">
+                <span className="text-pink-100 font-bold">無料で3回試せます</span>
               </Link>
             </div>
             <div className="bg-blue-900 rounded-2xl p-8 border-2 border-blue-400 relative">
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-400 text-slate-900 text-xs font-black px-4 py-1 rounded-full">おすすめ</div>
               <h3 className="font-bold text-lg mb-2">月額プラン</h3>
-              <div className="text-4xl font-black mb-4">¥1,480<span className="text-lg font-normal text-blue-300">/月</span></div>
+              <div className="text-4xl font-black mb-1">¥1,480<span className="text-lg font-normal text-blue-300">/月</span></div>
+              <p className="text-xs text-gray-400 mb-4">1日たった約49円</p>
               <ul className="text-blue-200 text-sm space-y-2 mb-6 text-left">
                 <li>✓ 解析し放題（回数制限なし）</li>
                 <li>✓ 脈あり度・心理分析・返信例文</li>
@@ -201,9 +218,9 @@ export default function Home() {
         <p className="text-slate-400 mb-8">クレカ不要・登録不要。LINEをコピペするだけ。</p>
         <Link
           href="/tool"
-          className="bg-blue-500 hover:bg-blue-400 text-white font-black px-10 py-5 rounded-2xl text-xl transition inline-block"
+          className="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-black px-10 py-5 rounded-2xl text-xl transition inline-block"
         >
-          今すぐ無料で解析
+          今すぐ無料で試す（3回）→
         </Link>
       </section>
 
