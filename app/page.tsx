@@ -30,7 +30,7 @@ export default function Home() {
         </p>
         <div className="flex items-center justify-center gap-2 text-xs text-pink-500 mb-4">
           <span className="inline-block w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-          <span>今週 <strong>1,200人以上</strong>が返信に悩んで使いました</span>
+          <span>登録不要・クレカ不要で<strong>今すぐ</strong>使えます</span>
         </div>
         <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
           <Link
@@ -194,25 +194,6 @@ export default function Home() {
               </button>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* 婚活コーチAI誘導バナー */}
-      <section className="py-12 px-4">
-        <div className="max-w-2xl mx-auto bg-gradient-to-r from-pink-900/50 to-rose-900/50 border border-pink-500/40 rounded-2xl p-8 text-center">
-          <h2 className="text-xl font-bold mb-3">恋愛から婚活へ、ステップアップ</h2>
-          <p className="text-slate-300 text-sm leading-relaxed mb-6">
-            告白成功・付き合い始めた後、次のステップは「婚活コーチAI」で。<br />
-            マッチングアプリ攻略からプロフィール添削、結婚相手選びまで一気通貫サポート。
-          </p>
-          <a
-            href="https://konkatsu-ai.vercel.app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-pink-600 hover:bg-pink-500 text-white font-bold px-8 py-4 rounded-xl transition"
-          >
-            婚活コーチAIを見る →
-          </a>
         </div>
       </section>
 
