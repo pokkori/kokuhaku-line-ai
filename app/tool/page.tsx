@@ -101,7 +101,7 @@ export default function ToolPage() {
       setRemaining(data.remaining);
       setTab("score");
     } catch {
-      setError("エラーが発生しました。もう一度お試しください。");
+      setError("少し時間を置いてもう一度お試しください 🙏");
     }
     setLoading(false);
   }
@@ -209,6 +209,15 @@ export default function ToolPage() {
                   {t.label}
                 </button>
               ))}
+            </div>
+            <div className="px-6 pt-4 text-right">
+              <button
+                onClick={analyze}
+                disabled={loading || !line.trim()}
+                className="text-sm text-slate-400 underline hover:text-slate-200 disabled:opacity-40"
+              >
+                🔄 別のパターンで再生成
+              </button>
             </div>
 
             <div className="p-6">

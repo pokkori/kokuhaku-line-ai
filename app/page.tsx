@@ -19,11 +19,14 @@ export default function Home() {
         <div className="inline-block bg-blue-900 text-blue-300 text-xs font-bold px-3 py-1 rounded-full mb-6">
           💬 恋愛コーチAI — 脈あり判定 × 返信例文 × 告白文 — 無料3回
         </div>
-        <h1 className="text-4xl md:text-6xl font-black mb-6 leading-tight">
-          その一言で、距離が縮まるか壊れるかが決まる。
+        <h1 className="text-4xl md:text-6xl font-black mb-4 leading-tight">
+          あの人の気持ち、本当にわかる？
         </h1>
+        <p className="text-2xl md:text-3xl font-bold text-pink-400 mb-6">
+          告白LINEの返信、AIが全力サポート
+        </p>
         <p className="text-slate-300 text-lg max-w-2xl mx-auto mb-8">
-          告白から付き合い後まで、<strong className="text-white">LINEと恋愛のお悩み</strong>をAIが全力サポート
+          脈あり度スコア・返信パターン3通り・感情分析・恋愛アドバイス付きで、<strong className="text-white">その一言</strong>を後悔しない返信に。
         </p>
         <div className="flex items-center justify-center gap-2 text-xs text-pink-500 mb-4">
           <span className="inline-block w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
@@ -34,13 +37,13 @@ export default function Home() {
             href="/tool"
             className="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition"
           >
-            今すぐ無料で試す（3回）→
+            今すぐ恋愛AIに相談する（3回無料）→
           </Link>
           <button
             onClick={startCheckout}
             className="border border-blue-400 text-blue-300 hover:bg-blue-900 font-bold px-8 py-4 rounded-xl text-lg transition"
           >
-            月額¥1,480で使い放題
+            月額¥980で使い放題
           </button>
         </div>
         <div className="bg-pink-50 border border-pink-200 rounded-2xl p-5 mb-6 text-left max-w-md mx-auto">
@@ -101,7 +104,7 @@ export default function Home() {
               href="/tool"
               className="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition inline-block"
             >
-              今すぐ無料で試す（3回）→
+              今すぐ恋愛AIに相談する（3回無料）→
             </Link>
           </div>
         </div>
@@ -173,11 +176,13 @@ export default function Home() {
             <div className="bg-blue-900 rounded-2xl p-8 border-2 border-blue-400 relative">
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-400 text-slate-900 text-xs font-black px-4 py-1 rounded-full">おすすめ</div>
               <h3 className="font-bold text-lg mb-2">月額プラン</h3>
-              <div className="text-4xl font-black mb-1">¥1,480<span className="text-lg font-normal text-blue-300">/月</span></div>
-              <p className="text-xs text-gray-400 mb-4">1日たった約49円</p>
+              <div className="text-4xl font-black mb-1">¥980<span className="text-lg font-normal text-blue-300">/月</span></div>
+              <p className="text-xs text-gray-400 mb-4">1日たった約33円</p>
               <ul className="text-blue-200 text-sm space-y-2 mb-6 text-left">
                 <li>✓ 解析し放題（回数制限なし）</li>
-                <li>✓ 脈あり度・心理分析・返信例文</li>
+                <li>✓ <strong>返信パターン3通り提案</strong>（状況別・距離感別）</li>
+                <li>✓ <strong>感情分析スコア付き</strong>（相手の感情を数値化）</li>
+                <li>✓ <strong>恋愛アドバイス付き</strong>（次の一手を具体的に提案）</li>
                 <li>✓ 告白文テンプレ（LINE/直接/電話）</li>
                 <li>✓ 告白タイミング詳細分析</li>
               </ul>
@@ -185,7 +190,7 @@ export default function Home() {
                 onClick={startCheckout}
                 className="w-full bg-blue-400 hover:bg-blue-300 text-slate-900 font-black py-3 rounded-xl transition"
               >
-                今すぐ始める
+                今すぐ始める（¥980/月）
               </button>
             </div>
           </div>
@@ -213,13 +218,13 @@ export default function Home() {
 
       {/* Final CTA */}
       <section className="py-16 px-4 text-center">
-        <h2 className="text-2xl font-bold mb-4">まず無料で試してみよう</h2>
-        <p className="text-slate-400 mb-8">クレカ不要・登録不要。LINEをコピペするだけ。</p>
+        <h2 className="text-2xl font-bold mb-4">あの人のことが気になるなら、今すぐ相談しよう</h2>
+        <p className="text-slate-400 mb-8">クレカ不要・登録不要。LINEをコピペするだけ。3回無料。</p>
         <Link
           href="/tool"
           className="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-black px-10 py-5 rounded-2xl text-xl transition inline-block"
         >
-          今すぐ無料で試す（3回）→
+          今すぐ恋愛AIに相談する（3回無料）→
         </Link>
       </section>
 
@@ -243,7 +248,7 @@ export default function Home() {
       {showPayjp && (
         <PayjpModal
           publicKey={PAYJP_PUBLIC_KEY}
-          planLabel="プレミアムプラン ¥1,480/月 — LINE解析 無制限"
+          planLabel="プレミアムプラン ¥980/月 — LINE解析 無制限"
           onSuccess={() => setShowPayjp(false)}
           onClose={() => setShowPayjp(false)}
         />
