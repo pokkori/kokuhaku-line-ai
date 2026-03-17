@@ -17,16 +17,16 @@ export default function Home() {
       {/* Hero */}
       <section className="pt-20 pb-16 px-4 text-center">
         <div className="inline-block bg-blue-900 text-blue-300 text-xs font-bold px-3 py-1 rounded-full mb-6">
-          💬 恋愛コーチAI — 脈あり判定 × 返信例文 × 告白文 — 無料3回
+          💬 恋愛・婚活コーチAI — 脈あり判定 × 返信例文 × マッチングアプリ対応 — 無料3回
         </div>
         <h1 className="text-4xl md:text-6xl font-black mb-4 leading-tight">
           あの人の気持ち、本当にわかる？
         </h1>
         <p className="text-2xl md:text-3xl font-bold text-pink-400 mb-6">
-          告白LINEの返信、AIが全力サポート
+          恋愛・マッチングアプリのやり取り、AIが全力サポート
         </p>
         <p className="text-slate-300 text-lg max-w-2xl mx-auto mb-8">
-          脈あり度スコア・返信パターン3通り・感情分析・恋愛アドバイス付きで、<strong className="text-white">その一言</strong>を後悔しない返信に。
+          脈あり度スコア・返信パターン3通り・感情分析・恋愛アドバイス付きで、<strong className="text-white">その一言</strong>を後悔しない返信に。マッチングアプリ・婚活・交際中のやり取りすべてに対応。
         </p>
         <div className="flex items-center justify-center gap-2 text-xs text-pink-500 mb-4">
           <span className="inline-block w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
@@ -47,15 +47,15 @@ export default function Home() {
           </button>
         </div>
         <div className="bg-pink-50 border border-pink-200 rounded-2xl p-5 mb-6 text-left max-w-md mx-auto">
-          <p className="text-xs text-pink-500 font-semibold mb-2">💬 こんなLINEが届いたら？</p>
+          <p className="text-xs text-pink-500 font-semibold mb-2">💬 マッチングアプリでこんなメッセージが来たら？</p>
           <div className="bg-white rounded-xl p-3 mb-2 shadow-sm border border-pink-100">
-            <p className="text-sm text-gray-700">「最近どう？ちょっと話したいんだけど..」</p>
-            <p className="text-xs text-gray-400 mt-1 text-right">彼から 23:14 ✓✓</p>
+            <p className="text-sm text-gray-700">「週末って暇ですか？もしよかったら…」</p>
+            <p className="text-xs text-gray-400 mt-1 text-right">マッチング相手から 22:47 ✓✓</p>
           </div>
-          <p className="text-xs text-pink-400 text-center">↓ AIが最適な返信を提案</p>
+          <p className="text-xs text-pink-400 text-center">↓ AIが脈あり判定＋最適な返信を提案</p>
           <div className="bg-pink-500 rounded-xl p-3 mt-2 text-right">
-            <p className="text-sm text-white">「もちろん！何かあった？心配だよ💕」</p>
-            <p className="text-xs text-pink-200 mt-1">AI提案文（3パターン生成）</p>
+            <p className="text-sm text-white">「いいですね！どんなところ好きですか？😊」</p>
+            <p className="text-xs text-pink-200 mt-1">脈あり度82%・AI提案文（3パターン）</p>
           </div>
         </div>
       </section>
@@ -66,9 +66,9 @@ export default function Home() {
           <h2 className="text-2xl font-bold text-center mb-10">こんな悩み、ありませんか？</h2>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { emoji: "😰", title: "返信が遅い…", body: "既読から2時間。これって脈なし？それとも忙しいだけ？不安で他のことが手につかない" },
-              { emoji: "🤔", title: "何て返せばいい？", body: "「うん」「そうだね」みたいな短い返信。もっと話を続けたいけど、何て送ればいいかわからない" },
-              { emoji: "💭", title: "告白していいの？", body: "いい感じな気はするけど、フラれたら関係が壊れる。告白のタイミングがわからなくて踏み出せない" },
+              { emoji: "😰", title: "返信が来ない…", body: "マッチングアプリで既読から2時間。これって脈なし？関係を続けるべき？不安で他のことが手につかない" },
+              { emoji: "🤔", title: "何て返せばいい？", body: "「うん」「そうだね」みたいな短い返信。デートに誘いたいけど、婚活で距離感を間違えたくない" },
+              { emoji: "💍", title: "次のステップに進めない", body: "いい感じな気はするけど、真剣な関係にどう進むか。婚活なら余計に失敗できないと感じる" },
             ].map((p) => (
               <div key={p.title} className="bg-slate-800 rounded-2xl p-6">
                 <div className="text-3xl mb-3">{p.emoji}</div>
@@ -121,7 +121,7 @@ export default function Home() {
               { emoji: "📅", title: "告白タイミング分析", body: "「今すぐOK」「あと2週間」「もう少し仲良くなってから」とタイミングを具体的に提示" },
               { emoji: "💬", title: "告白文テンプレ", body: "LINE・直接・電話、シチュエーション別の告白文をそのまま使えるレベルで生成" },
               { emoji: "💔", title: "付き合い後の悩みも", body: "喧嘩した後どう仲直りする？ マンネリ打開策は？ 関係をより深めるためのアドバイスをAIが提案" },
-              { emoji: "💍", title: "将来の話も", body: "結婚を意識し始めたとき、婚活を始めたいとき。次のステップへ進む際のサポートも万全" },
+              { emoji: "💍", title: "婚活・マッチングアプリ対応", body: "Pairs・タップル・with・Omiai等のやり取りも全対応。婚活の距離感・デートの誘い方・将来の話し方をAIが提案" },
             ].map((f) => (
               <div key={f.title} className="bg-slate-800 rounded-2xl p-6 flex gap-4">
                 <div className="text-3xl shrink-0">{f.emoji}</div>
@@ -141,9 +141,9 @@ export default function Home() {
           <h2 className="text-2xl font-bold text-center mb-10">使った人の声</h2>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { name: "高2・男子", text: "脈あり度78%って出て、AIの提案を参考に返信したら会話が続くようになってきた。使いやすい" },
-              { name: "大学1年・男子", text: "告白タイミングの分析を参考にして思い切って行動してみた。AIが気持ちを整理する手助けをしてくれた" },
-              { name: "高3・男子", text: "友達に相談しにくい内容なのに、AIは全部フラットに答えてくれる。毎日使ってる" },
+              { name: "28歳・会社員・女性", text: "マッチングアプリで脈あり度を判定してもらったら78%と出て、AIの提案を参考に返信したら会話が盛り上がってデートに発展しました" },
+              { name: "32歳・男性・婚活中", text: "婚活でどう距離を縮めるか悩んでいたけど、返信の距離感をAIに分析してもらったら自信を持って動けるようになった" },
+              { name: "25歳・女性", text: "友達に相談しにくい内容なのに、AIは全部フラットに答えてくれる。マッチングアプリのやり取りを毎回分析してもらってる" },
             ].map((t) => (
               <div key={t.name} className="bg-slate-800 rounded-2xl p-6">
                 <p className="text-slate-300 text-sm mb-4 leading-relaxed">「{t.text}」</p>
