@@ -64,6 +64,43 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 感情フック：ストーリー型 */}
+      <section className="py-14 px-4">
+        <div className="max-w-2xl mx-auto">
+          <div className="text-center mb-8">
+            <div className="inline-block bg-pink-900/50 text-pink-300 text-xs font-bold px-4 py-2 rounded-full mb-2 border border-pink-700/40">
+              こんな経験、ありませんか？
+            </div>
+          </div>
+          <div className="bg-pink-900/20 border border-pink-700/30 rounded-2xl p-6 mb-4">
+            <p className="text-pink-100 text-sm leading-relaxed mb-3">
+              好きな人からLINEが来た。でも、返信しようとすると手が止まる。
+            </p>
+            <p className="text-pink-200 text-sm leading-relaxed mb-3">
+              「これって脈あり？それともただの友達として？」<br />
+              「返信を間違えたら嫌われるかも…」<br />
+              「こんなこと誰にも相談できない…」
+            </p>
+            <p className="text-white font-bold text-sm">
+              — そのドキドキしている気持ち、AIに打ち明けてください。
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            {[
+              { emoji: "💬", stat: "脈あり度", desc: "0〜100%で数値化。「本当に好かれているか」が可視化される" },
+              { emoji: "💌", stat: "返信案3通り", desc: "状況に合わせた「送って大丈夫な文」をそのまま使える" },
+              { emoji: "📅", stat: "告白タイミング", desc: "「今すぐ」か「もう少し待つか」を明確に提示" },
+            ].map((f) => (
+              <div key={f.stat} className="bg-pink-900/30 border border-pink-700/40 rounded-xl p-4 text-center">
+                <div className="text-2xl mb-2">{f.emoji}</div>
+                <p className="font-bold text-pink-300 text-sm mb-1">{f.stat}</p>
+                <p className="text-xs text-pink-200 leading-relaxed">{f.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Pain points */}
       <section className="py-16 px-4 bg-pink-950/60">
         <div className="max-w-3xl mx-auto">
@@ -223,7 +260,14 @@ export default function Home() {
         </Link>
       </section>
 
-      <footer className="border-t border-slate-800 py-6 text-center text-xs text-slate-500">
+      {/* スティッキーモバイルCTA */}
+      <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-pink-950 to-rose-950 border-t border-pink-700/50 px-4 py-3 z-40 sm:hidden shadow-lg">
+        <Link href="/tool" className="block w-full bg-gradient-to-r from-pink-500 to-rose-500 text-white font-black text-center py-3.5 rounded-xl text-sm transition-colors">
+          今すぐ恋愛AIに相談する（3回無料）→
+        </Link>
+      </div>
+
+      <footer className="border-t border-slate-800 py-6 text-center text-xs text-slate-500 pb-24 sm:pb-6">
         <div className="space-x-4 mb-4">
           <Link href="/legal" className="hover:underline">特定商取引法に基づく表記</Link>
           <Link href="/terms" className="hover:underline">利用規約</Link>
