@@ -141,8 +141,8 @@ export default function Home() {
           <h2 className="text-2xl font-bold text-center mb-10">使った人の声</h2>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { name: "高2・男子", text: "脈あり度78%って出て、返信例文そのまま送ったら「かわいいね笑」って返ってきた。神ツール" },
-              { name: "大学1年・男子", text: "告白タイミング「今週末がベスト」って出て、実際に告白したらOKもらえた！マジで感謝" },
+              { name: "高2・男子", text: "脈あり度78%って出て、AIの提案を参考に返信したら会話が続くようになってきた。使いやすい" },
+              { name: "大学1年・男子", text: "告白タイミングの分析を参考にして思い切って行動してみた。AIが気持ちを整理する手助けをしてくれた" },
               { name: "高3・男子", text: "友達に相談しにくい内容なのに、AIは全部フラットに答えてくれる。毎日使ってる" },
             ].map((t) => (
               <div key={t.name} className="bg-slate-800 rounded-2xl p-6">
