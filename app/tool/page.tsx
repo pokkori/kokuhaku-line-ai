@@ -299,7 +299,7 @@ export default function ToolPage() {
           <div className={`transition-all duration-500 overflow-hidden ${completionVisible ? "max-h-32 opacity-100" : "max-h-0 opacity-0"}`}>
             <div className="bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-2xl px-5 py-4 shadow-lg mb-3">
               <div className="flex items-center gap-3">
-                <span className="text-2xl">✅</span>
+                <span className="text-2xl animate-heart-pop">✅</span>
                 <div>
                   <p className="font-bold text-sm">解析完了！</p>
                   <div className="flex items-center gap-2 mt-1">
@@ -319,7 +319,7 @@ export default function ToolPage() {
         )}
 
         {result && (
-          <div className="mt-2 flex flex-col gap-3">
+          <div className="mt-2 flex flex-col gap-3 animate-fade-in-up">
             {/* Xシェアボタン — 脈あり度スコア入り */}
             <a
               href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`【告白LINE返信AI】気になる人の脈あり度を診断したら${result.score}%でした💓\nAIが返信例文・告白タイミングまで教えてくれて神すぎる…\n#脈あり #LINE返信 #恋愛AI #告白\nhttps://kokuhaku-line-ai.vercel.app`)}`}
