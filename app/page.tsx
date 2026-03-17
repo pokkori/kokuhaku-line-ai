@@ -74,7 +74,7 @@ export default function Home() {
               { emoji: "🤔", title: "何て返せばいい？", body: "「うん」「そうだね」みたいな短い返信。デートに誘いたいけど、婚活で距離感を間違えたくない" },
               { emoji: "💍", title: "次のステップに進めない", body: "いい感じな気はするけど、真剣な関係にどう進むか。婚活なら余計に失敗できないと感じる" },
             ].map((p) => (
-              <div key={p.title} className="bg-slate-800 rounded-2xl p-6">
+              <div key={p.title} className="bg-pink-900/30 border border-pink-800/30 rounded-2xl p-6">
                 <div className="text-3xl mb-3">{p.emoji}</div>
                 <h3 className="font-bold text-lg mb-2">{p.title}</h3>
                 <p className="text-slate-400 text-sm leading-relaxed">{p.body}</p>
@@ -95,7 +95,7 @@ export default function Home() {
               { step: "3", title: "AIが即分析", body: "脈あり度・返信例文・告白タイミングを30秒で生成" },
             ].map((s) => (
               <div key={s.step} className="text-center">
-                <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-xl font-black mx-auto mb-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-500 rounded-full flex items-center justify-center text-xl font-black mx-auto mb-4">
                   {s.step}
                 </div>
                 <h3 className="font-bold text-lg mb-2">{s.title}</h3>
@@ -151,7 +151,7 @@ export default function Home() {
             ].map((t) => (
               <div key={t.name} className="bg-pink-900/30 border border-pink-800/30 rounded-2xl p-6">
                 <p className="text-slate-300 text-sm mb-4 leading-relaxed">「{t.text}」</p>
-                <p className="text-blue-400 text-xs font-bold">{t.name}</p>
+                <p className="text-pink-400 text-xs font-bold">{t.name}</p>
               </div>
             ))}
           </div>
