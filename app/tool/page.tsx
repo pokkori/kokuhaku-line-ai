@@ -37,11 +37,11 @@ function ScoreRing({ score }: { score: number }) {
   const label = score >= 70 ? "脈ありです！💓" : score >= 40 ? "まだわからない…" : "厳しいかも…";
   const hearts = score >= 70 ? ["💕", "💖", "💗"] : score >= 40 ? ["💛"] : [];
   return (
-    <div className="flex flex-col items-center gap-3 my-4 py-6 bg-slate-800/50 rounded-2xl border border-slate-700">
+    <div className="flex flex-col items-center gap-3 my-4 py-6 bg-pink-900/40 rounded-2xl border border-pink-700/50">
       {/* 大型スコア中央表示 */}
       <div className="text-center">
         <p className="text-6xl font-black" style={{ color }}>{score}<span className="text-3xl font-bold opacity-70">%</span></p>
-        <p className="text-sm text-slate-400 mt-1 font-medium">脈あり度スコア</p>
+        <p className="text-sm text-pink-300 mt-1 font-medium">脈あり度スコア</p>
       </div>
       {hearts.length > 0 && (
         <div className="flex gap-3 animate-bounce">
@@ -49,10 +49,10 @@ function ScoreRing({ score }: { score: number }) {
         </div>
       )}
       <span className="font-black text-xl" style={{ color }}>{label}</span>
-      <div className="w-3/4 bg-slate-700 rounded-full h-3 overflow-hidden">
+      <div className="w-3/4 bg-pink-900 rounded-full h-3 overflow-hidden">
         <div className="h-3 rounded-full transition-all duration-1000" style={{ width: `${score}%`, backgroundColor: color }} />
       </div>
-      <p className="text-xs text-slate-500">{score}点 / 100点満点</p>
+      <p className="text-xs text-pink-400">{score}点 / 100点満点</p>
     </div>
   );
 }
@@ -164,9 +164,9 @@ export default function ToolPage() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-950 text-white">
-      <nav className="bg-slate-900 border-b border-slate-800 px-6 py-4 flex justify-between items-center">
-        <Link href="/" className="font-bold text-blue-400">💬 恋愛コーチAI</Link>
+    <main className="min-h-screen bg-gradient-to-br from-pink-950 via-rose-950 to-pink-950 text-white">
+      <nav className="bg-pink-950/80 border-b border-pink-800/50 px-6 py-4 flex justify-between items-center backdrop-blur-sm">
+        <Link href="/" className="font-bold text-pink-300">💕 恋愛コーチAI</Link>
         {!isPremium && remaining !== null && (
           <span className="text-xs text-slate-400">残り無料 {remaining}回</span>
         )}
@@ -198,7 +198,7 @@ export default function ToolPage() {
         <div>
           <label className="block text-sm font-bold mb-2 text-slate-300">好きな子のLINE（コピペしてください）</label>
           <textarea
-            className="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 text-sm text-white placeholder-slate-500 resize-none focus:outline-none focus:border-blue-500 h-40"
+            className="w-full bg-pink-950/60 border border-pink-700/50 rounded-xl p-4 text-sm text-white placeholder-pink-400/50 resize-none focus:outline-none focus:border-pink-400 h-40"
             placeholder={"例）\n彼女: 「今日バイトだよー」\n自分: 「お疲れ！何時まで？」\n彼女: 「9時まで笑 なんで？」\n自分: 「いや別に笑」\n彼女: 「気になる笑」"}
             value={line}
             onChange={(e) => setLine(e.target.value)}
@@ -208,7 +208,7 @@ export default function ToolPage() {
           <label className="block text-sm font-bold mb-2 text-slate-300">関係性・状況（任意）</label>
           <input
             type="text"
-            className="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+            className="w-full bg-pink-950/60 border border-pink-700/50 rounded-xl p-4 text-sm text-white placeholder-pink-400/50 focus:outline-none focus:border-pink-400"
             placeholder="例：クラスメートで知り合って1ヶ月、まだ連絡先交換したばかり"
             value={context}
             onChange={(e) => setContext(e.target.value)}
@@ -227,15 +227,15 @@ export default function ToolPage() {
         <button
           onClick={analyze}
           disabled={loading || !line.trim() || (!isPremium && remaining === 0)}
-          className="w-full bg-blue-500 hover:bg-blue-400 text-white font-black py-4 rounded-xl text-lg transition disabled:opacity-40 disabled:cursor-not-allowed"
+          className="w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-black py-4 rounded-xl text-lg transition disabled:opacity-40 disabled:cursor-not-allowed shadow-lg shadow-pink-900/50"
         >
           {loading ? "AIが解析中…" : "解析する"}
         </button>
 
         {loading && rawText && (
-          <div className="bg-slate-800 border border-slate-700 rounded-xl p-4">
-            <p className="text-xs text-slate-500 mb-2 font-bold">生成中...</p>
-            <p className="text-sm text-slate-300 leading-relaxed whitespace-pre-wrap">{rawText}</p>
+          <div className="bg-pink-950/60 border border-pink-700/50 rounded-xl p-4">
+            <p className="text-xs text-pink-400 mb-2 font-bold animate-pulse">💕 AIが解析中...</p>
+            <p className="text-sm text-pink-100 leading-relaxed whitespace-pre-wrap">{rawText}</p>
           </div>
         )}
 
@@ -309,14 +309,14 @@ export default function ToolPage() {
         )}
 
         {result && (
-          <div className="bg-slate-900 rounded-2xl border border-slate-700 overflow-hidden">
+          <div className="bg-pink-950/60 rounded-2xl border border-pink-700/40 overflow-hidden">
             {/* Tab nav */}
-            <div className="flex overflow-x-auto border-b border-slate-700">
+            <div className="flex overflow-x-auto border-b border-pink-800/50">
               {TABS.map((t) => (
                 <button
                   key={t.id}
                   onClick={() => setTab(t.id)}
-                  className={`px-4 py-3 text-xs font-bold whitespace-nowrap transition ${tab === t.id ? "text-blue-400 border-b-2 border-blue-400" : "text-slate-500 hover:text-slate-300"}`}
+                  className={`px-4 py-3 text-xs font-bold whitespace-nowrap transition ${tab === t.id ? "text-pink-300 border-b-2 border-pink-400" : "text-pink-500/60 hover:text-pink-300"}`}
                 >
                   {t.label}
                 </button>
@@ -350,7 +350,7 @@ export default function ToolPage() {
               )}
 
               {tab === "analysis" && (
-                <div className="text-sm text-slate-300 leading-relaxed whitespace-pre-wrap">{result.analysis}</div>
+                <div className="text-sm text-pink-100 leading-relaxed whitespace-pre-wrap">{result.analysis}</div>
               )}
 
               {tab === "replies" && (
@@ -426,14 +426,14 @@ export default function ToolPage() {
               )}
 
               {tab === "timing" && (
-                <div className="text-sm text-slate-300 leading-relaxed whitespace-pre-wrap">{result.timing}</div>
+                <div className="text-sm text-pink-100 leading-relaxed whitespace-pre-wrap">{result.timing}</div>
               )}
             </div>
           </div>
         )}
       </div>
 
-      <footer className="border-t border-slate-800 py-6 text-center text-xs text-slate-600 space-x-4 mt-10">
+      <footer className="border-t border-pink-900/50 py-6 text-center text-xs text-pink-800 space-x-4 mt-10">
         <Link href="/legal" className="hover:underline">特定商取引法</Link>
         <Link href="/privacy" className="hover:underline">プライバシーポリシー</Link>
         <Link href="/" className="hover:underline">トップへ戻る</Link>
