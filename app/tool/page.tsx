@@ -217,14 +217,14 @@ export default function ToolPage() {
 
         {result && (
           <div className="mt-8 flex flex-col gap-3">
-            {/* Xシェアボタン */}
+            {/* Xシェアボタン — 脈あり度スコア入り */}
             <a
-              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent("告白LINE返信AIで完璧な返信を作成！ #告白 #LINE返信 #恋愛AI\nhttps://kokuhaku-line-ai.vercel.app")}`}
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`【告白LINE返信AI】気になる人の脈あり度を診断したら${result.score}%でした💓\nAIが返信例文・告白タイミングまで教えてくれて神すぎる…\n#脈あり #LINE返信 #恋愛AI #告白\nhttps://kokuhaku-line-ai.vercel.app`)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 w-full bg-pink-500 hover:bg-pink-400 text-white font-bold py-3 rounded-xl text-sm transition"
+              className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:opacity-90 text-white font-bold py-3 rounded-xl text-sm transition"
             >
-              ❤️ この結果をXでシェアする
+              💓 脈あり{result.score}%をXでシェアする
             </a>
             {/* 占いAIバナー */}
             <div className="p-4 bg-gradient-to-r from-pink-900/30 to-rose-900/30 border border-pink-500/30 rounded-xl text-center">
@@ -284,19 +284,49 @@ export default function ToolPage() {
               )}
 
               {tab === "replies" && (
-                <div className="space-y-4">
-                  <p className="text-xs text-slate-500 mb-4">LINEに送る返信例文（そのままコピーして使えます）</p>
-                  {result.replies.map((r, i) => (
-                    <div key={i} className="bg-slate-800 rounded-xl p-4 relative">
-                      <p className="text-sm text-slate-200 leading-relaxed pr-16">{r}</p>
-                      <button
-                        onClick={() => copy(r, `reply-${i}`)}
-                        className="absolute top-3 right-3 text-xs bg-slate-700 hover:bg-slate-600 text-slate-300 px-2 py-1 rounded transition"
-                      >
-                        {copied === `reply-${i}` ? "コピー済" : "コピー"}
-                      </button>
-                    </div>
-                  ))}
+                <div className="space-y-5">
+                  {/* LINEトーク風ヘッダー */}
+                  <div className="flex items-center gap-2 pb-2 border-b border-slate-700">
+                    <div className="w-7 h-7 rounded-full bg-green-500 flex items-center justify-center text-xs font-bold text-white shrink-0">AI</div>
+                    <span className="text-xs text-slate-400">送るならどれ？ — そのままコピーしてOK</span>
+                  </div>
+                  {result.replies.map((r, i) => {
+                    const labels = ["積極アプローチ", "自然な関係深め", "余韻残し"];
+                    const labelColors = ["text-pink-400", "text-blue-400", "text-purple-400"];
+                    const bgColors = ["bg-pink-500", "bg-blue-500", "bg-purple-500"];
+                    // 本文と補足説明を分割（「なぜ効果的か」の説明部分を分ける）
+                    const lines = r.split(/\n/);
+                    const mainLine = lines[0] ?? r;
+                    const subLines = lines.slice(1).join("\n").trim();
+                    return (
+                      <div key={i} className="flex flex-col gap-1">
+                        <span className={`text-xs font-bold ml-1 ${labelColors[i] ?? "text-slate-400"}`}>
+                          {i + 1}. {labels[i] ?? "返信例"}
+                        </span>
+                        {/* LINE吹き出し（右側・自分の送信） */}
+                        <div className="flex justify-end items-end gap-2">
+                          <button
+                            onClick={() => copy(mainLine, `reply-${i}`)}
+                            className="text-xs text-slate-500 hover:text-slate-300 shrink-0 pb-1 transition"
+                            title="コピー"
+                          >
+                            {copied === `reply-${i}` ? "✓" : "コピー"}
+                          </button>
+                          <div className={`relative max-w-[85%] ${bgColors[i] ?? "bg-pink-500"} text-white rounded-2xl rounded-tr-sm px-4 py-3 shadow-md`}>
+                            <p className="text-sm leading-relaxed">{mainLine}</p>
+                            {/* 吹き出し三角 */}
+                            <div className={`absolute top-3 -right-2 w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-l-8 ${bgColors[i] === "bg-pink-500" ? "border-l-pink-500" : bgColors[i] === "bg-blue-500" ? "border-l-blue-500" : "border-l-purple-500"}`} />
+                          </div>
+                          <div className="w-8 h-8 rounded-full bg-slate-600 flex items-center justify-center text-xs shrink-0">😊</div>
+                        </div>
+                        {/* 補足説明（グレーテキスト） */}
+                        {subLines && (
+                          <p className="text-xs text-slate-500 text-right mr-12 leading-relaxed italic">{subLines}</p>
+                        )}
+                      </div>
+                    );
+                  })}
+                  <p className="text-xs text-slate-600 text-center pt-2">💬 送りたい文をコピーして、そのままLINEに貼り付けよう</p>
                 </div>
               )}
 
