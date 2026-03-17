@@ -73,7 +73,7 @@ export default function ToolPage() {
   const [remaining, setRemaining] = useState<number | null>(null);
   const [isPremium, setIsPremium] = useState(false);
   const [showPaywall, setShowPaywall] = useState(false);
-  const [tab, setTab] = useState<Tab>("score");
+  const [tab, setTab] = useState<Tab>("replies");
   const [copied, setCopied] = useState<string | null>(null);
   useEffect(() => {
     fetch("/api/auth/status").then((r) => r.json()).then((d) => {
@@ -99,7 +99,7 @@ export default function ToolPage() {
       const parsed = parseResult(data.result);
       setResult(parsed);
       setRemaining(data.remaining);
-      setTab("score");
+      setTab("replies");
     } catch {
       setError("少し時間を置いてもう一度お試しください 🙏");
     }
@@ -178,8 +178,8 @@ export default function ToolPage() {
               ¥980/月でアップグレード
             </button>
             <p className="text-slate-500 text-xs mt-4">
-              ※ 婚活・マッチングアプリのご相談は
-              <a href="https://konkatsu-ai.vercel.app" className="text-pink-400 underline ml-1">婚活コーチAI</a>
+              ※ 恋愛・運命の相性を占いたい方は
+              <a href="https://uranai-ai-sigma.vercel.app" className="text-pink-400 underline ml-1">占いAI</a>
               でも無料でお試しいただけます
             </p>
           </div>
@@ -196,13 +196,13 @@ export default function ToolPage() {
             >
               ❤️ この結果をXでシェアする
             </a>
-            {/* 婚活AIバナー */}
+            {/* 占いAIバナー */}
             <div className="p-4 bg-gradient-to-r from-pink-900/30 to-rose-900/30 border border-pink-500/30 rounded-xl text-center">
-              <p className="text-pink-300 text-sm font-medium mb-2">💍 告白の次は、本格的な婚活へ</p>
-              <p className="text-slate-400 text-xs mb-3">マッチングアプリ攻略・プロフィール添削・メッセージ生成を AI がサポート</p>
-              <a href="https://konkatsu-ai.vercel.app" target="_blank" rel="noopener noreferrer"
+              <p className="text-pink-300 text-sm font-medium mb-2">🔮 運命の相手との相性も気になる？</p>
+              <p className="text-slate-400 text-xs mb-3">タロット・星座・数秘術で恋愛運・出会い運を AI が鑑定します</p>
+              <a href="https://uranai-ai-sigma.vercel.app" target="_blank" rel="noopener noreferrer"
                  className="inline-block px-4 py-2 bg-pink-600 hover:bg-pink-700 text-white text-sm rounded-lg transition-colors">
-                婚活コーチAIを試す（無料）→
+                占いAIを試す（無料）→
               </a>
             </div>
           </div>
