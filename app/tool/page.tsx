@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import PayjpModal from "@/components/PayjpModal";
+import { track } from '@vercel/analytics';
 
 type Result = {
   score: number;
@@ -88,6 +89,7 @@ export default function ToolPage() {
 
   async function analyze() {
     if (!line.trim()) return;
+    track('ai_generated', { service: '告白LINE返信AI' });
     setLoading(true);
     setError("");
     setResult(null);
@@ -98,7 +100,7 @@ export default function ToolPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ line, context }),
       });
-      if (res.status === 402) { setShowPaywall(true); setLoading(false); return; }
+      if (res.status === 402) { track('paywall_shown', { service: '告白LINE返信AI' }); setShowPaywall(true); setLoading(false); return; }
       if (!res.ok) {
         const data = await res.json();
         setError(data.error ?? "エラーが発生しました");
@@ -265,7 +267,7 @@ export default function ToolPage() {
               返信が遅くなるほど相手の気持ちは冷めていきます。<br/>
               AIが最適な返信を今すぐ提案します。
             </p>
-            <button onClick={startCheckout} disabled={false} className="bg-gradient-to-r from-pink-500 to-rose-500 hover:opacity-90 text-white font-black px-8 py-4 rounded-xl text-lg transition disabled:opacity-50 w-full">
+            <button onClick={() => { track('upgrade_click', { service: '告白LINE返信AI', plan: 'premium' }); startCheckout(); }} disabled={false} className="bg-gradient-to-r from-pink-500 to-rose-500 hover:opacity-90 text-white font-black px-8 py-4 rounded-xl text-lg transition disabled:opacity-50 w-full">
               ¥980/月でアップグレード
             </button>
             {/* 安心保証バッジ */}
