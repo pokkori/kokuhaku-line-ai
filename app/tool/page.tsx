@@ -217,10 +217,25 @@ export default function ToolPage() {
 
         {!isPremium && remaining === 0 && !result && (
           <div className="bg-blue-900/40 border border-blue-600 rounded-xl p-4 text-center">
-            <p className="text-sm text-blue-200 mb-3">無料回数を使い切りました。月額¥980で無制限+高精度！</p>
+            <p className="text-sm text-blue-200 mb-3">無料体験が完了しました。プレミアムプランで制限なく使えます！</p>
             <button onClick={startCheckout} disabled={false} className="bg-gradient-to-r from-pink-500 to-rose-500 hover:opacity-90 text-white font-bold px-6 py-2 rounded-xl text-sm transition disabled:opacity-50">
               プレミアムにアップグレード
             </button>
+            {/* 安心保証バッジ */}
+            <div className="flex items-center justify-center gap-3 mt-2">
+              <div className="flex items-center gap-1 text-xs text-slate-400">
+                <span>🔒</span>
+                <span>SSL暗号化</span>
+              </div>
+              <div className="flex items-center gap-1 text-xs text-slate-400">
+                <span>✅</span>
+                <span>いつでもキャンセル可</span>
+              </div>
+              <div className="flex items-center gap-1 text-xs text-slate-400">
+                <span>💳</span>
+                <span>PAY.JP安全決済</span>
+              </div>
+            </div>
           </div>
         )}
 
@@ -253,6 +268,24 @@ export default function ToolPage() {
             <button onClick={startCheckout} disabled={false} className="bg-gradient-to-r from-pink-500 to-rose-500 hover:opacity-90 text-white font-black px-8 py-4 rounded-xl text-lg transition disabled:opacity-50 w-full">
               ¥980/月でアップグレード
             </button>
+            {/* 安心保証バッジ */}
+            <div className="flex items-center justify-center gap-4 mt-3">
+              <div className="flex items-center gap-1 text-xs text-slate-400">
+                <span>🔒</span>
+                <span>SSL暗号化決済</span>
+              </div>
+              <div className="flex items-center gap-1 text-xs text-slate-400">
+                <span>✅</span>
+                <span>いつでもキャンセル可能</span>
+              </div>
+              <div className="flex items-center gap-1 text-xs text-slate-400">
+                <span>💳</span>
+                <span>PAY.JP安全決済</span>
+              </div>
+            </div>
+            <p className="text-xs text-center text-slate-500 mt-2">
+              ※ プレミアムプランはいつでもキャンセル可能です
+            </p>
             <p className="text-slate-500 text-xs mt-4">
               ※ 恋愛・運命の相性を占いたい方は
               <a href="https://uranai-ai-sigma.vercel.app" className="text-pink-400 underline ml-1">占いAI</a>
