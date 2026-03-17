@@ -148,7 +148,7 @@ export default function ToolPage() {
 
         {!isPremium && remaining === 0 && !result && (
           <div className="bg-blue-900/40 border border-blue-600 rounded-xl p-4 text-center">
-            <p className="text-sm text-blue-200 mb-3">無料回数を使い切りました。月額¥480で無制限+高精度！</p>
+            <p className="text-sm text-blue-200 mb-3">無料回数を使い切りました。月額¥980で無制限+高精度！</p>
             <button onClick={startCheckout} disabled={false} className="bg-blue-500 hover:bg-blue-400 text-white font-bold px-6 py-2 rounded-xl text-sm transition disabled:opacity-50">
               プレミアムにアップグレード
             </button>
@@ -175,7 +175,7 @@ export default function ToolPage() {
               AIが最適な返信を今すぐ提案します。
             </p>
             <button onClick={startCheckout} disabled={false} className="bg-blue-500 hover:bg-blue-400 text-white font-black px-8 py-4 rounded-xl text-lg transition disabled:opacity-50 w-full">
-              ¥480/月でアップグレード
+              ¥980/月でアップグレード
             </button>
             <p className="text-slate-500 text-xs mt-4">
               ※ 婚活・マッチングアプリのご相談は
@@ -287,9 +287,9 @@ export default function ToolPage() {
                 ) : (
                   <div className="text-center py-8">
                     <div className="text-4xl mb-4">🔒</div>
-                    <p className="text-slate-400 text-sm mb-4">告白文テンプレはプレミアムプラン（¥480/月）限定機能です</p>
+                    <p className="text-slate-400 text-sm mb-4">告白文テンプレはプレミアムプラン（¥980/月）限定機能です</p>
                     <button onClick={startCheckout} disabled={false} className="bg-blue-500 hover:bg-blue-400 text-white font-bold px-6 py-3 rounded-xl text-sm transition disabled:opacity-50">
-                      ¥480/月でアップグレード
+                      ¥980/月でアップグレード
                     </button>
                   </div>
                 )
@@ -311,7 +311,7 @@ export default function ToolPage() {
       {showPayjp && (
         <PayjpModal
           publicKey={process.env.NEXT_PUBLIC_PAYJP_PUBLIC_KEY!}
-          planLabel="プレミアムプラン ¥480/月 — LINE解析 無制限+高精度"
+          planLabel="プレミアムプラン ¥980/月 — LINE解析 無制限+高精度"
           onSuccess={() => { setShowPayjp(false); setIsPremium(true); }}
           onClose={() => setShowPayjp(false)}
         />

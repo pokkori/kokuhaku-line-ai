@@ -47,7 +47,7 @@ export default function Home() {
             onClick={startCheckout}
             className="border border-pink-400 text-pink-300 hover:bg-pink-900/40 font-bold px-8 py-4 rounded-xl text-lg transition"
           >
-            月額¥480で無制限+高精度
+            月額¥980で無制限+高精度
           </button>
         </div>
         <div className="bg-pink-50 border border-pink-200 rounded-2xl p-5 mb-6 text-left max-w-md mx-auto">
@@ -189,7 +189,7 @@ export default function Home() {
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-pink-500 to-rose-500 text-white text-xs font-black px-4 py-1 rounded-full">おすすめ</div>
               <div className="mb-4">
                 <h3 className="font-bold text-lg mb-1">プレミアムプラン</h3>
-                <div className="text-4xl font-black mb-1">¥480<span className="text-lg font-normal text-pink-300">/月</span></div>
+                <div className="text-4xl font-black mb-1">¥980<span className="text-lg font-normal text-pink-300">/月</span></div>
                 <p className="text-xs text-pink-300">1日たった約16円</p>
               </div>
               <ul className="text-pink-100 text-sm space-y-2 mb-6 text-left flex-1">
@@ -204,7 +204,7 @@ export default function Home() {
                 onClick={startCheckout}
                 className="w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:opacity-90 text-white font-black py-3 rounded-xl transition"
               >
-                今すぐ始める（¥480/月）
+                今すぐ始める（¥980/月）
               </button>
             </div>
           </div>
@@ -243,7 +243,7 @@ export default function Home() {
       {showPayjp && (
         <PayjpModal
           publicKey={PAYJP_PUBLIC_KEY}
-          planLabel="プレミアムプラン ¥480/月 — LINE解析 無制限+高精度"
+          planLabel="プレミアムプラン ¥980/月 — LINE解析 無制限+高精度"
           onSuccess={() => setShowPayjp(false)}
           onClose={() => setShowPayjp(false)}
         />
