@@ -229,7 +229,7 @@ export default function ToolPage() {
                       <p className="text-sm text-slate-300 leading-relaxed">{result.adviceLine}</p>
                     </div>
                   )}
-                  <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`LINEをAIに解析したら脈あり度 ${result.score}% って出た😳\n${result.score >= 70 ? "これは告白していい！🔥" : result.score >= 40 ? "もう少し距離を縮めよう💭" : "友達以上に育てろ🌱"}\n#告白LINE返信AI\nhttps://kokuhaku-line-ai.vercel.app`)}`}
+                  <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`【告白LINE返信AI】脈あり度 ${result.score}% 診断！あなたの気になる人は脈ありかも？ → https://kokuhaku-line-ai.vercel.app #恋愛AI #脈あり #LINE返信`)}`}
                     target="_blank" rel="noopener noreferrer"
                     className="mt-4 flex items-center justify-center gap-2 w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:opacity-90 text-white font-bold py-3 rounded-xl text-sm transition-opacity">
                     脈あり{result.score}%をXでシェア 🔥

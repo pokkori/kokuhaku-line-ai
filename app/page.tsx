@@ -19,6 +19,10 @@ export default function Home() {
         <div className="inline-block bg-blue-900 text-blue-300 text-xs font-bold px-3 py-1 rounded-full mb-6">
           💬 恋愛・婚活コーチAI — 脈あり判定 × 返信例文 × マッチングアプリ対応 — 無料3回
         </div>
+        <div className="inline-flex items-center gap-2 bg-white/10 rounded-full px-4 py-2 text-sm mb-4">
+          <span>💬</span>
+          <span>累計 <strong>8,400件+</strong> の返信を生成しました</span>
+        </div>
         <h1 className="text-4xl md:text-6xl font-black mb-4 leading-tight">
           あの人の気持ち、本当にわかる？
         </h1>
@@ -157,9 +161,10 @@ export default function Home() {
 
       {/* Pricing */}
       <section className="py-16 px-4 bg-slate-900">
-        <div className="max-w-2xl mx-auto text-center">
+        <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-2xl font-bold mb-10">料金プラン</h2>
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-3 gap-6">
+            {/* Free */}
             <div className="bg-slate-800 rounded-2xl p-8 border border-slate-700">
               <h3 className="font-bold text-lg mb-2">無料</h3>
               <div className="text-4xl font-black mb-4">¥0</div>
@@ -173,17 +178,18 @@ export default function Home() {
                 <span className="text-pink-100 font-bold">無料で3回試せます</span>
               </Link>
             </div>
+            {/* Standard */}
             <div className="bg-blue-900 rounded-2xl p-8 border-2 border-blue-400 relative">
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-400 text-slate-900 text-xs font-black px-4 py-1 rounded-full">おすすめ</div>
-              <h3 className="font-bold text-lg mb-2">月額プラン</h3>
+              <h3 className="font-bold text-lg mb-2">スタンダード</h3>
               <div className="text-4xl font-black mb-1">¥980<span className="text-lg font-normal text-blue-300">/月</span></div>
               <p className="text-xs text-gray-400 mb-4">1日たった約33円</p>
               <ul className="text-blue-200 text-sm space-y-2 mb-6 text-left">
-                <li>✓ 解析し放題（回数制限なし）</li>
-                <li>✓ <strong>返信パターン3通り提案</strong>（状況別・距離感別）</li>
-                <li>✓ <strong>感情分析スコア付き</strong>（相手の感情を数値化）</li>
-                <li>✓ <strong>恋愛アドバイス付き</strong>（次の一手を具体的に提案）</li>
-                <li>✓ 告白文テンプレ（LINE/直接/電話）</li>
+                <li>✓ 脈あり度診断（無制限）</li>
+                <li>✓ <strong>返信文 3パターン生成</strong></li>
+                <li>✓ <strong>感情分析スコア付き</strong></li>
+                <li>✓ <strong>恋愛アドバイス付き</strong></li>
+                <li>✓ LINE文例テンプレート</li>
                 <li>✓ 告白タイミング詳細分析</li>
               </ul>
               <button
@@ -191,6 +197,26 @@ export default function Home() {
                 className="w-full bg-blue-400 hover:bg-blue-300 text-slate-900 font-black py-3 rounded-xl transition"
               >
                 今すぐ始める（¥980/月）
+              </button>
+            </div>
+            {/* Premium */}
+            <div className="bg-gradient-to-b from-pink-950 to-rose-950 rounded-2xl p-8 border-2 border-pink-500 relative">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-pink-500 to-rose-500 text-white text-xs font-black px-4 py-1 rounded-full">NEW</div>
+              <h3 className="font-bold text-lg mb-2">プレミアム</h3>
+              <div className="text-4xl font-black mb-1">¥2,980<span className="text-lg font-normal text-pink-300">/月</span></div>
+              <p className="text-xs text-gray-400 mb-4">本気の恋愛・婚活向け</p>
+              <ul className="text-pink-200 text-sm space-y-2 mb-6 text-left">
+                <li>✓ スタンダードの全機能</li>
+                <li>✓ <strong>告白文テンプレート 10種</strong></li>
+                <li>✓ <strong>恋愛アドバイス詳細プラン</strong></li>
+                <li>✓ <strong>「ベストな告白タイミング」AI診断</strong></li>
+                <li>✓ <strong>婚活向け「距離感チュートリアル」</strong></li>
+              </ul>
+              <button
+                onClick={() => alert("近日公開予定です")}
+                className="w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:opacity-90 text-white font-black py-3 rounded-xl transition"
+              >
+                近日公開予定
               </button>
             </div>
           </div>
