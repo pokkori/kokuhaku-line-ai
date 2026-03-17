@@ -75,6 +75,7 @@ export default function ToolPage() {
   const [showPaywall, setShowPaywall] = useState(false);
   const [tab, setTab] = useState<Tab>("replies");
   const [copied, setCopied] = useState<string | null>(null);
+  const [rawText, setRawText] = useState("");
   useEffect(() => {
     fetch("/api/auth/status").then((r) => r.json()).then((d) => {
       setIsPremium(d.premium);
@@ -87,6 +88,7 @@ export default function ToolPage() {
     setLoading(true);
     setError("");
     setResult(null);
+    setRawText("");
     try {
       const res = await fetch("/api/analyze", {
         method: "POST",
@@ -94,11 +96,32 @@ export default function ToolPage() {
         body: JSON.stringify({ line, context }),
       });
       if (res.status === 402) { setShowPaywall(true); setLoading(false); return; }
-      const data = await res.json();
-      if (data.error) { setError(data.error); setLoading(false); return; }
-      const parsed = parseResult(data.result);
+      if (!res.ok) {
+        const data = await res.json();
+        setError(data.error ?? "エラーが発生しました");
+        setLoading(false);
+        return;
+      }
+      // Streaming受信
+      const reader = res.body?.getReader();
+      if (!reader) throw new Error("stream unavailable");
+      const decoder = new TextDecoder();
+      let fullText = "";
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        fullText += decoder.decode(value, { stream: true });
+        setRawText(fullText);
+      }
+      // remainingをヘッダーから取得
+      const remainingHeader = res.headers.get("X-Remaining");
+      if (remainingHeader !== null && remainingHeader !== "unlimited") {
+        setRemaining(parseInt(remainingHeader, 10));
+      } else if (remainingHeader === "unlimited") {
+        setRemaining(null);
+      }
+      const parsed = parseResult(fullText);
       setResult(parsed);
-      setRemaining(data.remaining);
       setTab("replies");
     } catch {
       setError("少し時間を置いてもう一度お試しください 🙏");
@@ -162,6 +185,13 @@ export default function ToolPage() {
         >
           {loading ? "AIが解析中…" : "解析する"}
         </button>
+
+        {loading && rawText && (
+          <div className="bg-slate-800 border border-slate-700 rounded-xl p-4">
+            <p className="text-xs text-slate-500 mb-2 font-bold">生成中...</p>
+            <p className="text-sm text-slate-300 leading-relaxed whitespace-pre-wrap">{rawText}</p>
+          </div>
+        )}
 
         {error && <p className="text-red-400 text-sm text-center">{error}</p>}
 
