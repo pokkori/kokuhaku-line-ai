@@ -33,24 +33,26 @@ function parseResult(text: string): Result {
 }
 
 function ScoreRing({ score }: { score: number }) {
-  const color = score >= 70 ? "#3b82f6" : score >= 40 ? "#f59e0b" : "#ef4444";
-  const label = score >= 70 ? "脈ありです！" : score >= 40 ? "まだわからない" : "厳しいかも…";
-  const r = 54;
-  const circ = 2 * Math.PI * r;
-  const offset = circ - (score / 100) * circ;
+  const color = score >= 70 ? "#ec4899" : score >= 40 ? "#f59e0b" : "#ef4444";
+  const label = score >= 70 ? "脈ありです！💓" : score >= 40 ? "まだわからない…" : "厳しいかも…";
+  const hearts = score >= 70 ? ["💕", "💖", "💗"] : score >= 40 ? ["💛"] : [];
   return (
-    <div className="flex flex-col items-center gap-2 my-6">
-      <svg width="140" height="140" viewBox="0 0 140 140">
-        <circle cx="70" cy="70" r={r} fill="none" stroke="#1e293b" strokeWidth="12" />
-        <circle
-          cx="70" cy="70" r={r} fill="none" stroke={color} strokeWidth="12"
-          strokeDasharray={circ} strokeDashoffset={offset}
-          transform="rotate(-90 70 70)" strokeLinecap="round"
-        />
-        <text x="70" y="65" textAnchor="middle" fill="white" fontSize="26" fontWeight="bold">{score}%</text>
-        <text x="70" y="85" textAnchor="middle" fill="#94a3b8" fontSize="11">脈あり度</text>
-      </svg>
-      <span className="font-bold text-lg" style={{ color }}>{label}</span>
+    <div className="flex flex-col items-center gap-3 my-4 py-6 bg-slate-800/50 rounded-2xl border border-slate-700">
+      {/* 大型スコア中央表示 */}
+      <div className="text-center">
+        <p className="text-6xl font-black" style={{ color }}>{score}<span className="text-3xl font-bold opacity-70">%</span></p>
+        <p className="text-sm text-slate-400 mt-1 font-medium">脈あり度スコア</p>
+      </div>
+      {hearts.length > 0 && (
+        <div className="flex gap-3 animate-bounce">
+          {hearts.map((h, i) => <span key={i} className="text-2xl">{h}</span>)}
+        </div>
+      )}
+      <span className="font-black text-xl" style={{ color }}>{label}</span>
+      <div className="w-3/4 bg-slate-700 rounded-full h-3 overflow-hidden">
+        <div className="h-3 rounded-full transition-all duration-1000" style={{ width: `${score}%`, backgroundColor: color }} />
+      </div>
+      <p className="text-xs text-slate-500">{score}点 / 100点満点</p>
     </div>
   );
 }
@@ -76,6 +78,7 @@ export default function ToolPage() {
   const [tab, setTab] = useState<Tab>("replies");
   const [copied, setCopied] = useState<string | null>(null);
   const [rawText, setRawText] = useState("");
+  const [completionVisible, setCompletionVisible] = useState(false);
   useEffect(() => {
     fetch("/api/auth/status").then((r) => r.json()).then((d) => {
       setIsPremium(d.premium);
@@ -123,6 +126,9 @@ export default function ToolPage() {
       const parsed = parseResult(fullText);
       setResult(parsed);
       setTab("replies");
+      // 達成感バナー表示
+      setCompletionVisible(true);
+      setTimeout(() => setCompletionVisible(false), 4000);
     } catch {
       setError("少し時間を置いてもう一度お試しください 🙏");
     }
@@ -138,6 +144,25 @@ export default function ToolPage() {
     setTimeout(() => setCopied(null), 2000);
   }
 
+  function CopyBtnInline({ text, keyName }: { text: string; keyName: string }) {
+    return (
+      <div className="relative inline-block">
+        <button
+          onClick={() => copy(text, keyName)}
+          className="text-xs text-slate-500 hover:text-slate-300 shrink-0 pb-1 transition"
+          title="コピー"
+        >
+          {copied === keyName ? "✓" : "コピー"}
+        </button>
+        {copied === keyName && (
+          <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-green-600 text-white text-xs rounded-lg px-2 py-1 whitespace-nowrap shadow-lg animate-bounce">
+            ✅ コピー完了！
+          </div>
+        )}
+      </div>
+    );
+  }
+
   return (
     <main className="min-h-screen bg-slate-950 text-white">
       <nav className="bg-slate-900 border-b border-slate-800 px-6 py-4 flex justify-between items-center">
@@ -149,6 +174,27 @@ export default function ToolPage() {
       </nav>
 
       <div className="max-w-2xl mx-auto px-4 py-10 space-y-6">
+        {/* LINEトーク画面プレビューUI */}
+        <div className="rounded-2xl overflow-hidden border border-slate-700 shadow-lg">
+          {/* LINEグリーンヘッダー */}
+          <div className="bg-green-500 px-4 py-3 flex items-center gap-3">
+            <div className="w-8 h-8 rounded-full bg-white/30 flex items-center justify-center text-sm font-bold">💚</div>
+            <div>
+              <p className="text-white font-bold text-sm">LINE トーク</p>
+              <p className="text-green-100 text-xs">気になる相手のLINEを下に貼り付けよう</p>
+            </div>
+          </div>
+          {/* サンプルトーク */}
+          <div className="bg-slate-900 px-4 py-3 space-y-2">
+            <div className="flex items-end gap-2">
+              <div className="w-7 h-7 rounded-full bg-slate-600 flex items-center justify-center text-xs shrink-0">😊</div>
+              <div className="bg-white text-gray-800 rounded-2xl rounded-tl-sm px-3 py-2 text-xs max-w-[70%]">「今日暇だったりする？笑」</div>
+            </div>
+            <div className="flex items-end justify-end gap-2">
+              <div className="bg-green-500 text-white rounded-2xl rounded-tr-sm px-3 py-2 text-xs max-w-[70%]">← あなたはなんて返す？</div>
+            </div>
+          </div>
+        </div>
         <div>
           <label className="block text-sm font-bold mb-2 text-slate-300">好きな子のLINE（コピペしてください）</label>
           <textarea
@@ -215,8 +261,32 @@ export default function ToolPage() {
           </div>
         )}
 
+        {/* 達成感バナー */}
         {result && (
-          <div className="mt-8 flex flex-col gap-3">
+          <div className={`transition-all duration-500 overflow-hidden ${completionVisible ? "max-h-32 opacity-100" : "max-h-0 opacity-0"}`}>
+            <div className="bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-2xl px-5 py-4 shadow-lg mb-3">
+              <div className="flex items-center gap-3">
+                <span className="text-2xl">✅</span>
+                <div>
+                  <p className="font-bold text-sm">解析完了！</p>
+                  <div className="flex items-center gap-2 mt-1">
+                    <span className="text-xs opacity-80">脈あり度</span>
+                    <div className="flex-1 bg-white/20 rounded-full h-2 min-w-[80px]">
+                      <div
+                        className="bg-white h-2 rounded-full transition-all duration-700"
+                        style={{ width: `${result.score}%` }}
+                      />
+                    </div>
+                    <span className="text-sm font-bold">{result.score}%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {result && (
+          <div className="mt-2 flex flex-col gap-3">
             {/* Xシェアボタン — 脈あり度スコア入り */}
             <a
               href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`【告白LINE返信AI】気になる人の脈あり度を診断したら${result.score}%でした💓\nAIが返信例文・告白タイミングまで教えてくれて神すぎる…\n#脈あり #LINE返信 #恋愛AI #告白\nhttps://kokuhaku-line-ai.vercel.app`)}`}

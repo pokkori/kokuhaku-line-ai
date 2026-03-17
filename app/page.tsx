@@ -13,23 +13,23 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-950 text-white">
+    <main className="min-h-screen bg-gradient-to-br from-pink-950 via-rose-900 to-pink-900 text-white">
       {/* Hero */}
       <section className="pt-20 pb-16 px-4 text-center">
-        <div className="inline-block bg-blue-900 text-blue-300 text-xs font-bold px-3 py-1 rounded-full mb-6">
-          💬 恋愛・婚活コーチAI — 脈あり判定 × 返信例文 × マッチングアプリ対応 — 無料3回
+        <div className="inline-block bg-pink-800/60 border border-pink-500/40 text-pink-200 text-xs font-bold px-3 py-1 rounded-full mb-6">
+          💕 恋愛・婚活コーチAI — 脈あり判定 × 返信例文 × マッチングアプリ対応 — 無料3回
         </div>
         <div className="inline-flex items-center gap-2 bg-white/10 rounded-full px-4 py-2 text-sm mb-4">
           <span>💬</span>
           <span>累計 <strong>8,400件+</strong> の返信を生成しました</span>
         </div>
-        <h1 className="text-4xl md:text-6xl font-black mb-4 leading-tight">
-          もう返信に悩まない。
+        <h1 className="text-4xl md:text-5xl font-black mb-4 leading-tight">
+          気になるあの人の本音を、<br />AIが解読します💕
         </h1>
-        <p className="text-2xl md:text-3xl font-bold text-pink-400 mb-6">
-          AIが最適な答えを0秒で。
+        <p className="text-2xl md:text-3xl font-bold text-pink-300 mb-6">
+          返信に迷ったら30秒で答えが出る
         </p>
-        <p className="text-slate-300 text-lg max-w-2xl mx-auto mb-8">
+        <p className="text-pink-100 text-lg max-w-2xl mx-auto mb-8">
           脈あり度スコア・返信パターン3通り・感情分析・恋愛アドバイス付きで、<strong className="text-white">その一言</strong>を後悔しない返信に。マッチングアプリ・婚活・交際中のやり取りすべてに対応。
         </p>
         <div className="flex items-center justify-center gap-2 text-xs text-pink-500 mb-4">
@@ -65,7 +65,7 @@ export default function Home() {
       </section>
 
       {/* Pain points */}
-      <section className="py-16 px-4 bg-slate-900">
+      <section className="py-16 px-4 bg-pink-950/60">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-2xl font-bold text-center mb-10">こんな悩み、ありませんか？</h2>
           <div className="grid md:grid-cols-3 gap-6">
@@ -115,7 +115,7 @@ export default function Home() {
       </section>
 
       {/* Features */}
-      <section className="py-16 px-4 bg-slate-900">
+      <section className="py-16 px-4 bg-pink-950/40">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-2xl font-bold text-center mb-10">AIが教えてくれること</h2>
           <div className="grid md:grid-cols-2 gap-6">
@@ -127,7 +127,7 @@ export default function Home() {
               { emoji: "💔", title: "付き合い後の悩みも", body: "喧嘩した後どう仲直りする？ マンネリ打開策は？ 関係をより深めるためのアドバイスをAIが提案" },
               { emoji: "💍", title: "婚活・マッチングアプリ対応", body: "Pairs・タップル・with・Omiai等のやり取りも全対応。婚活の距離感・デートの誘い方・将来の話し方をAIが提案" },
             ].map((f) => (
-              <div key={f.title} className="bg-slate-800 rounded-2xl p-6 flex gap-4">
+              <div key={f.title} className="bg-pink-900/30 border border-pink-800/30 rounded-2xl p-6 flex gap-4">
                 <div className="text-3xl shrink-0">{f.emoji}</div>
                 <div>
                   <h3 className="font-bold mb-1">{f.title}</h3>
@@ -149,7 +149,7 @@ export default function Home() {
               { name: "32歳・男性・婚活中", text: "婚活でどう距離を縮めるか悩んでいたけど、返信の距離感をAIに分析してもらったら自信を持って動けるようになった" },
               { name: "25歳・女性", text: "友達に相談しにくい内容なのに、AIは全部フラットに答えてくれる。マッチングアプリのやり取りを毎回分析してもらってる" },
             ].map((t) => (
-              <div key={t.name} className="bg-slate-800 rounded-2xl p-6">
+              <div key={t.name} className="bg-pink-900/30 border border-pink-800/30 rounded-2xl p-6">
                 <p className="text-slate-300 text-sm mb-4 leading-relaxed">「{t.text}」</p>
                 <p className="text-blue-400 text-xs font-bold">{t.name}</p>
               </div>
@@ -160,13 +160,13 @@ export default function Home() {
       </section>
 
       {/* Pricing */}
-      <section className="py-16 px-4 bg-slate-900">
+      <section className="py-16 px-4 bg-pink-950/40">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-2xl font-bold mb-4">料金プラン</h2>
           <p className="text-slate-400 text-sm mb-10">まず無料で試して、気に入ったらアップグレード</p>
           <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
             {/* Free */}
-            <div className="bg-slate-800 rounded-2xl p-8 border border-slate-700 flex flex-col">
+            <div className="bg-pink-900/40 rounded-2xl p-8 border border-pink-800/40 flex flex-col">
               <div className="mb-4">
                 <h3 className="font-bold text-lg mb-1">無料プラン</h3>
                 <div className="text-4xl font-black mb-1">¥0</div>
