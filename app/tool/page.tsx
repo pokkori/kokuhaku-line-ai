@@ -148,7 +148,7 @@ export default function ToolPage() {
 
         {!isPremium && remaining === 0 && !result && (
           <div className="bg-blue-900/40 border border-blue-600 rounded-xl p-4 text-center">
-            <p className="text-sm text-blue-200 mb-3">無料回数を使い切りました。月額¥980で使い放題！</p>
+            <p className="text-sm text-blue-200 mb-3">無料回数を使い切りました。月額¥480で無制限+高精度！</p>
             <button onClick={startCheckout} disabled={false} className="bg-blue-500 hover:bg-blue-400 text-white font-bold px-6 py-2 rounded-xl text-sm transition disabled:opacity-50">
               プレミアムにアップグレード
             </button>
@@ -175,7 +175,7 @@ export default function ToolPage() {
               AIが最適な返信を今すぐ提案します。
             </p>
             <button onClick={startCheckout} disabled={false} className="bg-blue-500 hover:bg-blue-400 text-white font-black px-8 py-4 rounded-xl text-lg transition disabled:opacity-50 w-full">
-              ¥980/月でアップグレード
+              ¥480/月でアップグレード
             </button>
             <p className="text-slate-500 text-xs mt-4">
               ※ 婚活・マッチングアプリのご相談は
@@ -186,13 +186,25 @@ export default function ToolPage() {
         )}
 
         {result && (
-          <div className="mt-8 p-4 bg-gradient-to-r from-pink-900/30 to-rose-900/30 border border-pink-500/30 rounded-xl text-center">
-            <p className="text-pink-300 text-sm font-medium mb-2">💍 告白の次は、本格的な婚活へ</p>
-            <p className="text-slate-400 text-xs mb-3">マッチングアプリ攻略・プロフィール添削・メッセージ生成を AI がサポート</p>
-            <a href="https://konkatsu-ai.vercel.app" target="_blank" rel="noopener noreferrer"
-               className="inline-block px-4 py-2 bg-pink-600 hover:bg-pink-700 text-white text-sm rounded-lg transition-colors">
-              婚活コーチAIを試す（無料）→
+          <div className="mt-8 flex flex-col gap-3">
+            {/* Xシェアボタン */}
+            <a
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent("告白LINE返信AIで完璧な返信を作成！ #告白 #LINE返信 #恋愛AI\nhttps://kokuhaku-line-ai.vercel.app")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 w-full bg-pink-500 hover:bg-pink-400 text-white font-bold py-3 rounded-xl text-sm transition"
+            >
+              ❤️ この結果をXでシェアする
             </a>
+            {/* 婚活AIバナー */}
+            <div className="p-4 bg-gradient-to-r from-pink-900/30 to-rose-900/30 border border-pink-500/30 rounded-xl text-center">
+              <p className="text-pink-300 text-sm font-medium mb-2">💍 告白の次は、本格的な婚活へ</p>
+              <p className="text-slate-400 text-xs mb-3">マッチングアプリ攻略・プロフィール添削・メッセージ生成を AI がサポート</p>
+              <a href="https://konkatsu-ai.vercel.app" target="_blank" rel="noopener noreferrer"
+                 className="inline-block px-4 py-2 bg-pink-600 hover:bg-pink-700 text-white text-sm rounded-lg transition-colors">
+                婚活コーチAIを試す（無料）→
+              </a>
+            </div>
           </div>
         )}
 
@@ -275,9 +287,9 @@ export default function ToolPage() {
                 ) : (
                   <div className="text-center py-8">
                     <div className="text-4xl mb-4">🔒</div>
-                    <p className="text-slate-400 text-sm mb-4">告白文テンプレはプレミアム限定機能です</p>
+                    <p className="text-slate-400 text-sm mb-4">告白文テンプレはプレミアムプラン（¥480/月）限定機能です</p>
                     <button onClick={startCheckout} disabled={false} className="bg-blue-500 hover:bg-blue-400 text-white font-bold px-6 py-3 rounded-xl text-sm transition disabled:opacity-50">
-                      ¥980/月でアップグレード
+                      ¥480/月でアップグレード
                     </button>
                   </div>
                 )
@@ -299,7 +311,7 @@ export default function ToolPage() {
       {showPayjp && (
         <PayjpModal
           publicKey={process.env.NEXT_PUBLIC_PAYJP_PUBLIC_KEY!}
-          planLabel="プレミアムプラン ¥980/月 — LINE解析 無制限"
+          planLabel="プレミアムプラン ¥480/月 — LINE解析 無制限+高精度"
           onSuccess={() => { setShowPayjp(false); setIsPremium(true); }}
           onClose={() => setShowPayjp(false)}
         />

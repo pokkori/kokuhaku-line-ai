@@ -24,10 +24,10 @@ export default function Home() {
           <span>累計 <strong>8,400件+</strong> の返信を生成しました</span>
         </div>
         <h1 className="text-4xl md:text-6xl font-black mb-4 leading-tight">
-          あの人の気持ち、本当にわかる？
+          もう返信に悩まない。
         </h1>
         <p className="text-2xl md:text-3xl font-bold text-pink-400 mb-6">
-          恋愛・マッチングアプリのやり取り、AIが全力サポート
+          AIが最適な答えを0秒で。
         </p>
         <p className="text-slate-300 text-lg max-w-2xl mx-auto mb-8">
           脈あり度スコア・返信パターン3通り・感情分析・恋愛アドバイス付きで、<strong className="text-white">その一言</strong>を後悔しない返信に。マッチングアプリ・婚活・交際中のやり取りすべてに対応。
@@ -45,9 +45,9 @@ export default function Home() {
           </Link>
           <button
             onClick={startCheckout}
-            className="border border-blue-400 text-blue-300 hover:bg-blue-900 font-bold px-8 py-4 rounded-xl text-lg transition"
+            className="border border-pink-400 text-pink-300 hover:bg-pink-900/40 font-bold px-8 py-4 rounded-xl text-lg transition"
           >
-            月額¥980で使い放題
+            月額¥480で無制限+高精度
           </button>
         </div>
         <div className="bg-pink-50 border border-pink-200 rounded-2xl p-5 mb-6 text-left max-w-md mx-auto">
@@ -161,62 +161,50 @@ export default function Home() {
 
       {/* Pricing */}
       <section className="py-16 px-4 bg-slate-900">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl font-bold mb-10">料金プラン</h2>
-          <div className="grid md:grid-cols-3 gap-6">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-2xl font-bold mb-4">料金プラン</h2>
+          <p className="text-slate-400 text-sm mb-10">まず無料で試して、気に入ったらアップグレード</p>
+          <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
             {/* Free */}
-            <div className="bg-slate-800 rounded-2xl p-8 border border-slate-700">
-              <h3 className="font-bold text-lg mb-2">無料</h3>
-              <div className="text-4xl font-black mb-4">¥0</div>
-              <ul className="text-slate-400 text-sm space-y-2 mb-6 text-left">
-                <li>✓ 3回まで無料で解析</li>
-                <li>✓ 脈あり度・返信例文・告白タイミング</li>
-                <li>✗ 告白文テンプレ（月額のみ）</li>
-                <li>✗ 回数制限あり</li>
+            <div className="bg-slate-800 rounded-2xl p-8 border border-slate-700 flex flex-col">
+              <div className="mb-4">
+                <h3 className="font-bold text-lg mb-1">無料プラン</h3>
+                <div className="text-4xl font-black mb-1">¥0</div>
+                <p className="text-xs text-slate-400">登録不要・クレカ不要</p>
+              </div>
+              <ul className="text-slate-400 text-sm space-y-2 mb-6 text-left flex-1">
+                <li className="flex items-start gap-2"><span className="text-green-400 mt-0.5">✓</span><span>1日3回まで無料で解析</span></li>
+                <li className="flex items-start gap-2"><span className="text-green-400 mt-0.5">✓</span><span>脈あり度スコア</span></li>
+                <li className="flex items-start gap-2"><span className="text-green-400 mt-0.5">✓</span><span>返信例文（3パターン）</span></li>
+                <li className="flex items-start gap-2"><span className="text-green-400 mt-0.5">✓</span><span>告白タイミング分析</span></li>
+                <li className="flex items-start gap-2"><span className="text-red-400 mt-0.5">✗</span><span className="text-slate-500">告白文テンプレ（有料のみ）</span></li>
+                <li className="flex items-start gap-2"><span className="text-red-400 mt-0.5">✗</span><span className="text-slate-500">1日3回までの制限あり</span></li>
               </ul>
-              <Link href="/tool" className="block w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold py-3 rounded-xl transition text-center">
-                <span className="text-pink-100 font-bold">無料で3回試せます</span>
+              <Link href="/tool" className="block w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded-xl transition text-center">
+                無料で試す（3回/日）
               </Link>
             </div>
-            {/* Standard */}
-            <div className="bg-blue-900 rounded-2xl p-8 border-2 border-blue-400 relative">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-400 text-slate-900 text-xs font-black px-4 py-1 rounded-full">おすすめ</div>
-              <h3 className="font-bold text-lg mb-2">スタンダード</h3>
-              <div className="text-4xl font-black mb-1">¥980<span className="text-lg font-normal text-blue-300">/月</span></div>
-              <p className="text-xs text-gray-400 mb-4">1日たった約33円</p>
-              <ul className="text-blue-200 text-sm space-y-2 mb-6 text-left">
-                <li>✓ 脈あり度診断（無制限）</li>
-                <li>✓ <strong>返信文 3パターン生成</strong></li>
-                <li>✓ <strong>感情分析スコア付き</strong></li>
-                <li>✓ <strong>恋愛アドバイス付き</strong></li>
-                <li>✓ LINE文例テンプレート</li>
-                <li>✓ 告白タイミング詳細分析</li>
+            {/* Premium */}
+            <div className="bg-gradient-to-b from-pink-950 to-rose-950 rounded-2xl p-8 border-2 border-pink-500 relative flex flex-col">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-pink-500 to-rose-500 text-white text-xs font-black px-4 py-1 rounded-full">おすすめ</div>
+              <div className="mb-4">
+                <h3 className="font-bold text-lg mb-1">プレミアムプラン</h3>
+                <div className="text-4xl font-black mb-1">¥480<span className="text-lg font-normal text-pink-300">/月</span></div>
+                <p className="text-xs text-pink-300">1日たった約16円</p>
+              </div>
+              <ul className="text-pink-100 text-sm space-y-2 mb-6 text-left flex-1">
+                <li className="flex items-start gap-2"><span className="text-green-400 mt-0.5">✓</span><span><strong>解析回数 無制限</strong></span></li>
+                <li className="flex items-start gap-2"><span className="text-green-400 mt-0.5">✓</span><span>脈あり度スコア</span></li>
+                <li className="flex items-start gap-2"><span className="text-green-400 mt-0.5">✓</span><span><strong>高精度AI（返信例文 3パターン）</strong></span></li>
+                <li className="flex items-start gap-2"><span className="text-green-400 mt-0.5">✓</span><span>感情分析スコア付き</span></li>
+                <li className="flex items-start gap-2"><span className="text-green-400 mt-0.5">✓</span><span><strong>告白文テンプレート付き</strong></span></li>
+                <li className="flex items-start gap-2"><span className="text-green-400 mt-0.5">✓</span><span>告白タイミング詳細分析</span></li>
               </ul>
               <button
                 onClick={startCheckout}
-                className="w-full bg-blue-400 hover:bg-blue-300 text-slate-900 font-black py-3 rounded-xl transition"
-              >
-                今すぐ始める（¥980/月）
-              </button>
-            </div>
-            {/* Premium */}
-            <div className="bg-gradient-to-b from-pink-950 to-rose-950 rounded-2xl p-8 border-2 border-pink-500 relative">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-pink-500 to-rose-500 text-white text-xs font-black px-4 py-1 rounded-full">NEW</div>
-              <h3 className="font-bold text-lg mb-2">プレミアム</h3>
-              <div className="text-4xl font-black mb-1">¥2,980<span className="text-lg font-normal text-pink-300">/月</span></div>
-              <p className="text-xs text-gray-400 mb-4">本気の恋愛・婚活向け</p>
-              <ul className="text-pink-200 text-sm space-y-2 mb-6 text-left">
-                <li>✓ スタンダードの全機能</li>
-                <li>✓ <strong>告白文テンプレート 10種</strong></li>
-                <li>✓ <strong>恋愛アドバイス詳細プラン</strong></li>
-                <li>✓ <strong>「ベストな告白タイミング」AI診断</strong></li>
-                <li>✓ <strong>婚活向け「距離感チュートリアル」</strong></li>
-              </ul>
-              <button
-                onClick={() => alert("近日公開予定です")}
                 className="w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:opacity-90 text-white font-black py-3 rounded-xl transition"
               >
-                近日公開予定
+                今すぐ始める（¥480/月）
               </button>
             </div>
           </div>
@@ -255,7 +243,7 @@ export default function Home() {
       {showPayjp && (
         <PayjpModal
           publicKey={PAYJP_PUBLIC_KEY}
-          planLabel="プレミアムプラン ¥980/月 — LINE解析 無制限"
+          planLabel="プレミアムプラン ¥480/月 — LINE解析 無制限+高精度"
           onSuccess={() => setShowPayjp(false)}
           onClose={() => setShowPayjp(false)}
         />
