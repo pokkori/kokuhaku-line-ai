@@ -493,6 +493,23 @@ export default function ToolPage() {
                 </li>
               ))}
             </ol>
+            {/* A8.net アフィリエイト — 告白後のデートに備えて体型ケア */}
+            <div className="mt-4 pt-3 border-t border-pink-700/30">
+              <p className="text-xs text-pink-400 mb-2">💪 告白後のデートに備えて</p>
+              <a
+                href="https://px.a8.net/svt/ejp?a8mat=4AZIOF+8OKLDE+4EPM+63OY9"
+                target="_blank"
+                rel="noopener noreferrer sponsored"
+                className="flex items-center gap-3 bg-pink-800/40 hover:bg-pink-800/60 border border-pink-600/40 rounded-xl px-4 py-3 transition-colors"
+              >
+                <span className="text-2xl">🧘‍♀️</span>
+                <div>
+                  <p className="text-sm font-bold text-pink-200">SOELUオンラインヨガで体型ケア</p>
+                  <p className="text-xs text-pink-400">告白後のデートに向けて、自宅でヨガ・フィットネス</p>
+                </div>
+                <span className="ml-auto text-pink-400 text-xs shrink-0">→</span>
+              </a>
+            </div>
           </div>
           </>
         )}
