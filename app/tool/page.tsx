@@ -284,6 +284,10 @@ export default function ToolPage() {
                 <span>💳</span>
                 <span>PAY.JP安全決済</span>
               </div>
+              <div className="flex items-center gap-1 text-xs text-green-600 font-bold">
+                <span>🛡️</span>
+                <span>30日返金保証</span>
+              </div>
             </div>
             <p className="text-xs text-center text-slate-500 mt-2">
               ※ プレミアムプランはいつでもキャンセル可能です
