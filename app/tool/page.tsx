@@ -356,6 +356,7 @@ export default function ToolPage() {
         )}
 
         {result && (
+          <>
           <div className="bg-pink-950/60 rounded-2xl border border-pink-700/40 overflow-hidden">
             {/* Tab nav */}
             <div className="flex overflow-x-auto border-b border-pink-800/50">
@@ -477,6 +478,23 @@ export default function ToolPage() {
               )}
             </div>
           </div>
+          {/* 次のアクション3選 */}
+          <div className="mt-4 bg-pink-950/30 border border-pink-500/30 rounded-xl p-4">
+            <p className="text-sm font-bold text-pink-300 mb-3">💓 次にやるべきこと3選</p>
+            <ol className="space-y-2">
+              {[
+                { icon: "💬", text: "「返信例文」タブのパターンを1つ選んで今すぐ送ってみる" },
+                { icon: "📅", text: "「告白タイミング」タブを確認して具体的な日程を決める" },
+                { icon: "📝", text: "相手の返信内容・反応を記録して次の分析に活かす" },
+              ].map((item, i) => (
+                <li key={i} className="flex items-start gap-3 text-sm text-pink-100">
+                  <span className="text-base leading-none">{item.icon}</span>
+                  <span>{i + 1}. {item.text}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+          </>
         )}
       </div>
 
