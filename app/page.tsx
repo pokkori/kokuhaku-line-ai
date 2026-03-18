@@ -288,6 +288,24 @@ export default function Home() {
         </ol>
       </section>
 
+      {/* FAQ */}
+      <section className="py-16 px-6 max-w-3xl mx-auto">
+        <h2 className="text-2xl font-bold text-center text-white mb-10">よくある質問</h2>
+        <div className="space-y-4">
+          {[
+            { q: "何パターンの返信案を提案してもらえますか？", a: "OK・保留・お断りの3パターンを自動生成します。" },
+            { q: "入力内容は保存されますか？", a: "入力したLINE文章はAI処理後に削除します。第三者への開示はしません。" },
+            { q: "どんな状況にも対応できますか？", a: "告白・デートの誘い・関係性の確認など様々なシチュエーションに対応しています。" },
+            { q: "無料で使えますか？", a: "1日3回まで無料でご利用いただけます。" },
+          ].map((faq) => (
+            <div key={faq.q} className="border border-pink-700/40 rounded-xl p-5 bg-pink-900/20">
+              <h3 className="font-bold text-white mb-2 text-sm">Q. {faq.q}</h3>
+              <p className="text-pink-200 text-sm leading-relaxed">A. {faq.a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* X Share */}
       <section className="py-6 px-6 text-center">
         <a
