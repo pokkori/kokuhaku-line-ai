@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import PayjpModal from "@/components/PayjpModal";
+import KomojuButton from "@/components/KomojuButton";
 
 const PAYJP_PUBLIC_KEY = process.env.NEXT_PUBLIC_PAYJP_PUBLIC_KEY ?? "";
 
@@ -338,12 +338,15 @@ export default function Home() {
         </div>
       </footer>
       {showPayjp && (
-        <PayjpModal
-          publicKey={PAYJP_PUBLIC_KEY}
-          planLabel="プレミアムプラン ¥980/月 — LINE解析 無制限+高精度"
-          onSuccess={() => setShowPayjp(false)}
-          onClose={() => setShowPayjp(false)}
-        />
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
+          <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-xl relative">
+            <button onClick={() => setShowPayjp(false)} className="absolute top-3 right-3 text-gray-400 text-xl">✕</button>
+            <div className="text-3xl mb-3 text-center">💌</div>
+            <h2 className="text-lg font-bold mb-2 text-center">プレミアムプラン</h2>
+            <p className="text-sm text-gray-500 mb-4 text-center">LINE解析 無制限+高精度</p>
+            <KomojuButton planId="standard" planLabel="プレミアムプラン ¥980/月" className="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 disabled:opacity-50" />
+          </div>
+        </div>
       )}
     </main>
   );

@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import PayjpModal from "@/components/PayjpModal";
+import KomojuButton from "@/components/KomojuButton";
 import { track } from '@vercel/analytics';
 
 type Result = {
@@ -220,24 +220,11 @@ export default function ToolPage() {
         {!isPremium && remaining === 0 && !result && (
           <div className="bg-blue-900/40 border border-blue-600 rounded-xl p-4 text-center">
             <p className="text-sm text-blue-200 mb-3">無料体験が完了しました。プレミアムプランで制限なく使えます！</p>
-            <button onClick={startCheckout} disabled={false} className="bg-gradient-to-r from-pink-500 to-rose-500 hover:opacity-90 text-white font-bold px-6 py-2 rounded-xl text-sm transition disabled:opacity-50">
-              プレミアムにアップグレード
-            </button>
-            {/* 安心保証バッジ */}
-            <div className="flex items-center justify-center gap-3 mt-2">
-              <div className="flex items-center gap-1 text-xs text-slate-400">
-                <span>🔒</span>
-                <span>SSL暗号化</span>
-              </div>
-              <div className="flex items-center gap-1 text-xs text-slate-400">
-                <span>✅</span>
-                <span>いつでもキャンセル可</span>
-              </div>
-              <div className="flex items-center gap-1 text-xs text-slate-400">
-                <span>💳</span>
-                <span>PAY.JP安全決済</span>
-              </div>
-            </div>
+            <KomojuButton
+              planId="standard"
+              planLabel="プレミアムにアップグレード"
+              className="bg-gradient-to-r from-pink-500 to-rose-500 hover:opacity-90 text-white font-bold px-6 py-2 rounded-xl text-sm transition disabled:opacity-50 disabled:cursor-not-allowed"
+            />
           </div>
         )}
 
@@ -268,43 +255,19 @@ export default function ToolPage() {
 
         {/* Paywall */}
         {showPaywall && (
-          <div className="bg-pink-50 border-2 border-pink-400 rounded-2xl p-8 text-center">
-            <div className="text-5xl mb-4">💬</div>
-            <h2 className="text-xl font-bold text-gray-900 mb-2">今夜返信したいなら、今すぐ解除を</h2>
-            <p className="text-gray-500 text-sm mb-6">
-              返信が遅くなるほど相手の気持ちは冷めていきます。<br/>
-              AIが最適な返信を今すぐ提案します。
-            </p>
-            <button onClick={() => { track('upgrade_click', { service: '告白LINE返信AI', plan: 'premium' }); startCheckout(); }} disabled={false} className="bg-gradient-to-r from-pink-500 to-rose-500 hover:opacity-90 text-white font-black px-8 py-4 rounded-xl text-lg transition disabled:opacity-50 w-full">
-              ¥980/月でアップグレード
-            </button>
-            {/* 安心保証バッジ */}
-            <div className="flex items-center justify-center gap-4 mt-3">
-              <div className="flex items-center gap-1 text-xs text-slate-400">
-                <span>🔒</span>
-                <span>SSL暗号化決済</span>
-              </div>
-              <div className="flex items-center gap-1 text-xs text-slate-400">
-                <span>✅</span>
-                <span>いつでもキャンセル可能</span>
-              </div>
-              <div className="flex items-center gap-1 text-xs text-slate-400">
-                <span>💳</span>
-                <span>PAY.JP安全決済</span>
-              </div>
-              <div className="flex items-center gap-1 text-xs text-green-600 font-bold">
-                <span>🛡️</span>
-                <span>30日返金保証</span>
-              </div>
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
+            <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-xl text-center relative">
+              <button onClick={() => setShowPaywall(false)} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl font-bold">×</button>
+              <div className="text-3xl mb-3">⭐</div>
+              <h2 className="text-lg font-bold mb-2">無料枠を使い切りました</h2>
+              <p className="text-sm text-gray-500 mb-4">プレミアムプランで全機能を使えます</p>
+              <KomojuButton
+                planId="standard"
+                planLabel="プレミアム ¥980/月を始める"
+                className="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              />
+              <button onClick={() => setShowPaywall(false)} className="text-xs text-gray-400 hover:text-gray-600 mt-3 block w-full">閉じる</button>
             </div>
-            <p className="text-xs text-center text-slate-500 mt-2">
-              ※ プレミアムプランはいつでもキャンセル可能です
-            </p>
-            <p className="text-slate-500 text-xs mt-4">
-              ※ 恋愛・運命の相性を占いたい方は
-              <a href="https://uranai-ai-sigma.vercel.app" className="text-pink-400 underline ml-1">占いAI</a>
-              でも無料でお試しいただけます
-            </p>
           </div>
         )}
 
@@ -466,9 +429,11 @@ export default function ToolPage() {
                   <div className="text-center py-8">
                     <div className="text-4xl mb-4">🔒</div>
                     <p className="text-slate-400 text-sm mb-4">告白文テンプレはプレミアムプラン（¥980/月）限定機能です</p>
-                    <button onClick={startCheckout} disabled={false} className="bg-gradient-to-r from-pink-500 to-rose-500 hover:opacity-90 text-white font-bold px-6 py-3 rounded-xl text-sm transition disabled:opacity-50">
-                      ¥980/月でアップグレード
-                    </button>
+                    <KomojuButton
+                      planId="standard"
+                      planLabel="¥980/月でアップグレード"
+                      className="bg-gradient-to-r from-pink-500 to-rose-500 hover:opacity-90 text-white font-bold px-6 py-3 rounded-xl text-sm transition disabled:opacity-50 disabled:cursor-not-allowed"
+                    />
                   </div>
                 )
               )}
@@ -521,12 +486,15 @@ export default function ToolPage() {
         <Link href="/" className="hover:underline">トップへ戻る</Link>
       </footer>
       {showPayjp && (
-        <PayjpModal
-          publicKey={process.env.NEXT_PUBLIC_PAYJP_PUBLIC_KEY!}
-          planLabel="プレミアムプラン ¥980/月 — LINE解析 無制限+高精度"
-          onSuccess={() => { setShowPayjp(false); setIsPremium(true); }}
-          onClose={() => setShowPayjp(false)}
-        />
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
+          <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-xl relative">
+            <button onClick={() => setShowPayjp(false)} className="absolute top-3 right-3 text-gray-400 text-xl">✕</button>
+            <div className="text-3xl mb-3 text-center">💌</div>
+            <h2 className="text-lg font-bold mb-2 text-center">プレミアムプラン</h2>
+            <p className="text-sm text-gray-500 mb-4 text-center">LINE解析 無制限+高精度</p>
+            <KomojuButton planId="standard" planLabel="プレミアムプラン ¥980/月" className="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 disabled:opacity-50" />
+          </div>
+        </div>
       )}
     </main>
   );
