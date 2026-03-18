@@ -249,6 +249,14 @@ export default function ToolPage() {
           {loading ? "AIが解析中…" : "解析する"}
         </button>
 
+        {loading && !rawText && (
+          <div className="bg-pink-950/60 border border-pink-700/50 rounded-xl p-5 text-center">
+            <div className="inline-block w-8 h-8 border-4 border-pink-500 border-t-transparent rounded-full animate-spin mb-3"></div>
+            <p className="text-pink-300 font-medium text-sm mb-1">AIが解析中...</p>
+            <p className="text-xs text-pink-400">💕 LINE文面分析 → 🔍 脈あり度判定 → 💬 返信パターン生成</p>
+            <p className="text-xs text-pink-600 mt-1">通常5〜10秒かかります</p>
+          </div>
+        )}
         {loading && rawText && (
           <div className="bg-pink-950/60 border border-pink-700/50 rounded-xl p-4">
             <p className="text-xs text-pink-400 mb-2 font-bold animate-pulse">💕 AIが解析中...</p>
