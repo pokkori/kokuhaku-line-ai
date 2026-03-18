@@ -267,6 +267,27 @@ export default function Home() {
         </Link>
       </div>
 
+      {/* もっと活用する3選 */}
+      <section className="py-8 px-4 max-w-lg mx-auto">
+        <h2 className="text-center text-base font-bold text-pink-700 mb-4">💕 告白LINE AIをもっと活用する3選</h2>
+        <ol className="space-y-3">
+          {[
+            { icon: "💌", title: "3パターンの返信を比較する", desc: "A（積極的）・B（自然）・C（ちょっと引く）の3択を状況に合わせて使い分けよう。" },
+            { icon: "📊", title: "脈あり度スコアを積み重ねる", desc: "毎回のLINEでスコアを記録して、相手の気持ちの変化を追ってみよう。" },
+            { icon: "💬", title: "マッチングアプリのやり取りにも活用", desc: "初メッセージ・デートの誘い・未読スルー後など、あらゆる場面でAIに相談できます。" },
+          ].map((item, i) => (
+            <li key={i} className="flex items-start gap-3 rounded-xl p-3"
+              style={{ background: "rgba(236,72,153,0.05)", border: "1px solid rgba(236,72,153,0.15)" }}>
+              <span style={{ fontSize: "22px", lineHeight: "1" }}>{item.icon}</span>
+              <div>
+                <div className="text-pink-800 font-bold text-sm">{i + 1}. {item.title}</div>
+                <div className="text-pink-600 text-xs mt-0.5 opacity-80">{item.desc}</div>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
       {/* X Share */}
       <section className="py-6 px-6 text-center">
         <a
