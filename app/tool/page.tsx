@@ -37,6 +37,11 @@ function ScoreRing({ score }: { score: number }) {
   const color = score >= 70 ? "#ec4899" : score >= 40 ? "#f59e0b" : "#ef4444";
   const label = score >= 70 ? "脈ありです！💓" : score >= 40 ? "まだわからない…" : "厳しいかも…";
   const hearts = score >= 70 ? ["💕", "💖", "💗"] : score >= 40 ? ["💛"] : [];
+  const badge = score >= 70
+    ? { text: "告白Go! 🔥", bg: "bg-pink-500", action: "今すぐ告白のチャンスです！返信例文タブを参考に気持ちを伝えましょう。" }
+    : score >= 40
+    ? { text: "もう少し！💛", bg: "bg-amber-500", action: "もう少しLINEを重ねて距離を縮めましょう。返信例文で会話を盛り上げて。" }
+    : { text: "関係深化優先 💪", bg: "bg-red-600", action: "まずは共通の話題や会う機会を増やしましょう。焦らず関係を育てることが大切です。" };
   return (
     <div className="flex flex-col items-center gap-3 my-4 py-6 bg-pink-900/40 rounded-2xl border border-pink-700/50">
       {/* 大型スコア中央表示 */}
@@ -50,10 +55,17 @@ function ScoreRing({ score }: { score: number }) {
         </div>
       )}
       <span className="font-black text-xl" style={{ color }}>{label}</span>
+      {/* 判定バッジ */}
+      <span className={`${badge.bg} text-white text-sm font-black px-4 py-1.5 rounded-full shadow-lg`}>{badge.text}</span>
       <div className="w-3/4 bg-pink-900 rounded-full h-3 overflow-hidden">
         <div className="h-3 rounded-full transition-all duration-1000" style={{ width: `${score}%`, backgroundColor: color }} />
       </div>
       <p className="text-xs text-pink-400">{score}点 / 100点満点</p>
+      {/* 次のアクション */}
+      <div className="w-full px-4 bg-pink-950/60 border border-pink-800/50 rounded-xl p-3 mt-1">
+        <p className="text-xs text-pink-200 font-bold mb-1">💡 次にやること</p>
+        <p className="text-xs text-pink-300">{badge.action}</p>
+      </div>
     </div>
   );
 }
