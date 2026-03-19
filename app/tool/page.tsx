@@ -13,6 +13,16 @@ type Result = {
   adviceLine: string;
 } | null;
 
+const PARTNER_TYPES = [
+  { id: "older", label: "📱 年上（5歳以上）" },
+  { id: "same", label: "👫 同世代" },
+  { id: "younger", label: "👶 年下（3歳以下）" },
+  { id: "workplace", label: "🏢 職場の人" },
+  { id: "school", label: "🎓 学校の知人" },
+  { id: "app", label: "📲 マッチングアプリ" },
+] as const;
+type PartnerTypeId = (typeof PARTNER_TYPES)[number]["id"];
+
 function parseResult(text: string): Result {
   const get = (tag: string) => {
     const m = text.match(new RegExp(`===\\s*${tag}\\s*===\\s*([\\s\\S]*?)(?====|$)`));
@@ -42,23 +52,37 @@ function ScoreRing({ score }: { score: number }) {
     : score >= 40
     ? { text: "もう少し！💛", bg: "bg-amber-500", action: "もう少しLINEを重ねて距離を縮めましょう。返信例文で会話を盛り上げて。" }
     : { text: "関係深化優先 💪", bg: "bg-red-600", action: "まずは共通の話題や会う機会を増やしましょう。焦らず関係を育てることが大切です。" };
+  const isPulse = score >= 70;
   return (
     <div className="flex flex-col items-center gap-3 my-4 py-6 bg-pink-900/40 rounded-2xl border border-pink-700/50">
       {/* 大型スコア中央表示 */}
-      <div className="text-center">
+      <div className="text-center relative">
+        {isPulse && (
+          <span className="absolute -top-4 left-1/2 -translate-x-1/2 text-3xl animate-ping opacity-75">💓</span>
+        )}
         <p className="text-6xl font-black" style={{ color }}>{score}<span className="text-3xl font-bold opacity-70">%</span></p>
-        <p className="text-sm text-pink-300 mt-1 font-medium">脈あり度スコア</p>
+        <p className="text-sm text-pink-300 mt-1 font-medium">脈あり確度: {score}%</p>
       </div>
       {hearts.length > 0 && (
-        <div className="flex gap-3 animate-bounce">
-          {hearts.map((h, i) => <span key={i} className="text-2xl">{h}</span>)}
+        <div className={`flex gap-3 ${isPulse ? "animate-pulse" : "animate-bounce"}`}>
+          {hearts.map((h, i) => (
+            <span
+              key={i}
+              className="text-2xl"
+              style={isPulse ? { animationDelay: `${i * 0.15}s` } : {}}
+            >{h}</span>
+          ))}
         </div>
       )}
       <span className="font-black text-xl" style={{ color }}>{label}</span>
       {/* 判定バッジ */}
-      <span className={`${badge.bg} text-white text-sm font-black px-4 py-1.5 rounded-full shadow-lg`}>{badge.text}</span>
+      <span className={`${badge.bg} text-white text-sm font-black px-4 py-1.5 rounded-full shadow-lg${isPulse ? " animate-pulse" : ""}`}>{badge.text}</span>
+      {/* プログレスバー */}
       <div className="w-3/4 bg-pink-900 rounded-full h-3 overflow-hidden">
-        <div className="h-3 rounded-full transition-all duration-1000" style={{ width: `${score}%`, backgroundColor: color }} />
+        <div
+          className={`h-3 rounded-full transition-all duration-1000${isPulse ? " animate-pulse" : ""}`}
+          style={{ width: `${score}%`, backgroundColor: color }}
+        />
       </div>
       <p className="text-xs text-pink-400">{score}点 / 100点満点</p>
       {/* 次のアクション */}
@@ -160,6 +184,7 @@ function ScoreTrendGraph({ history }: { history: ScoreHistory[] }) {
 export default function ToolPage() {
   const [line, setLine] = useState("");
   const [context, setContext] = useState("");
+  const [partnerTypes, setPartnerTypes] = useState<PartnerTypeId[]>([]);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<Result>(null);
   const [error, setError] = useState("");
@@ -171,6 +196,12 @@ export default function ToolPage() {
   const [rawText, setRawText] = useState("");
   const [completionVisible, setCompletionVisible] = useState(false);
   const [scoreHistory, setScoreHistory] = useState<ScoreHistory[]>([]);
+
+  function togglePartnerType(id: PartnerTypeId) {
+    setPartnerTypes((prev) =>
+      prev.includes(id) ? prev.filter((t) => t !== id) : [...prev, id]
+    );
+  }
   useEffect(() => {
     setScoreHistory(loadScoreHistory());
     fetch("/api/auth/status").then((r) => r.json()).then((d) => {
@@ -187,10 +218,13 @@ export default function ToolPage() {
     setResult(null);
     setRawText("");
     try {
+      const partnerTypeLabels = partnerTypes
+        .map((id) => PARTNER_TYPES.find((t) => t.id === id)?.label ?? "")
+        .filter(Boolean);
       const res = await fetch("/api/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ line, context }),
+        body: JSON.stringify({ line, context, partnerTypes: partnerTypeLabels }),
       });
       if (res.status === 402) { track('paywall_shown', { service: '告白LINE返信AI' }); setShowPaywall(true); setLoading(false); return; }
       if (!res.ok) {
@@ -330,6 +364,32 @@ export default function ToolPage() {
             value={context}
             onChange={(e) => setContext(e.target.value)}
           />
+        </div>
+
+        {/* 相手のタイプ選択 */}
+        <div>
+          <label className="block text-sm font-bold mb-2 text-slate-300">
+            相手のタイプ <span className="text-pink-600 font-normal text-xs">（任意・複数選択可）</span>
+          </label>
+          <div className="flex flex-wrap gap-2">
+            {PARTNER_TYPES.map((pt) => {
+              const active = partnerTypes.includes(pt.id);
+              return (
+                <button
+                  key={pt.id}
+                  type="button"
+                  onClick={() => togglePartnerType(pt.id)}
+                  className={`text-xs px-3 py-1.5 rounded-full border transition-all font-medium ${
+                    active
+                      ? "bg-pink-500 border-pink-400 text-white shadow-md shadow-pink-900/40"
+                      : "bg-pink-950/60 border-pink-700/50 text-pink-300 hover:bg-pink-800/60 hover:border-pink-500"
+                  }`}
+                >
+                  {pt.label}
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {!isPremium && remaining === 0 && !result && (

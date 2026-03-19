@@ -37,10 +37,14 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  const { line, context } = await req.json();
+  const { line, context, partnerTypes } = await req.json();
   if (!line?.trim()) {
     return NextResponse.json({ error: "LINEの内容を入力してください" }, { status: 400 });
   }
+
+  const partnerTypeContext = Array.isArray(partnerTypes) && partnerTypes.length > 0
+    ? `\n【相手のタイプ】\n${partnerTypes.join("、")}\n上記のタイプを考慮して、年齢差・出会い方・関係性に応じたアドバイスを調整してください。`
+    : "";
 
   const prompt = `あなたは恋愛心理学を専門とするカウンセラーであり、10,000件以上のLINEコミュニケーションを分析してきました。社会心理学・愛着理論・言語分析・非言語コミュニケーション研究の知見をもとに、LINEのやり取りから相手の気持ちを科学的に読み解き、次の一手を具体的にアドバイスします。
 
@@ -80,7 +84,7 @@ export async function POST(req: NextRequest) {
 【LINEの内容】
 ${line}
 
-${context ? `【関係性・状況】\n${context}` : ""}
+${context ? `【関係性・状況】\n${context}` : ""}${partnerTypeContext}
 
 以下の形式で必ず回答してください：
 
