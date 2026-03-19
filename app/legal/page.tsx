@@ -2,11 +2,11 @@ import Link from "next/link";
 
 export default function LegalPage() {
   const items = [
-    ["販売事業者", "ポッコリラボ"],
+    ["販売事業者", "新美諭"],
     ["運営責任者", "ポッコリラボ 代表 新美"],
     ["所在地", "非公開（請求があれば遅滞なく開示します）"],
-    ["電話番号", "非公開（請求があれば遅滞なく開示します）"],
-    ["メールアドレス", "X(Twitter) @levona_design へのDM"],
+    ["電話番号", "090-6093-5290"],
+    ["メールアドレス", "levonadesign@gmail.com（X: @levona_design）"],
     ["販売価格", "月額¥980（税込）"],
     ["支払方法", "クレジットカード（オンライン決済サービス経由）（Visa・Mastercard・American Express・JCB）"],
     ["支払時期", "お申し込み時にお支払いが確定します"],
