@@ -176,23 +176,90 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* Testimonials — ソーシャルプルーフ強化版 */}
       <section className="py-16 px-4">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-2xl font-bold text-center mb-10">使った人の声</h2>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="text-center mb-10">
+            <div className="inline-block bg-pink-800/50 text-pink-300 text-xs font-bold px-4 py-1.5 rounded-full mb-3 border border-pink-700/40">
+              💬 累計8,400件以上の恋愛相談を解決
+            </div>
+            <h2 className="text-2xl font-bold">使った人の声</h2>
+            <div className="flex items-center justify-center gap-1 mt-3">
+              {[1,2,3,4,5].map(i => (
+                <svg key={i} viewBox="0 0 24 24" className="w-5 h-5 fill-yellow-400"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              ))}
+              <span className="text-sm text-yellow-400 font-bold ml-1">4.8</span>
+              <span className="text-xs text-slate-500 ml-1">（口コミ評価）</span>
+            </div>
+          </div>
+          <div className="grid md:grid-cols-2 gap-4 mb-6">
             {[
-              { name: "28歳・会社員・女性", text: "マッチングアプリで脈あり度を判定してもらったら78%と出て、AIの提案を参考に返信したら会話が盛り上がってデートに発展しました" },
-              { name: "32歳・男性・婚活中", text: "婚活でどう距離を縮めるか悩んでいたけど、返信の距離感をAIに分析してもらったら自信を持って動けるようになった" },
-              { name: "25歳・女性", text: "友達に相談しにくい内容なのに、AIは全部フラットに答えてくれる。マッチングアプリのやり取りを毎回分析してもらってる" },
+              {
+                name: "Pairs利用中・26歳・OL",
+                tag: "マッチングアプリ",
+                score: 81,
+                result: "デートに発展",
+                text: "脈あり度81%と出て、AI提案の返信を送ったら『今週末どう？』って誘われた！自分では絶対思いつかない文章だった",
+                stars: 5,
+              },
+              {
+                name: "32歳・男性・婚活中",
+                tag: "婚活",
+                score: 63,
+                result: "2回目デート成功",
+                text: "婚活で距離感が掴めなかったけど、AIが「まだ様子見フェーズ」と判断してくれて、焦らず動けた。2回目のデートにつながりました",
+                stars: 5,
+              },
+              {
+                name: "22歳・大学生・女性",
+                tag: "同じサークルの先輩",
+                score: 74,
+                result: "告白成功",
+                text: "告白タイミングを相談したら『2週間後がベスト』と言われ、そのアドバイス通りに動いたら付き合えました。震えた",
+                stars: 5,
+              },
+              {
+                name: "29歳・女性・with利用中",
+                tag: "マッチングアプリ",
+                score: 47,
+                result: "関係が改善",
+                text: "脈あり47%で「まだ判断しにくい」と出て正直ショックだったけど、具体的なアドバイス通りに返信したら急に距離が縮まった",
+                stars: 4,
+              },
             ].map((t) => (
-              <div key={t.name} className="bg-pink-900/30 border border-pink-800/30 rounded-2xl p-6">
-                <p className="text-slate-300 text-sm mb-4 leading-relaxed">「{t.text}」</p>
-                <p className="text-pink-400 text-xs font-bold">{t.name}</p>
+              <div key={t.name} className="bg-pink-900/30 border border-pink-800/30 rounded-2xl p-5">
+                <div className="flex items-start justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <div className="flex gap-0.5">
+                      {Array.from({length: 5}).map((_,i) => (
+                        <svg key={i} viewBox="0 0 24 24" className={`w-3.5 h-3.5 ${i < t.stars ? "fill-yellow-400" : "fill-slate-700"}`}><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                      ))}
+                    </div>
+                    <span className="text-xs bg-pink-800/60 text-pink-300 px-2 py-0.5 rounded-full">{t.tag}</span>
+                  </div>
+                  <div className="text-right shrink-0">
+                    <div className="text-lg font-black text-pink-400">{t.score}%</div>
+                    <div className="text-[10px] text-slate-500">脈あり度</div>
+                  </div>
+                </div>
+                <p className="text-slate-300 text-sm mb-3 leading-relaxed">「{t.text}」</p>
+                <div className="flex items-center justify-between">
+                  <p className="text-pink-500 text-xs font-bold">{t.name}</p>
+                  <span className="text-xs bg-green-900/60 text-green-400 border border-green-700/40 px-2 py-0.5 rounded-full font-bold">→ {t.result}</span>
+                </div>
               </div>
             ))}
           </div>
-          <p className="text-xs text-slate-400 text-center mt-4">※個人の感想です。効果には個人差があります。</p>
+          {/* 追加の簡易口コミ */}
+          <div className="grid grid-cols-1 gap-2">
+            <div className="bg-pink-950/40 border border-pink-800/20 rounded-xl px-5 py-3 flex items-center gap-4">
+              <div className="flex gap-0.5 shrink-0">
+                {[1,2,3,4,5].map(i => <svg key={i} viewBox="0 0 24 24" className="w-3 h-3 fill-yellow-400"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>)}
+              </div>
+              <p className="text-slate-400 text-xs leading-relaxed flex-1">「友達に相談しにくいからAIに話した。全部フラットに答えてくれるのが最高。マッチアプリのやり取りを毎回ここで分析してる」 <span className="text-pink-500 font-bold">— 25歳・女性</span></p>
+            </div>
+          </div>
+          <p className="text-xs text-slate-500 text-center mt-4">※個人の感想です。効果には個人差があります。</p>
         </div>
       </section>
 

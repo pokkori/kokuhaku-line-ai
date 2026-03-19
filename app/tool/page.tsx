@@ -53,38 +53,74 @@ function ScoreRing({ score }: { score: number }) {
     ? { text: "もう少し！💛", bg: "bg-amber-500", action: "もう少しLINEを重ねて距離を縮めましょう。返信例文で会話を盛り上げて。" }
     : { text: "関係深化優先 💪", bg: "bg-red-600", action: "まずは共通の話題や会う機会を増やしましょう。焦らず関係を育てることが大切です。" };
   const isPulse = score >= 70;
+
+  // スコア帯に応じたグラデーション背景
+  const gradientBg = score >= 70
+    ? "bg-gradient-to-br from-pink-900/60 via-rose-900/40 to-pink-950/60"
+    : score >= 40
+    ? "bg-gradient-to-br from-amber-900/40 via-pink-900/30 to-pink-950/60"
+    : "bg-gradient-to-br from-red-900/40 via-pink-950/40 to-pink-950/60";
+
   return (
-    <div className="flex flex-col items-center gap-3 my-4 py-6 bg-pink-900/40 rounded-2xl border border-pink-700/50">
-      {/* 大型スコア中央表示 */}
-      <div className="text-center relative">
+    <div className={`flex flex-col items-center gap-3 my-4 py-6 ${gradientBg} rounded-2xl border border-pink-700/50 relative overflow-hidden`}>
+      {/* 背景装飾ハート（高スコア時） */}
+      {isPulse && (
+        <div className="absolute inset-0 pointer-events-none select-none">
+          {["💓","💗","💕"].map((h, i) => (
+            <span key={i} className="absolute text-4xl opacity-10 animate-ping"
+              style={{ top: `${[15,55,30][i]}%`, left: `${[10,80,50][i]}%`, animationDelay: `${i * 0.4}s`, animationDuration: "2s" }}>{h}</span>
+          ))}
+        </div>
+      )}
+
+      {/* OGPカード風スコア表示 */}
+      <div className="text-center relative z-10 px-4 w-full">
         {isPulse && (
           <span className="absolute -top-4 left-1/2 -translate-x-1/2 text-3xl animate-ping opacity-75">💓</span>
         )}
-        <p className="text-6xl font-black" style={{ color }}>{score}<span className="text-3xl font-bold opacity-70">%</span></p>
-        <p className="text-sm text-pink-300 mt-1 font-medium">脈あり確度: {score}%</p>
+        {/* スコアメーター（円弧風） */}
+        <div className="relative inline-flex items-center justify-center mb-2">
+          <svg width="140" height="140" viewBox="0 0 140 140" className="-rotate-90">
+            <circle cx="70" cy="70" r="58" fill="none" stroke="#1e0a18" strokeWidth="12"/>
+            <circle cx="70" cy="70" r="58" fill="none" stroke={color} strokeWidth="12"
+              strokeDasharray={`${(score / 100) * 364} 364`}
+              strokeLinecap="round"
+              style={{ transition: "stroke-dasharray 1.2s cubic-bezier(.4,0,.2,1)" }}
+            />
+          </svg>
+          <div className="absolute inset-0 flex flex-col items-center justify-center">
+            <p className="text-5xl font-black leading-none" style={{ color }}>{score}</p>
+            <p className="text-lg font-bold opacity-70" style={{ color }}>%</p>
+          </div>
+        </div>
+        <p className="text-sm text-pink-300 font-medium">脈あり確度: {score}%</p>
       </div>
+
       {hearts.length > 0 && (
         <div className={`flex gap-3 ${isPulse ? "animate-pulse" : "animate-bounce"}`}>
           {hearts.map((h, i) => (
-            <span
-              key={i}
-              className="text-2xl"
-              style={isPulse ? { animationDelay: `${i * 0.15}s` } : {}}
-            >{h}</span>
+            <span key={i} className="text-2xl" style={isPulse ? { animationDelay: `${i * 0.15}s` } : {}}>{h}</span>
           ))}
         </div>
       )}
       <span className="font-black text-xl" style={{ color }}>{label}</span>
+
       {/* 判定バッジ */}
       <span className={`${badge.bg} text-white text-sm font-black px-4 py-1.5 rounded-full shadow-lg${isPulse ? " animate-pulse" : ""}`}>{badge.text}</span>
-      {/* プログレスバー */}
-      <div className="w-3/4 bg-pink-900 rounded-full h-3 overflow-hidden">
-        <div
-          className={`h-3 rounded-full transition-all duration-1000${isPulse ? " animate-pulse" : ""}`}
-          style={{ width: `${score}%`, backgroundColor: color }}
-        />
+
+      {/* スコア帯の意味を視覚的に補足 */}
+      <div className="w-3/4 relative">
+        <div className="bg-pink-900 rounded-full h-3 overflow-hidden">
+          <div
+            className={`h-3 rounded-full transition-all duration-1000${isPulse ? " animate-pulse" : ""}`}
+            style={{ width: `${score}%`, backgroundColor: color }}
+          />
+        </div>
+        <div className="flex justify-between text-[9px] text-pink-800 mt-1">
+          <span>0% 脈なし</span><span>50% 様子見</span><span>100% 脈あり</span>
+        </div>
       </div>
-      <p className="text-xs text-pink-400">{score}点 / 100点満点</p>
+
       {/* 次のアクション */}
       <div className="w-full px-4 bg-pink-950/60 border border-pink-800/50 rounded-xl p-3 mt-1">
         <p className="text-xs text-pink-200 font-bold mb-1">💡 次にやること</p>
@@ -546,10 +582,20 @@ export default function ToolPage() {
                     <div className="w-7 h-7 rounded-full bg-green-500 flex items-center justify-center text-xs font-bold text-white shrink-0">AI</div>
                     <span className="text-xs text-slate-400">送るならどれ？ — そのままコピーしてOK</span>
                   </div>
+                  {/* シナリオ分岐ラベル */}
+                  <div className="flex flex-wrap gap-2 pb-1">
+                    {[
+                      { label: "💘 積極的に受け入れる", color: "bg-pink-500/20 border-pink-500/50 text-pink-300" },
+                      { label: "💛 まだ考えたい（様子見）", color: "bg-amber-500/20 border-amber-500/50 text-amber-300" },
+                      { label: "🤍 丁寧に断る", color: "bg-slate-500/20 border-slate-500/50 text-slate-300" },
+                    ].map((s) => (
+                      <span key={s.label} className={`text-xs px-2.5 py-1 rounded-full border font-medium ${s.color}`}>{s.label}</span>
+                    ))}
+                  </div>
                   {result.replies.map((r, i) => {
-                    const labels = ["積極アプローチ", "自然な関係深め", "余韻残し"];
-                    const labelColors = ["text-pink-400", "text-blue-400", "text-purple-400"];
-                    const bgColors = ["bg-pink-500", "bg-blue-500", "bg-purple-500"];
+                    const labels = ["想いを受け入れる返信", "様子見・時間を作る返信", "丁寧に断る返信"];
+                    const labelColors = ["text-pink-400", "text-amber-400", "text-slate-400"];
+                    const bgColors = ["bg-pink-500", "bg-amber-500", "bg-slate-600"];
                     // 本文と補足説明を分割（「なぜ効果的か」の説明部分を分ける）
                     const lines = r.split(/\n/);
                     const mainLine = lines[0] ?? r;
