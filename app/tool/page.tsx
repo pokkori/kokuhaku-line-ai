@@ -295,6 +295,25 @@ export default function ToolPage() {
         </div>
         <div>
           <label className="block text-sm font-bold mb-2 text-slate-300">好きな子のLINE（コピペしてください）</label>
+          {/* 感情プリセットボタン */}
+          <div className="flex flex-wrap gap-2 mb-3">
+            {[
+              { label: "😊 好意サイン", text: "最近よく連絡くれるし、二人でご飯行こうって言ってくれた。脈ありかな…" },
+              { label: "💬 既読スルー", text: "既読ついたのに3日間返信がない。どうすればいい？" },
+              { label: "🤔 曖昧な返信", text: "「いつか行こうね」って言われたけど、具体的な日程を言ってくれない" },
+              { label: "😰 告白前", text: "明日告白しようと思ってるんだけど、このLINEの文面で大丈夫かな？" },
+              { label: "💔 振られた後", text: "先日告白して振られたけど、「友達として仲良くしたい」って言われた" },
+            ].map((preset) => (
+              <button
+                key={preset.label}
+                type="button"
+                onClick={() => setLine(preset.text)}
+                className="text-xs bg-pink-900/60 hover:bg-pink-800/80 border border-pink-700/50 hover:border-pink-500 text-pink-200 hover:text-white px-3 py-1.5 rounded-full transition-all"
+              >
+                {preset.label}
+              </button>
+            ))}
+          </div>
           <textarea
             className="w-full bg-pink-950/60 border border-pink-700/50 rounded-xl p-4 text-sm text-white placeholder-pink-400/50 resize-none focus:outline-none focus:border-pink-400 h-40"
             placeholder={"例）\n彼女: 「今日バイトだよー」\n自分: 「お疲れ！何時まで？」\n彼女: 「9時まで笑 なんで？」\n自分: 「いや別に笑」\n彼女: 「気になる笑」"}
