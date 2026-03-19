@@ -70,14 +70,92 @@ function ScoreRing({ score }: { score: number }) {
   );
 }
 
-type Tab = "score" | "analysis" | "replies" | "confession" | "timing";
+type Tab = "score" | "analysis" | "replies" | "confession" | "timing" | "history";
 const TABS: { id: Tab; label: string }[] = [
   { id: "score", label: "📊 判定" },
   { id: "analysis", label: "🔍 心理分析" },
   { id: "replies", label: "💬 返信例文" },
   { id: "confession", label: "💌 告白文" },
   { id: "timing", label: "📅 タイミング" },
+  { id: "history", label: "📈 推移" },
 ];
+
+type ScoreHistory = { score: number; date: string; context?: string };
+const HISTORY_KEY = "kokuhaku_score_history";
+function loadScoreHistory(): ScoreHistory[] {
+  if (typeof window === "undefined") return [];
+  try { return JSON.parse(localStorage.getItem(HISTORY_KEY) ?? "[]"); } catch { return []; }
+}
+function saveScoreHistory(score: number, ctx: string): ScoreHistory[] {
+  const history = loadScoreHistory();
+  const entry: ScoreHistory = { score, date: new Date().toLocaleDateString("ja-JP", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" }), context: ctx.slice(0, 20) || undefined };
+  const next = [...history, entry].slice(-10); // keep last 10
+  localStorage.setItem(HISTORY_KEY, JSON.stringify(next));
+  return next;
+}
+
+function ScoreTrendGraph({ history }: { history: ScoreHistory[] }) {
+  if (history.length === 0) return (
+    <div className="py-12 text-center text-pink-500 text-sm">まだ診断履歴がありません<br /><span className="text-xs text-pink-700 mt-1 block">診断するたびにここに記録されます</span></div>
+  );
+  const max = Math.max(...history.map(h => h.score), 100);
+  const avg = Math.round(history.reduce((s, h) => s + h.score, 0) / history.length);
+  const trend = history.length >= 2 ? history[history.length - 1].score - history[0].score : 0;
+  return (
+    <div className="space-y-4">
+      <div className="flex gap-3 text-center">
+        <div className="flex-1 bg-pink-900/40 rounded-xl p-3">
+          <p className="text-2xl font-black text-pink-300">{avg}%</p>
+          <p className="text-xs text-pink-600">平均スコア</p>
+        </div>
+        <div className="flex-1 bg-pink-900/40 rounded-xl p-3">
+          <p className={`text-2xl font-black ${trend > 0 ? "text-green-400" : trend < 0 ? "text-red-400" : "text-pink-300"}`}>{trend > 0 ? `↑+${trend}` : trend < 0 ? `↓${trend}` : "→0"}%</p>
+          <p className="text-xs text-pink-600">初回→最新</p>
+        </div>
+        <div className="flex-1 bg-pink-900/40 rounded-xl p-3">
+          <p className="text-2xl font-black text-pink-300">{history.length}</p>
+          <p className="text-xs text-pink-600">診断回数</p>
+        </div>
+      </div>
+      {/* Bar chart */}
+      <div className="bg-pink-950/60 border border-pink-800/40 rounded-xl p-4">
+        <p className="text-xs text-pink-500 mb-3 font-bold">脈あり度の変化（最新10回）</p>
+        <div className="flex items-end gap-1.5 h-28">
+          {history.map((h, i) => {
+            const barH = Math.round((h.score / max) * 100);
+            const color = h.score >= 70 ? "#ec4899" : h.score >= 40 ? "#f59e0b" : "#ef4444";
+            return (
+              <div key={i} className="flex-1 flex flex-col items-center gap-0.5">
+                <span className="text-[9px] font-bold" style={{ color }}>{h.score}</span>
+                <div className="w-full rounded-t transition-all duration-500" style={{ height: `${barH}%`, backgroundColor: color, minHeight: 4 }} />
+                <span className="text-[8px] text-pink-700 leading-none">{h.date.split(" ")[0]}</span>
+              </div>
+            );
+          })}
+        </div>
+        <div className="flex justify-between mt-2 text-[9px] text-pink-800">
+          <span>古い</span><span>新しい →</span>
+        </div>
+      </div>
+      {/* Recent list */}
+      <div className="space-y-1.5">
+        {[...history].reverse().slice(0, 5).map((h, i) => (
+          <div key={i} className="flex items-center gap-3 bg-pink-950/40 rounded-lg px-3 py-2">
+            <span className="text-lg font-black" style={{ color: h.score >= 70 ? "#ec4899" : h.score >= 40 ? "#f59e0b" : "#ef4444" }}>{h.score}%</span>
+            <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${h.score >= 70 ? "bg-pink-500 text-white" : h.score >= 40 ? "bg-amber-500 text-white" : "bg-red-600 text-white"}`}>
+              {h.score >= 70 ? "脈あり" : h.score >= 40 ? "様子見" : "厳しい"}
+            </span>
+            <span className="text-xs text-pink-600 ml-auto">{h.date}</span>
+          </div>
+        ))}
+      </div>
+      <button
+        onClick={() => { localStorage.removeItem(HISTORY_KEY); window.location.reload(); }}
+        className="text-xs text-pink-800 hover:text-pink-600 w-full text-center mt-2"
+      >🗑 履歴をリセット</button>
+    </div>
+  );
+}
 
 export default function ToolPage() {
   const [line, setLine] = useState("");
@@ -92,7 +170,9 @@ export default function ToolPage() {
   const [copied, setCopied] = useState<string | null>(null);
   const [rawText, setRawText] = useState("");
   const [completionVisible, setCompletionVisible] = useState(false);
+  const [scoreHistory, setScoreHistory] = useState<ScoreHistory[]>([]);
   useEffect(() => {
+    setScoreHistory(loadScoreHistory());
     fetch("/api/auth/status").then((r) => r.json()).then((d) => {
       setIsPremium(d.premium);
       setRemaining(d.remaining);
@@ -139,6 +219,10 @@ export default function ToolPage() {
       }
       const parsed = parseResult(fullText);
       setResult(parsed);
+      if (parsed) {
+        const updated = saveScoreHistory(parsed.score, context);
+        setScoreHistory(updated);
+      }
       setTab("replies");
       // 達成感バナー表示
       setCompletionVisible(true);
@@ -452,6 +536,10 @@ export default function ToolPage() {
 
               {tab === "timing" && (
                 <div className="text-sm text-pink-100 leading-relaxed whitespace-pre-wrap">{result.timing}</div>
+              )}
+
+              {tab === "history" && (
+                <ScoreTrendGraph history={scoreHistory} />
               )}
             </div>
           </div>
