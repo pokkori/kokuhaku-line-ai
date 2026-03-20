@@ -5,6 +5,105 @@ import KomojuButton from "@/components/KomojuButton";
 
 const PAYJP_PUBLIC_KEY = process.env.NEXT_PUBLIC_PAYJP_PUBLIC_KEY ?? "";
 
+// クイック脈あり自己診断
+const QUICK_QUIZ: { q: string; yes: number; no: number }[] = [
+  { q: "最近1週間以内にLINEのやり取りをした", yes: 18, no: 0 },
+  { q: "相手から先にLINEを送ってくることがある", yes: 20, no: 0 },
+  { q: "返信が1時間以内に来ることが多い", yes: 15, no: 0 },
+  { q: "絵文字や「笑」を使った返信が来る", yes: 12, no: 0 },
+  { q: "2人きりで会ったことがある、または誘われたことがある", yes: 22, no: 0 },
+  { q: "自分の話（好き・趣味・プライベート）をしてくれる", yes: 13, no: 0 },
+];
+
+function QuickDiagnosis() {
+  const [answers, setAnswers] = useState<(boolean | null)[]>(Array(QUICK_QUIZ.length).fill(null));
+  const [showResult, setShowResult] = useState(false);
+
+  const answered = answers.filter(a => a !== null).length;
+  const score = answers.reduce((sum, a, i) => {
+    if (a === true) return sum + QUICK_QUIZ[i].yes;
+    return sum;
+  }, 0);
+  const maxScore = QUICK_QUIZ.reduce((s, q) => s + q.yes, 0);
+  const pct = Math.round((score / maxScore) * 100);
+
+  const toggle = (i: number, val: boolean) => {
+    const next = [...answers];
+    next[i] = val;
+    setAnswers(next);
+    if (next.filter(a => a !== null).length === QUICK_QUIZ.length) {
+      setTimeout(() => setShowResult(true), 300);
+    }
+  };
+
+  const reset = () => { setAnswers(Array(QUICK_QUIZ.length).fill(null)); setShowResult(false); };
+
+  const color = pct >= 70 ? "#ec4899" : pct >= 40 ? "#f59e0b" : "#ef4444";
+  const label = pct >= 70 ? "脈あり度 高め！💓 告白のチャンスです" : pct >= 40 ? "まだわからない… もう少し様子を見よう" : "厳しいかも… 関係を深めるところから";
+
+  return (
+    <div className="max-w-2xl mx-auto">
+      <div className="text-center mb-6">
+        <div className="inline-block bg-pink-800/50 text-pink-300 text-xs font-bold px-4 py-1.5 rounded-full mb-3 border border-pink-700/40">
+          30秒で脈あり度がわかる
+        </div>
+        <h2 className="text-xl font-bold">クイック脈あり自己診断</h2>
+        <p className="text-xs text-pink-400 mt-2">6つの質問に「はい/いいえ」で答えるだけ</p>
+      </div>
+      {!showResult ? (
+        <div className="space-y-3">
+          {QUICK_QUIZ.map((q, i) => (
+            <div key={i} className="bg-pink-900/30 border border-pink-800/40 rounded-xl px-4 py-3">
+              <p className="text-sm text-pink-100 mb-2">{i + 1}. {q.q}</p>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => toggle(i, true)}
+                  className={`flex-1 py-2 rounded-lg text-sm font-bold transition-all ${answers[i] === true ? "bg-pink-500 text-white" : "bg-pink-900/40 text-pink-300 hover:bg-pink-800/60"}`}
+                >
+                  はい
+                </button>
+                <button
+                  onClick={() => toggle(i, false)}
+                  className={`flex-1 py-2 rounded-lg text-sm font-bold transition-all ${answers[i] === false ? "bg-slate-600 text-white" : "bg-pink-900/40 text-pink-300 hover:bg-pink-800/60"}`}
+                >
+                  いいえ
+                </button>
+              </div>
+            </div>
+          ))}
+          <div className="text-center text-xs text-pink-600 mt-2">{answered}/{QUICK_QUIZ.length}問 回答済み</div>
+        </div>
+      ) : (
+        <div className="text-center">
+          <div className="relative inline-flex items-center justify-center mb-4">
+            <svg width="140" height="140" viewBox="0 0 140 140" className="-rotate-90">
+              <circle cx="70" cy="70" r="58" fill="none" stroke="#1e0a18" strokeWidth="12"/>
+              <circle cx="70" cy="70" r="58" fill="none" stroke={color} strokeWidth="12"
+                strokeDasharray={`${(pct / 100) * 364} 364`} strokeLinecap="round"
+                style={{ transition: "stroke-dasharray 1.2s cubic-bezier(.4,0,.2,1)" }}
+              />
+            </svg>
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <p className="text-5xl font-black" style={{ color }}>{pct}</p>
+              <p className="text-lg font-bold opacity-70" style={{ color }}>%</p>
+            </div>
+          </div>
+          <p className="font-bold text-lg mb-2" style={{ color }}>{label}</p>
+          <p className="text-xs text-pink-400 mb-4">この簡易診断はあくまで目安です。AIに実際のLINEを解析させることで精度が大幅に上がります。</p>
+          <div className="flex flex-col gap-3">
+            <Link href="/tool" className="block bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold px-8 py-3 rounded-xl transition">
+              LINEの文章をAIに解析してもらう（3回無料）→
+            </Link>
+            <button onClick={reset} className="text-xs text-pink-600 hover:text-pink-400 underline">
+              もう一度診断する
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function Home() {
   const [showPayjp, setShowPayjp] = useState(false);
 
@@ -149,6 +248,11 @@ export default function Home() {
             </Link>
           </div>
         </div>
+      </section>
+
+      {/* クイック脈あり自己診断 */}
+      <section className="py-14 px-4 bg-pink-950/30">
+        <QuickDiagnosis />
       </section>
 
       {/* Pain points */}

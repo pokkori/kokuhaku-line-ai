@@ -742,6 +742,19 @@ export default function ToolPage() {
                     </div>
                   )}
                   <p className="text-xs text-slate-600 text-center pt-2">💬 送りたい文をコピーして、そのままLINEに貼り付けよう</p>
+                  {/* 返信まとめコピーボタン */}
+                  <button
+                    onClick={() => {
+                      const text = result.replies.map((r, i) => {
+                        const labels = ["【積極的】", "【様子見】", "【断る】"];
+                        return `${labels[i] ?? ""} ${r.split("\n")[0]}`;
+                      }).join("\n");
+                      copy(`脈あり度: ${result.score}%\n\n${text}\n\n▶ 告白LINE返信AI https://kokuhaku-line-ai.vercel.app`, "all-replies");
+                    }}
+                    className="w-full mt-2 py-2.5 border border-pink-700/40 text-pink-400 hover:text-pink-200 hover:bg-pink-900/30 text-xs font-bold rounded-xl transition"
+                  >
+                    {copied === "all-replies" ? "✓ コピー完了！" : "📋 3パターンをまとめてコピー（SNSシェア用）"}
+                  </button>
                 </div>
               )}
 
