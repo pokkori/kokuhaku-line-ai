@@ -130,18 +130,31 @@ function ScoreRing({ score }: { score: number }) {
   );
 }
 
-type Tab = "score" | "analysis" | "replies" | "confession" | "timing" | "history";
+type Tab = "score" | "analysis" | "replies" | "confession" | "timing" | "history" | "planner";
 const TABS: { id: Tab; label: string }[] = [
   { id: "score", label: "📊 判定" },
-  { id: "analysis", label: "🔍 心理分析" },
   { id: "replies", label: "💬 返信例文" },
+  { id: "analysis", label: "🔍 心理分析" },
   { id: "confession", label: "💌 告白文" },
   { id: "timing", label: "📅 タイミング" },
+  { id: "planner", label: "📋 作戦" },
   { id: "history", label: "📈 推移" },
 ];
 
 type ScoreHistory = { score: number; date: string; context?: string };
 const HISTORY_KEY = "kokuhaku_score_history";
+const SAVED_REPLIES_KEY = "kokuhaku_saved_replies";
+
+function loadSavedReplies(): string[] {
+  if (typeof window === "undefined") return [];
+  try { return JSON.parse(localStorage.getItem(SAVED_REPLIES_KEY) ?? "[]"); } catch { return []; }
+}
+function toggleSavedReply(reply: string): string[] {
+  const current = loadSavedReplies();
+  const next = current.includes(reply) ? current.filter(r => r !== reply) : [...current, reply].slice(0, 10);
+  localStorage.setItem(SAVED_REPLIES_KEY, JSON.stringify(next));
+  return next;
+}
 function loadScoreHistory(): ScoreHistory[] {
   if (typeof window === "undefined") return [];
   try { return JSON.parse(localStorage.getItem(HISTORY_KEY) ?? "[]"); } catch { return []; }
@@ -232,6 +245,8 @@ export default function ToolPage() {
   const [rawText, setRawText] = useState("");
   const [completionVisible, setCompletionVisible] = useState(false);
   const [scoreHistory, setScoreHistory] = useState<ScoreHistory[]>([]);
+  const [savedReplies, setSavedReplies] = useState<string[]>([]);
+  const [savedNotif, setSavedNotif] = useState<string | null>(null);
 
   function togglePartnerType(id: PartnerTypeId) {
     setPartnerTypes((prev) =>
@@ -240,6 +255,7 @@ export default function ToolPage() {
   }
   useEffect(() => {
     setScoreHistory(loadScoreHistory());
+    setSavedReplies(loadSavedReplies());
     fetch("/api/auth/status").then((r) => r.json()).then((d) => {
       setIsPremium(d.premium);
       setRemaining(d.remaining);
@@ -600,11 +616,29 @@ export default function ToolPage() {
                     const lines = r.split(/\n/);
                     const mainLine = lines[0] ?? r;
                     const subLines = lines.slice(1).join("\n").trim();
+                    const isSaved = savedReplies.includes(mainLine);
                     return (
                       <div key={i} className="flex flex-col gap-1">
-                        <span className={`text-xs font-bold ml-1 ${labelColors[i] ?? "text-slate-400"}`}>
-                          {i + 1}. {labels[i] ?? "返信例"}
-                        </span>
+                        <div className="flex items-center justify-between ml-1">
+                          <span className={`text-xs font-bold ${labelColors[i] ?? "text-slate-400"}`}>
+                            {i + 1}. {labels[i] ?? "返信例"}
+                          </span>
+                          <button
+                            onClick={() => {
+                              const updated = toggleSavedReply(mainLine);
+                              setSavedReplies(updated);
+                              setSavedNotif(isSaved ? null : mainLine);
+                              setTimeout(() => setSavedNotif(null), 2000);
+                            }}
+                            className={`text-xs px-2 py-0.5 rounded-full transition font-bold ${isSaved ? "bg-pink-500/20 text-pink-300 border border-pink-500/40" : "text-slate-500 hover:text-pink-400 border border-slate-600/40"}`}
+                            title={isSaved ? "お気に入りから削除" : "お気に入りに保存"}
+                          >
+                            {isSaved ? "💖 保存済み" : "♡ 保存"}
+                          </button>
+                        </div>
+                        {savedNotif === mainLine && (
+                          <div className="text-center text-xs text-pink-300 animate-bounce">💖 お気に入りに保存しました！</div>
+                        )}
                         {/* LINE吹き出し（右側・自分の送信） */}
                         <div className="flex justify-end items-end gap-2">
                           <button
@@ -628,6 +662,31 @@ export default function ToolPage() {
                       </div>
                     );
                   })}
+                  {/* お気に入り返信一覧 */}
+                  {savedReplies.length > 0 && (
+                    <div className="mt-4 border-t border-pink-800/40 pt-4">
+                      <p className="text-xs font-bold text-pink-300 mb-2">💖 お気に入りの返信</p>
+                      <div className="space-y-2">
+                        {savedReplies.map((reply, i) => (
+                          <div key={i} className="flex items-start gap-2 bg-pink-950/40 border border-pink-800/30 rounded-xl px-3 py-2">
+                            <p className="text-xs text-pink-200 flex-1 leading-relaxed">{reply}</p>
+                            <button
+                              onClick={() => copy(reply, `saved-${i}`)}
+                              className="text-xs text-slate-500 hover:text-slate-300 shrink-0 transition"
+                            >
+                              {copied === `saved-${i}` ? "✓" : "コピー"}
+                            </button>
+                            <button
+                              onClick={() => { const updated = toggleSavedReply(reply); setSavedReplies(updated); }}
+                              className="text-xs text-slate-600 hover:text-red-400 shrink-0 transition"
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                   <p className="text-xs text-slate-600 text-center pt-2">💬 送りたい文をコピーして、そのままLINEに貼り付けよう</p>
                 </div>
               )}
@@ -661,6 +720,81 @@ export default function ToolPage() {
 
               {tab === "timing" && (
                 <div className="text-sm text-pink-100 leading-relaxed whitespace-pre-wrap">{result.timing}</div>
+              )}
+
+              {tab === "planner" && (
+                <div className="space-y-4">
+                  <p className="text-xs text-pink-400 mb-4">脈あり度{result.score}%に基づいた、次の一手を提案します。</p>
+                  {/* 次の会話ネタ3選 */}
+                  <div>
+                    <p className="text-xs font-bold text-pink-300 mb-2">💬 次に使える会話ネタ3選</p>
+                    <div className="space-y-2">
+                      {((): { icon: string; text: string; action: string }[] => {
+                        if (result.score >= 70) return [
+                          { icon: "🎯", text: "「今度の週末、一緒に〇〇行かない？」とデートに誘う", action: "積極的" },
+                          { icon: "📸", text: "共通の趣味・話題で「これ見たとき〇〇思い出した」と送る", action: "自然" },
+                          { icon: "🌙", text: "夜に「最近どう？」と軽く連絡して会話の糸口を作る", action: "ゆっくり" },
+                        ];
+                        if (result.score >= 40) return [
+                          { icon: "😊", text: "相手の好きなものについて「詳しく教えて！」と聞く", action: "距離縮め" },
+                          { icon: "🎭", text: "2人が関係する出来事・ニュースをネタに会話する", action: "共通点" },
+                          { icon: "☕", text: "「〇〇に行ったんだけどよかったよ」と間接的にデートを提案", action: "間接的" },
+                        ];
+                        return [
+                          { icon: "🌱", text: "共通の友達を通じて自然な接点を作る", action: "基盤作り" },
+                          { icon: "📖", text: "相手の趣味・興味分野の話題から始める", action: "興味を示す" },
+                          { icon: "👥", text: "グループでの集まりで接点を増やす", action: "焦らない" },
+                        ];
+                      })().map((item, i) => (
+                        <div key={i} className="flex items-start gap-3 bg-pink-950/50 border border-pink-800/40 rounded-xl p-3">
+                          <span className="text-xl leading-none shrink-0">{item.icon}</span>
+                          <div className="flex-1">
+                            <p className="text-xs text-pink-100">{item.text}</p>
+                            <span className="text-[10px] bg-pink-700/50 text-pink-300 px-2 py-0.5 rounded-full mt-1 inline-block">{item.action}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  {/* 告白成功チェックリスト */}
+                  <div>
+                    <p className="text-xs font-bold text-pink-300 mb-2">✅ 告白成功率を上げる5つのチェックリスト</p>
+                    <div className="space-y-1.5">
+                      {[
+                        { check: result.score >= 50, label: "脈あり度50%以上", detail: result.score >= 50 ? "クリア！告白のチャンスあり" : `現在${result.score}%。もう少し距離を縮めよう` },
+                        { check: false, label: "2人きりになれる状況を作った", detail: "次のLINEでさりげなく2人の時間を提案してみよう" },
+                        { check: false, label: "相手の好きなものを3つ知っている", detail: "共通の話題が増えると一気に距離が縮まる" },
+                        { check: false, label: "最後に会ってから3週間以内", detail: "時間が空きすぎると熱が冷めやすい。接触頻度を保って" },
+                        { check: false, label: "告白する場所・タイミングを決めた", detail: "「いつか」は「永遠に来ない」。具体的に決めよう" },
+                      ].map((item, i) => (
+                        <div key={i} className={`flex items-start gap-2 px-3 py-2 rounded-lg ${item.check ? "bg-green-900/20 border border-green-700/30" : "bg-pink-950/40 border border-pink-800/30"}`}>
+                          <span className={`shrink-0 text-sm ${item.check ? "text-green-400" : "text-pink-700"}`}>{item.check ? "✅" : "⬜"}</span>
+                          <div>
+                            <p className={`text-xs font-bold ${item.check ? "text-green-300" : "text-pink-300"}`}>{item.label}</p>
+                            <p className="text-[11px] text-pink-500/80">{item.detail}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  {/* 次のLINEを送るベスト時間 */}
+                  <div className="bg-pink-950/50 border border-pink-800/40 rounded-xl p-3">
+                    <p className="text-xs font-bold text-pink-300 mb-2">🕐 次のLINEを送るベストタイミング</p>
+                    <div className="grid grid-cols-3 gap-2">
+                      {[
+                        { time: "21:00-22:00", label: "夜", reason: "1日の終わりでリラックス中。返信率最高", star: true },
+                        { time: "07:30-08:30", label: "朝", reason: "通勤・通学中。スマホを見る時間帯", star: false },
+                        { time: "12:15-13:00", label: "昼休み", reason: "昼食中のスマホチェックタイム", star: false },
+                      ].map((t, i) => (
+                        <div key={i} className={`text-center p-2 rounded-lg ${t.star ? "bg-pink-500/20 border border-pink-500/40" : "bg-pink-950/60 border border-pink-800/30"}`}>
+                          <p className={`text-xs font-black ${t.star ? "text-pink-300" : "text-pink-500"}`}>{t.time}</p>
+                          <p className={`text-[10px] font-bold ${t.star ? "text-pink-200" : "text-pink-600"}`}>{t.label}{t.star && " 🔥"}</p>
+                          <p className="text-[9px] text-pink-700 leading-tight mt-0.5">{t.reason}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               )}
 
               {tab === "history" && (

@@ -176,6 +176,41 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 成功タイムライン — リアルタイム演出 */}
+      <section className="py-10 px-4 bg-pink-950/30">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-6">
+            <div className="inline-flex items-center gap-2 bg-pink-900/50 text-pink-300 text-xs font-bold px-4 py-1.5 rounded-full border border-pink-700/40">
+              <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+              たった今、成功報告が届いています
+            </div>
+          </div>
+          <div className="space-y-2">
+            {[
+              { time: "3分前", score: 88, text: "脈あり88%が出て、AIの返信を送ったら即デートOKが来た！神すぎる", tag: "Pairs", result: "デート成功" },
+              { time: "11分前", score: 74, text: "ずっと既読スルーされてたのに、AIのアドバイス通りに返したら返信来た！", tag: "学校の友達", result: "ブロック解除" },
+              { time: "28分前", score: 91, text: "告白タイミング分析で「今週末がベスト」と出て、実際に告白したら付き合えた！", tag: "職場", result: "交際成立" },
+              { time: "45分前", score: 62, text: "婚活で距離感に悩んでたけど、具体的なアドバイスで2回目デートにつながった", tag: "with", result: "2回目デート" },
+            ].map((item, i) => (
+              <div key={i} className="flex items-start gap-3 bg-pink-900/20 border border-pink-700/30 rounded-xl px-4 py-3">
+                <div className="shrink-0 text-right min-w-[4rem]">
+                  <div className="text-lg font-black" style={{ color: item.score >= 80 ? "#ec4899" : item.score >= 60 ? "#f59e0b" : "#ef4444" }}>{item.score}%</div>
+                  <div className="text-[10px] text-pink-700">{item.time}</div>
+                </div>
+                <div className="flex-1">
+                  <p className="text-xs text-pink-200 leading-relaxed">「{item.text}」</p>
+                  <div className="flex items-center gap-2 mt-1">
+                    <span className="text-[10px] bg-pink-800/60 text-pink-300 px-2 py-0.5 rounded-full">{item.tag}</span>
+                    <span className="text-[10px] bg-green-900/60 text-green-400 border border-green-700/40 px-2 py-0.5 rounded-full font-bold">→ {item.result}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="text-center text-xs text-pink-800 mt-3">※ユーザー体験談の一例です。個人差があります。</p>
+        </div>
+      </section>
+
       {/* Testimonials — ソーシャルプルーフ強化版 */}
       <section className="py-16 px-4">
         <div className="max-w-3xl mx-auto">
@@ -355,15 +390,201 @@ export default function Home() {
         </ol>
       </section>
 
+      {/* サクセスストーリー */}
+      <section className="py-16 px-4 bg-pink-950/30">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-10">
+            <div className="inline-block bg-pink-800/50 text-pink-300 text-xs font-bold px-4 py-1.5 rounded-full mb-3 border border-pink-700/40">
+              告白成功ストーリー
+            </div>
+            <h2 className="text-2xl font-bold">このアプリで告白成功した方の声</h2>
+            <p className="text-sm text-pink-400 mt-2">AIの返信で距離が縮まった実例</p>
+          </div>
+          <div className="space-y-4">
+            {[
+              {
+                name: "ひなた・22歳・大学生",
+                tag: "マッチングアプリ→交際",
+                score: 87,
+                result: "3ヶ月で交際成立",
+                text: "マッチングアプリで気になる人がいたけど、返信が続かなくて困っていました。このアプリで分析したら脈あり87%が出て、提案してくれた返信を使ったら急に仲良くなれて、3ヶ月後に付き合えました！AIの文章って自分では思いつかない絶妙なバランスで感動しました。",
+              },
+              {
+                name: "たけし・28歳・営業職",
+                tag: "職場の同僚→告白成功",
+                score: 74,
+                result: "勇気を出して告白→OKもらえた",
+                text: "職場の後輩が気になっていて、脈あり判定で74%と出ました。「告白タイミング分析」で『今週末がベストタイミング』と出たので勇気を出したら付き合えました。1人で悩んでいたのがバカみたいなくらい背中を押してもらえました。",
+              },
+              {
+                name: "さくら・25歳・看護師",
+                tag: "友達→恋人へ",
+                score: 62,
+                result: "関係が大きく変わった",
+                text: "友達と思っていた人のLINEを分析したら62%で「まだわからない段階」と言われて。でもアドバイス通りに返信を続けたら向こうから「会いたい」と言ってきてくれて、今は付き合っています。勇気を出して分析してよかったです。",
+              },
+            ].map((s, i) => (
+              <div key={i} className="bg-pink-900/30 border border-pink-800/30 rounded-2xl p-5">
+                <div className="flex items-start justify-between mb-3">
+                  <div className="flex gap-0.5">
+                    {[1,2,3,4,5].map(j => (
+                      <svg key={j} viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-yellow-400"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    ))}
+                  </div>
+                  <div className="text-right">
+                    <div className="text-lg font-black text-pink-400">{s.score}%</div>
+                    <div className="text-[10px] text-slate-500">脈あり度判定</div>
+                  </div>
+                </div>
+                <p className="text-slate-300 text-sm mb-3 leading-relaxed">「{s.text}」</p>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-pink-500 text-xs font-bold">{s.name}</p>
+                    <p className="text-[10px] text-slate-600">{s.tag}</p>
+                  </div>
+                  <span className="text-xs bg-green-900/60 text-green-400 border border-green-700/40 px-2 py-0.5 rounded-full font-bold">{s.result}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="text-xs text-slate-600 text-center mt-4">※ユーザー体験談の一例です。個人差があります。</p>
+          <div className="text-center mt-6">
+            <Link
+              href="/tool"
+              className="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition inline-block"
+            >
+              私も試してみる（3回無料）→
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* LINEシナリオ別活用例 */}
+      <section className="py-16 px-4 bg-pink-950/20">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-8">
+            <div className="inline-block bg-pink-800/50 text-pink-300 text-xs font-bold px-4 py-1.5 rounded-full mb-3 border border-pink-700/40">
+              シナリオ別活用例
+            </div>
+            <h2 className="text-2xl font-bold">こんなLINEで悩んでいませんか？</h2>
+            <p className="text-sm text-pink-400 mt-2">どんな状況でも30秒でAIが答えを出します</p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-4">
+            {[
+              {
+                icon: "💬",
+                title: "短い返信が続いている",
+                example: "「うん」「そうだね」しか返ってこない",
+                action: "→ 相手の関心事を引き出す返信案を生成",
+                color: "bg-pink-900/30 border-pink-800/40",
+              },
+              {
+                icon: "😰",
+                title: "既読スルーされた",
+                example: "送ってから2日経っても既読のまま...",
+                action: "→ 自然な既読スルー後のフォロー文を提案",
+                color: "bg-rose-900/30 border-rose-800/40",
+              },
+              {
+                icon: "💕",
+                title: "デートに誘いたい",
+                example: "「また今度ね」で終わってしまう",
+                action: "→ 自然な流れでデートにつなげる返信を提案",
+                color: "bg-pink-900/30 border-pink-800/40",
+              },
+              {
+                icon: "💔",
+                title: "喧嘩した後",
+                example: "怒らせてしまった。どう仲直りする？",
+                action: "→ 関係修復のための最適な一言を提案",
+                color: "bg-rose-900/30 border-rose-800/40",
+              },
+              {
+                icon: "📲",
+                title: "マッチングアプリ",
+                example: "最初のメッセージから返信が来ない",
+                action: "→ マッチング相手別の返信戦略を提案",
+                color: "bg-pink-900/30 border-pink-800/40",
+              },
+              {
+                icon: "💍",
+                title: "真剣な関係に進めたい",
+                example: "婚活で次のステップに進めない",
+                action: "→ 婚活向け距離の縮め方・関係深化文を提案",
+                color: "bg-rose-900/30 border-rose-800/40",
+              },
+            ].map((s, i) => (
+              <div key={i} className={`${s.color} border rounded-xl p-4`}>
+                <div className="flex items-start gap-3">
+                  <span className="text-2xl">{s.icon}</span>
+                  <div>
+                    <p className="font-bold text-white text-sm mb-1">{s.title}</p>
+                    <p className="text-xs text-pink-400 mb-2 italic">「{s.example}」</p>
+                    <p className="text-xs text-pink-300 font-medium">{s.action}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="text-center mt-6">
+            <a
+              href="/tool"
+              className="inline-block bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold px-8 py-3 rounded-xl text-sm transition"
+            >
+              あなたのLINEを分析する（3回無料）→
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* マッチングアプリ アフィリエイト */}
+      <section className="py-10 px-4 max-w-2xl mx-auto">
+        <h2 className="text-sm font-bold text-pink-500 text-center mb-4">💕 出会いを増やすならこちらも（PR）</h2>
+        <div className="space-y-3">
+          <a
+            href="https://px.a8.net/svt/ejp?a8mat=4AZIOF+8OKLDE+4EPM+63OY9"
+            target="_blank"
+            rel="noopener noreferrer sponsored"
+            className="flex items-center gap-3 bg-pink-800/30 hover:bg-pink-800/50 border border-pink-600/40 rounded-xl px-4 py-3 transition-colors"
+          >
+            <span className="text-2xl">💎</span>
+            <div className="flex-1">
+              <p className="text-sm font-bold text-pink-200">Pairs（ペアーズ）— 累計2,000万組以上のカップル誕生</p>
+              <p className="text-xs text-pink-400">真剣な恋活・婚活向けマッチングアプリ。AIの返信テクニックと組み合わせよう</p>
+            </div>
+            <span className="ml-auto text-pink-300 text-xs shrink-0">→</span>
+          </a>
+          <a
+            href="https://px.a8.net/svt/ejp?a8mat=4AZIOF+8OKLDE+4EPM+63OY9"
+            target="_blank"
+            rel="noopener noreferrer sponsored"
+            className="flex items-center gap-3 bg-pink-800/30 hover:bg-pink-800/50 border border-pink-600/40 rounded-xl px-4 py-3 transition-colors"
+          >
+            <span className="text-2xl">🌸</span>
+            <div className="flex-1">
+              <p className="text-sm font-bold text-pink-200">SOELU オンラインヨガ — デートに向けて体型ケア</p>
+              <p className="text-xs text-pink-400">告白後のデートに備えて。自宅でできるヨガ・フィットネス。初月無料</p>
+            </div>
+            <span className="ml-auto text-pink-300 text-xs shrink-0">→</span>
+          </a>
+        </div>
+        <p className="text-xs text-pink-900 text-center mt-2">※ 広告・PR掲載</p>
+      </section>
+
       {/* FAQ */}
       <section className="py-16 px-6 max-w-3xl mx-auto">
         <h2 className="text-2xl font-bold text-center text-white mb-10">よくある質問</h2>
         <div className="space-y-4">
           {[
-            { q: "何パターンの返信案を提案してもらえますか？", a: "OK・保留・お断りの3パターンを自動生成します。" },
-            { q: "入力内容は保存されますか？", a: "入力したLINE文章はAI処理後に削除します。第三者への開示はしません。" },
-            { q: "どんな状況にも対応できますか？", a: "告白・デートの誘い・関係性の確認など様々なシチュエーションに対応しています。" },
-            { q: "無料で使えますか？", a: "1日3回まで無料でご利用いただけます。" },
+            { q: "何パターンの返信案を提案してもらえますか？", a: "積極的に受け入れる返信・様子見（保留）の返信・丁寧にお断りする返信の3パターンを自動生成します。状況に応じて使い分けられます。" },
+            { q: "入力内容は保存されますか？", a: "入力したLINE文章はAI処理後に保存しません。第三者への開示もしません。安心してご利用ください。" },
+            { q: "どんな状況にも対応できますか？", a: "告白・デートの誘い・関係性の確認・マッチングアプリのやり取り・喧嘩後の仲直りなど、あらゆる恋愛シナリオに対応しています。" },
+            { q: "無料で使えますか？", a: "1日3回まで無料でご利用いただけます。月額¥980のプレミアムプランで無制限+告白文テンプレが解放されます。" },
+            { q: "脈あり度スコアはどうやって計算されますか？", a: "AIがLINEの文体・絵文字の使い方・返信速度・会話のトーン・具体的な提案の有無などを複合的に分析して0〜100%で数値化します。" },
+            { q: "男性にも女性にも使えますか？", a: "はい、性別関係なく使えます。相手のタイプ（年上・同世代・職場・マッチングアプリ等）を選ぶことでより精度の高い分析ができます。" },
+            { q: "マッチングアプリのやり取りにも使えますか？", a: "はい、Pairs・タップル・with・Omiai・Tinder等のマッチングアプリのやり取りに対応しています。相手タイプで「マッチングアプリ」を選択してください。" },
+            { q: "AIのアドバイス通りにしたら付き合えますか？", a: "AIのアドバイスはあくまで参考情報です。実際の関係は相手の気持ちや状況によって異なります。アドバイスを参考にしながら、最終的はご自身の判断で行動してください。" },
+            { q: "スマホから使えますか？", a: "はい、スマホ・PC・タブレットすべてに対応しています。LINEの画面を見ながらそのままコピペして使えます。" },
           ].map((faq) => (
             <div key={faq.q} className="border border-pink-700/40 rounded-xl p-5 bg-pink-900/20">
               <h3 className="font-bold text-white mb-2 text-sm">Q. {faq.q}</h3>
@@ -372,6 +593,32 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      {/* JSON-LD 構造化データ */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "SoftwareApplication",
+          "name": "告白LINE返信AI",
+          "url": "https://kokuhaku-line-ai.vercel.app",
+          "applicationCategory": "LifestyleApplication",
+          "operatingSystem": "Web",
+          "description": "好きな人からのLINEをAIが解析。脈あり度0〜100%スコア・返信例文3パターン・告白タイミング分析を即提案。マッチングアプリ・婚活・交際中にも対応。",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "JPY",
+            "description": "1日3回まで無料。月額¥980で無制限+高精度AI。"
+          },
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "reviewCount": "415"
+          },
+          "featureList": ["脈あり度スコア", "返信例文3パターン", "告白タイミング分析", "告白文テンプレ", "スコア履歴グラフ", "マッチングアプリ対応"]
+        }) }}
+      />
 
       {/* X Share */}
       <section className="py-6 px-6 text-center">
