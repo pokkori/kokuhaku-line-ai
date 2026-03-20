@@ -23,6 +23,38 @@ const PARTNER_TYPES = [
 ] as const;
 type PartnerTypeId = (typeof PARTNER_TYPES)[number]["id"];
 
+// シチュエーション別クイックテンプレート
+const SITUATION_PRESETS = [
+  {
+    label: "💘 初めてのデートに誘う",
+    icon: "💘",
+    line: "「週末って暇ですか？もしよかったら一緒にどこか行きませんか？」",
+    context: "マッチングアプリで知り合って2週間、毎日LINEしている",
+    partnerTypes: ["app"] as PartnerTypeId[],
+  },
+  {
+    label: "💬 告白する",
+    icon: "💬",
+    line: "「ずっと伝えたかったんだけど、あなたのことが好きです。付き合ってください」",
+    context: "3ヶ月同じサークルで活動している同期",
+    partnerTypes: ["school"] as PartnerTypeId[],
+  },
+  {
+    label: "🌙 関係を深める",
+    icon: "🌙",
+    line: "「最近どう？久しぶりに会いたいな」という感じのLINEが来た",
+    context: "元同僚で半年ぶりに連絡が来た",
+    partnerTypes: ["workplace"] as PartnerTypeId[],
+  },
+  {
+    label: "😰 既読スルー後",
+    icon: "😰",
+    line: "2日前のLINEに既読がついたまま返信が来ない",
+    context: "付き合って3ヶ月の彼氏/彼女",
+    partnerTypes: ["same"] as PartnerTypeId[],
+  },
+] as const;
+
 function parseResult(text: string): Result {
   const get = (tag: string) => {
     const m = text.match(new RegExp(`===\\s*${tag}\\s*===\\s*([\\s\\S]*?)(?====|$)`));
@@ -358,6 +390,28 @@ export default function ToolPage() {
       </nav>
 
       <div className="max-w-2xl mx-auto px-4 py-10 space-y-6">
+        {/* シチュエーション別クイック選択 */}
+        <div>
+          <p className="text-sm font-bold text-pink-300 mb-2">💕 シチュエーションから選ぶ（ワンタップで入力）</p>
+          <div className="grid grid-cols-2 gap-2">
+            {SITUATION_PRESETS.map((preset) => (
+              <button
+                key={preset.label}
+                type="button"
+                onClick={() => {
+                  setLine(preset.line);
+                  setContext(preset.context);
+                  setPartnerTypes([...preset.partnerTypes]);
+                }}
+                className="text-left text-xs bg-pink-900/40 hover:bg-pink-800/60 border border-pink-700/40 hover:border-pink-500 text-pink-200 hover:text-white px-3 py-2.5 rounded-xl transition-all"
+              >
+                <span className="text-base mr-1.5">{preset.icon}</span>
+                <span className="font-medium">{preset.label.replace(/^.{2}/, "")}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
         {/* LINEトーク画面プレビューUI */}
         <div className="rounded-2xl overflow-hidden border border-slate-700 shadow-lg">
           {/* LINEグリーンヘッダー */}

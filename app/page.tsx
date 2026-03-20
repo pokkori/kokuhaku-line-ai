@@ -101,6 +101,56 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 脈あり度ゲージ体験プレビュー */}
+      <section className="py-10 px-4 bg-pink-950/20">
+        <div className="max-w-2xl mx-auto">
+          <div className="text-center mb-6">
+            <div className="inline-block bg-pink-800/50 text-pink-300 text-xs font-bold px-4 py-1.5 rounded-full mb-3 border border-pink-700/40">
+              こんな結果が30秒で出ます
+            </div>
+            <h2 className="text-xl font-bold">脈あり度スコアの見え方</h2>
+          </div>
+          <div className="grid grid-cols-3 gap-3">
+            {[
+              { score: 87, label: "脈ありです！💓", color: "#ec4899", bg: "from-pink-900/60 to-rose-900/40", badge: "告白Go! 🔥", result: "デート成功" },
+              { score: 55, label: "まだわからない…", color: "#f59e0b", bg: "from-amber-900/40 to-pink-900/30", badge: "もう少し！💛", result: "関係継続中" },
+              { score: 23, label: "厳しいかも…", color: "#ef4444", bg: "from-red-900/40 to-pink-950/40", badge: "関係深化優先", result: "戦略変更" },
+            ].map((item, i) => (
+              <div key={i} className={`bg-gradient-to-br ${item.bg} border border-pink-700/30 rounded-2xl p-4 text-center`}>
+                <div className="relative inline-flex items-center justify-center mb-2">
+                  <svg width="80" height="80" viewBox="0 0 80 80" className="-rotate-90">
+                    <circle cx="40" cy="40" r="32" fill="none" stroke="#1e0a18" strokeWidth="8"/>
+                    <circle cx="40" cy="40" r="32" fill="none" stroke={item.color} strokeWidth="8"
+                      strokeDasharray={`${(item.score / 100) * 201} 201`}
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                  <div className="absolute inset-0 flex flex-col items-center justify-center">
+                    <p className="text-2xl font-black leading-none" style={{ color: item.color }}>{item.score}</p>
+                    <p className="text-xs font-bold opacity-70" style={{ color: item.color }}>%</p>
+                  </div>
+                </div>
+                <p className="text-xs font-bold mb-1" style={{ color: item.color }}>{item.label}</p>
+                <span className="text-[10px] font-black px-2 py-0.5 rounded-full text-white" style={{ backgroundColor: item.color }}>
+                  {item.badge}
+                </span>
+                <div className="mt-2 text-[10px] bg-green-900/30 text-green-400 border border-green-700/30 px-2 py-0.5 rounded-full">
+                  → {item.result}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="text-center mt-5">
+            <Link
+              href="/tool"
+              className="inline-block bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold px-8 py-3 rounded-xl text-sm transition"
+            >
+              自分のLINEを診断する（3回無料）→
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Pain points */}
       <section className="py-16 px-4 bg-pink-950/60">
         <div className="max-w-3xl mx-auto">
