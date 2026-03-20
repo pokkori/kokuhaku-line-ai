@@ -637,6 +637,26 @@ export default function Home() {
         </ol>
       </section>
 
+      {/* 毎日追跡セクション */}
+      <section className="py-10 px-4">
+        <div className="max-w-lg mx-auto">
+          <div className="bg-pink-50 rounded-xl p-6 border border-pink-200">
+            <h3 className="font-bold text-pink-800 text-lg">📈 相手の気持ちを毎日追跡</h3>
+            <p className="text-pink-600 mt-2 text-sm">毎日LINEを診断するたびに脈あり%の推移グラフが更新されます。<br/>「先週より5%上昇」「傾向は上向き」など関係性の変化をAIが分析。</p>
+            <div className="flex gap-4 mt-4">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-pink-700">🔥7</div>
+                <div className="text-xs text-pink-500">日連続記録中</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-pink-700">↗72%</div>
+                <div className="text-xs text-pink-500">今週の脈あり率</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* サクセスストーリー */}
       <section className="py-16 px-4 bg-pink-950/30">
         <div className="max-w-3xl mx-auto">
