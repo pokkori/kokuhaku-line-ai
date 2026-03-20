@@ -1,8 +1,72 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import KomojuButton from "@/components/KomojuButton";
 import { track } from '@vercel/analytics';
+
+// Canvas APIで脈あり度シェアカード画像を生成
+function generateShareCard(score: number): string {
+  const canvas = document.createElement('canvas');
+  canvas.width = 1200;
+  canvas.height = 630;
+  const ctx = canvas.getContext('2d')!;
+
+  // 背景グラデーション（ピンク→ローズ）
+  const grad = ctx.createLinearGradient(0, 0, 1200, 630);
+  grad.addColorStop(0, '#fce4ec');
+  grad.addColorStop(1, '#f48fb1');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 1200, 630);
+
+  // 装飾的な円（背景）
+  ctx.beginPath();
+  ctx.arc(1050, 100, 180, 0, Math.PI * 2);
+  ctx.fillStyle = 'rgba(236, 72, 153, 0.12)';
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(150, 500, 140, 0, Math.PI * 2);
+  ctx.fillStyle = 'rgba(244, 63, 94, 0.10)';
+  ctx.fill();
+
+  // スコアに応じた色
+  const color = score >= 70 ? '#c2185b' : score >= 40 ? '#e65100' : '#b71c1c';
+
+  // メインスコア
+  ctx.fillStyle = color;
+  ctx.font = 'bold 180px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(`${score}%`, 600, 290);
+
+  // サブテキスト
+  ctx.fillStyle = '#880e4f';
+  ctx.font = 'bold 52px sans-serif';
+  ctx.fillText('脈あり度診断結果', 600, 380);
+
+  // 判定テキスト
+  const judgment = score >= 70
+    ? '💕 告白チャンス！今すぐ行動しよう'
+    : score >= 40
+    ? '🌸 脈あり気配あり もう少しで行ける'
+    : '💭 まずは距離を縮めるところから';
+  ctx.fillStyle = '#ad1457';
+  ctx.font = '40px sans-serif';
+  ctx.fillText(judgment, 600, 460);
+
+  // 区切り線
+  ctx.beginPath();
+  ctx.moveTo(300, 510);
+  ctx.lineTo(900, 510);
+  ctx.strokeStyle = 'rgba(194, 24, 91, 0.3)';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  // サービス名
+  ctx.fillStyle = '#e91e63';
+  ctx.font = '30px sans-serif';
+  ctx.fillText('告白LINE返信AI | kokuhaku-line-ai.vercel.app', 600, 570);
+
+  return canvas.toDataURL('image/png');
+}
 
 type Result = {
   score: number;
@@ -279,6 +343,30 @@ export default function ToolPage() {
   const [scoreHistory, setScoreHistory] = useState<ScoreHistory[]>([]);
   const [savedReplies, setSavedReplies] = useState<string[]>([]);
   const [savedNotif, setSavedNotif] = useState<string | null>(null);
+  const [cardCopied, setCardCopied] = useState(false);
+
+  const handleShareCard = useCallback(async (score: number) => {
+    try {
+      const dataUrl = generateShareCard(score);
+      // Blob変換してClipboard APIでコピー
+      const res = await fetch(dataUrl);
+      const blob = await res.blob();
+      await navigator.clipboard.write([
+        new ClipboardItem({ 'image/png': blob })
+      ]);
+      setCardCopied(true);
+      setTimeout(() => setCardCopied(false), 3000);
+    } catch {
+      // Clipboard API非対応ブラウザはダウンロードにフォールバック
+      const dataUrl = generateShareCard(score);
+      const a = document.createElement('a');
+      a.href = dataUrl;
+      a.download = `myakuari_${score}percent.png`;
+      a.click();
+      setCardCopied(true);
+      setTimeout(() => setCardCopied(false), 3000);
+    }
+  }, []);
 
   function togglePartnerType(id: PartnerTypeId) {
     setPartnerTypes((prev) =>
@@ -578,9 +666,16 @@ export default function ToolPage() {
 
         {result && (
           <div className="mt-2 flex flex-col gap-3 animate-fade-in-up">
+            {/* シェアカード生成ボタン */}
+            <button
+              onClick={() => handleShareCard(result.score)}
+              className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-rose-600 to-pink-700 hover:opacity-90 text-white font-bold py-3 rounded-xl text-sm transition shadow-lg"
+            >
+              {cardCopied ? '✅ カードをコピーしました！Xに貼り付けてシェアしよう' : '🖼️ 脈あり度カードを画像コピー→Xへ'}
+            </button>
             {/* Xシェアボタン — 脈あり度スコア入り */}
             <a
-              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`【告白LINE返信AI】気になる人の脈あり度を診断したら${result.score}%でした💓\nAIが返信例文・告白タイミングまで教えてくれて神すぎる…\n#脈あり #LINE返信 #恋愛AI #告白\nhttps://kokuhaku-line-ai.vercel.app`)}`}
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`告白LINE AI診断で脈あり${result.score}%でした！💕\n#告白LINE #脈あり診断\nhttps://kokuhaku-line-ai.vercel.app`)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:opacity-90 text-white font-bold py-3 rounded-xl text-sm transition"
@@ -633,9 +728,15 @@ export default function ToolPage() {
                       <p className="text-sm text-slate-300 leading-relaxed">{result.adviceLine}</p>
                     </div>
                   )}
-                  <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`「気になる人からのLINE、脈あり度${result.score}%って出た…${result.score >= 70 ? "これはいけるかも！？🔥" : result.score >= 40 ? "微妙なライン、どうしよう😅" : "厳しいか…でも諦めない💪"}」告白LINE返信AIで診断してみた → https://kokuhaku-line-ai.vercel.app #恋愛AI #脈あり #LINE返信`)}`}
+                  <button
+                    onClick={() => handleShareCard(result.score)}
+                    className="mt-4 flex items-center justify-center gap-2 w-full bg-gradient-to-r from-rose-600 to-pink-700 hover:opacity-90 text-white font-bold py-3 rounded-xl text-sm transition shadow-lg"
+                  >
+                    {cardCopied ? '✅ コピー完了！Xに貼り付けてシェア' : '🖼️ 結果カードを画像コピー→Xへ'}
+                  </button>
+                  <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`告白LINE AI診断で脈あり${result.score}%でした！💕\n#告白LINE #脈あり診断\nhttps://kokuhaku-line-ai.vercel.app`)}`}
                     target="_blank" rel="noopener noreferrer"
-                    className="mt-4 flex items-center justify-center gap-2 w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:opacity-90 text-white font-bold py-3 rounded-xl text-sm transition-opacity">
+                    className="mt-2 flex items-center justify-center gap-2 w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:opacity-90 text-white font-bold py-3 rounded-xl text-sm transition-opacity">
                     脈あり{result.score}%をXでシェア 🔥
                   </a>
                 </div>

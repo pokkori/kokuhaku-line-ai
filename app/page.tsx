@@ -1,7 +1,63 @@
 "use client";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Link from "next/link";
 import KomojuButton from "@/components/KomojuButton";
+
+// Canvas APIで脈あり度シェアカード画像を生成
+function generateShareCard(score: number): string {
+  const canvas = document.createElement('canvas');
+  canvas.width = 1200;
+  canvas.height = 630;
+  const ctx = canvas.getContext('2d')!;
+
+  const grad = ctx.createLinearGradient(0, 0, 1200, 630);
+  grad.addColorStop(0, '#fce4ec');
+  grad.addColorStop(1, '#f48fb1');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 1200, 630);
+
+  ctx.beginPath();
+  ctx.arc(1050, 100, 180, 0, Math.PI * 2);
+  ctx.fillStyle = 'rgba(236, 72, 153, 0.12)';
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(150, 500, 140, 0, Math.PI * 2);
+  ctx.fillStyle = 'rgba(244, 63, 94, 0.10)';
+  ctx.fill();
+
+  const color = score >= 70 ? '#c2185b' : score >= 40 ? '#e65100' : '#b71c1c';
+
+  ctx.fillStyle = color;
+  ctx.font = 'bold 180px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(`${score}%`, 600, 290);
+
+  ctx.fillStyle = '#880e4f';
+  ctx.font = 'bold 52px sans-serif';
+  ctx.fillText('脈あり度診断結果', 600, 380);
+
+  const judgment = score >= 70
+    ? '💕 告白チャンス！今すぐ行動しよう'
+    : score >= 40
+    ? '🌸 脈あり気配あり もう少しで行ける'
+    : '💭 まずは距離を縮めるところから';
+  ctx.fillStyle = '#ad1457';
+  ctx.font = '40px sans-serif';
+  ctx.fillText(judgment, 600, 460);
+
+  ctx.beginPath();
+  ctx.moveTo(300, 510);
+  ctx.lineTo(900, 510);
+  ctx.strokeStyle = 'rgba(194, 24, 91, 0.3)';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  ctx.fillStyle = '#e91e63';
+  ctx.font = '30px sans-serif';
+  ctx.fillText('告白LINE返信AI | kokuhaku-line-ai.vercel.app', 600, 570);
+
+  return canvas.toDataURL('image/png');
+}
 
 const PAYJP_PUBLIC_KEY = process.env.NEXT_PUBLIC_PAYJP_PUBLIC_KEY ?? "";
 
@@ -18,6 +74,28 @@ const QUICK_QUIZ: { q: string; yes: number; no: number }[] = [
 function QuickDiagnosis() {
   const [answers, setAnswers] = useState<(boolean | null)[]>(Array(QUICK_QUIZ.length).fill(null));
   const [showResult, setShowResult] = useState(false);
+  const [cardCopied, setCardCopied] = useState(false);
+
+  const handleShareCard = useCallback(async (score: number) => {
+    try {
+      const dataUrl = generateShareCard(score);
+      const res = await fetch(dataUrl);
+      const blob = await res.blob();
+      await navigator.clipboard.write([
+        new ClipboardItem({ 'image/png': blob })
+      ]);
+      setCardCopied(true);
+      setTimeout(() => setCardCopied(false), 3000);
+    } catch {
+      const dataUrl = generateShareCard(score);
+      const a = document.createElement('a');
+      a.href = dataUrl;
+      a.download = `myakuari_${score}percent.png`;
+      a.click();
+      setCardCopied(true);
+      setTimeout(() => setCardCopied(false), 3000);
+    }
+  }, []);
 
   const answered = answers.filter(a => a !== null).length;
   const score = answers.reduce((sum, a, i) => {
@@ -91,6 +169,21 @@ function QuickDiagnosis() {
           <p className="font-bold text-lg mb-2" style={{ color }}>{label}</p>
           <p className="text-xs text-pink-400 mb-4">この簡易診断はあくまで目安です。AIに実際のLINEを解析させることで精度が大幅に上がります。</p>
           <div className="flex flex-col gap-3">
+            {/* シェアカードボタン */}
+            <button
+              onClick={() => handleShareCard(pct)}
+              className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-rose-600 to-pink-700 hover:opacity-90 text-white font-bold py-3 rounded-xl text-sm transition shadow-lg"
+            >
+              {cardCopied ? '✅ コピー完了！Xに貼り付けてシェアしよう' : '🖼️ 脈あり度カードを画像コピー→Xへ'}
+            </button>
+            <a
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`告白LINE AI簡易診断で脈あり${pct}%でした！💕\n#告白LINE #脈あり診断\nhttps://kokuhaku-line-ai.vercel.app`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-center bg-black hover:bg-gray-800 text-white font-bold px-8 py-3 rounded-xl transition text-sm"
+            >
+              💓 脈あり{pct}%をXでシェア
+            </a>
             <Link href="/tool" className="block bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold px-8 py-3 rounded-xl transition">
               LINEの文章をAIに解析してもらう（3回無料）→
             </Link>
