@@ -263,13 +263,126 @@ function saveScoreHistory(score: number, ctx: string): ScoreHistory[] {
   return next;
 }
 
+// 脈あり度推移グラフをCanvas APIで画像化してXシェア
+function generateTrendShareCard(history: ScoreHistory[], avg: number, trend: number): string {
+  const canvas = document.createElement('canvas');
+  canvas.width = 1200;
+  canvas.height = 630;
+  const ctx = canvas.getContext('2d')!;
+
+  // 背景グラデーション
+  const grad = ctx.createLinearGradient(0, 0, 0, 630);
+  grad.addColorStop(0, '#2d0020');
+  grad.addColorStop(1, '#1a0010');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 1200, 630);
+
+  // タイトル
+  ctx.fillStyle = '#f9a8d4';
+  ctx.font = 'bold 36px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('脈あり度 推移グラフ', 600, 60);
+
+  // 統計3ボックス
+  const boxes = [
+    { label: '平均スコア', value: `${avg}%`, color: '#ec4899' },
+    { label: 'トレンド', value: trend > 0 ? `↑+${trend}%` : trend < 0 ? `↓${trend}%` : '→変化なし', color: trend > 0 ? '#4ade80' : trend < 0 ? '#f87171' : '#f9a8d4' },
+    { label: '診断回数', value: `${history.length}回`, color: '#c084fc' },
+  ];
+  boxes.forEach((b, i) => {
+    const bx = 160 + i * 300;
+    ctx.fillStyle = 'rgba(236,72,153,0.15)';
+    ctx.beginPath();
+    ctx.roundRect(bx, 90, 220, 80, 12);
+    ctx.fill();
+    ctx.fillStyle = b.color;
+    ctx.font = 'bold 32px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(b.value, bx + 110, 138);
+    ctx.fillStyle = '#9d174d';
+    ctx.font = '18px sans-serif';
+    ctx.fillText(b.label, bx + 110, 158);
+  });
+
+  // バーチャート描画
+  const chartLeft = 80;
+  const chartRight = 1120;
+  const chartTop = 200;
+  const chartBottom = 520;
+  const chartW = chartRight - chartLeft;
+  const chartH = chartBottom - chartTop;
+  const maxScore = Math.max(...history.map(h => h.score), 100);
+  const barW = Math.min(80, Math.floor(chartW / history.length) - 12);
+
+  history.forEach((h, i) => {
+    const x = chartLeft + (i / Math.max(history.length - 1, 1)) * chartW;
+    const barHeight = Math.round((h.score / maxScore) * chartH);
+    const color = h.score >= 70 ? '#ec4899' : h.score >= 40 ? '#f59e0b' : '#ef4444';
+
+    // バー
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.roundRect(x - barW / 2, chartBottom - barHeight, barW, barHeight, [6, 6, 0, 0]);
+    ctx.fill();
+
+    // スコアラベル
+    ctx.fillStyle = color;
+    ctx.font = 'bold 20px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(`${h.score}`, x, chartBottom - barHeight - 8);
+
+    // 日付ラベル
+    ctx.fillStyle = '#9d174d';
+    ctx.font = '14px sans-serif';
+    ctx.fillText(h.date.split(' ')[0], x, chartBottom + 22);
+  });
+
+  // 軸線
+  ctx.strokeStyle = 'rgba(236,72,153,0.3)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(chartLeft, chartBottom);
+  ctx.lineTo(chartRight, chartBottom);
+  ctx.stroke();
+
+  // フッター
+  ctx.fillStyle = '#e91e63';
+  ctx.font = '24px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('告白LINE返信AI | kokuhaku-line-ai.vercel.app', 600, 590);
+
+  return canvas.toDataURL('image/png');
+}
+
 function ScoreTrendGraph({ history }: { history: ScoreHistory[] }) {
+  const [graphCopied, setGraphCopied] = useState(false);
+
+  const handleShareGraph = useCallback(async (avg: number, trend: number) => {
+    try {
+      const dataUrl = generateTrendShareCard(history, avg, trend);
+      const res = await fetch(dataUrl);
+      const blob = await res.blob();
+      await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+      setGraphCopied(true);
+      setTimeout(() => setGraphCopied(false), 3000);
+    } catch {
+      const dataUrl = generateTrendShareCard(history, avg, trend);
+      const a = document.createElement('a');
+      a.href = dataUrl;
+      a.download = `myakuari_trend_${avg}avg.png`;
+      a.click();
+      setGraphCopied(true);
+      setTimeout(() => setGraphCopied(false), 3000);
+    }
+  }, [history]);
+
   if (history.length === 0) return (
     <div className="py-12 text-center text-pink-500 text-sm">まだ診断履歴がありません<br /><span className="text-xs text-pink-700 mt-1 block">診断するたびにここに記録されます</span></div>
   );
   const max = Math.max(...history.map(h => h.score), 100);
   const avg = Math.round(history.reduce((s, h) => s + h.score, 0) / history.length);
   const trend = history.length >= 2 ? history[history.length - 1].score - history[0].score : 0;
+  const latest = history[history.length - 1];
   return (
     <div className="space-y-4">
       <div className="flex gap-3 text-center">
@@ -306,6 +419,26 @@ function ScoreTrendGraph({ history }: { history: ScoreHistory[] }) {
           <span>古い</span><span>新しい →</span>
         </div>
       </div>
+      {/* グラフXシェアボタン */}
+      {history.length >= 2 && (
+        <div className="flex flex-col gap-2">
+          <button
+            onClick={() => handleShareGraph(avg, trend)}
+            className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-rose-700 to-pink-800 hover:opacity-90 text-white font-bold py-2.5 rounded-xl text-xs transition shadow-md"
+          >
+            {graphCopied ? '✅ グラフ画像コピー完了！Xに貼り付けてシェアしよう' : '📊 脈あり度推移グラフを画像コピー→Xへ'}
+          </button>
+          <a
+            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`【脈あり度推移】${history.length}回診断した結果\n平均${avg}% ${trend > 0 ? `↑${trend}%上昇中` : trend < 0 ? `↓${trend}%` : "安定中"}💕\n最新: ${latest.score}%\n#告白LINE #脈あり #恋愛\nhttps://kokuhaku-line-ai.vercel.app`)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 w-full bg-black hover:bg-gray-800 text-white font-bold py-2.5 rounded-xl text-xs transition"
+          >
+            <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            推移グラフをテキストでXシェア
+          </a>
+        </div>
+      )}
       {/* Recent list */}
       <div className="space-y-1.5">
         {[...history].reverse().slice(0, 5).map((h, i) => (
