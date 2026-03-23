@@ -218,7 +218,7 @@ function ScoreRing({ score }: { score: number }) {
       </div>
 
       {/* 次のアクション */}
-      <div className="w-full px-4 bg-pink-950/60 border border-pink-800/50 rounded-xl p-3 mt-1">
+      <div className="w-full px-4 bg-pink-950/60 backdrop-blur-sm border border-pink-800/50 rounded-xl p-3 mt-1">
         <p className="text-xs text-pink-200 font-bold mb-1">💡 次にやること</p>
         <p className="text-xs text-pink-300">{badge.action}</p>
       </div>
@@ -386,21 +386,21 @@ function ScoreTrendGraph({ history }: { history: ScoreHistory[] }) {
   return (
     <div className="space-y-4">
       <div className="flex gap-3 text-center">
-        <div className="flex-1 bg-pink-900/40 rounded-xl p-3">
+        <div className="flex-1 bg-pink-900/40 backdrop-blur-sm rounded-xl p-3">
           <p className="text-2xl font-black text-pink-300">{avg}%</p>
           <p className="text-xs text-pink-600">平均スコア</p>
         </div>
-        <div className="flex-1 bg-pink-900/40 rounded-xl p-3">
+        <div className="flex-1 bg-pink-900/40 backdrop-blur-sm rounded-xl p-3">
           <p className={`text-2xl font-black ${trend > 0 ? "text-green-400" : trend < 0 ? "text-red-400" : "text-pink-300"}`}>{trend > 0 ? `↑+${trend}` : trend < 0 ? `↓${trend}` : "→0"}%</p>
           <p className="text-xs text-pink-600">初回→最新</p>
         </div>
-        <div className="flex-1 bg-pink-900/40 rounded-xl p-3">
+        <div className="flex-1 bg-pink-900/40 backdrop-blur-sm rounded-xl p-3">
           <p className="text-2xl font-black text-pink-300">{history.length}</p>
           <p className="text-xs text-pink-600">診断回数</p>
         </div>
       </div>
       {/* Bar chart */}
-      <div className="bg-pink-950/60 border border-pink-800/40 rounded-xl p-4">
+      <div className="bg-pink-950/60 backdrop-blur-sm border border-pink-800/40 rounded-xl p-4">
         <p className="text-xs text-pink-500 mb-3 font-bold">脈あり度の変化（最新10回）</p>
         <div className="flex items-end gap-1.5 h-28">
           {history.map((h, i) => {
@@ -841,7 +841,7 @@ export default function ToolPage() {
 
         {result && (
           <>
-          <div className="bg-pink-950/60 rounded-2xl border border-pink-700/40 overflow-hidden">
+          <div className="bg-pink-950/60 backdrop-blur-sm rounded-2xl border border-pink-700/40 overflow-hidden">
             {/* Tab nav */}
             <div className="flex overflow-x-auto border-b border-pink-800/50" role="tablist" aria-label="解析結果タブ">
               {TABS.map((t) => (
