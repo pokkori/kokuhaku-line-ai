@@ -424,6 +424,7 @@ function ScoreTrendGraph({ history }: { history: ScoreHistory[] }) {
         <div className="flex flex-col gap-2">
           <button
             onClick={() => handleShareGraph(avg, trend)}
+            aria-label="脈あり度推移グラフを画像コピーしてXにシェアする"
             className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-rose-700 to-pink-800 hover:opacity-90 text-white font-bold py-2.5 rounded-xl text-xs transition shadow-md"
           >
             {graphCopied ? '✅ グラフ画像コピー完了！Xに貼り付けてシェアしよう' : '📊 脈あり度推移グラフを画像コピー→Xへ'}
@@ -812,6 +813,7 @@ export default function ToolPage() {
             {/* シェアカード生成ボタン */}
             <button
               onClick={() => handleShareCard(result.score)}
+              aria-label="脈あり度診断結果カードを画像コピーしてXにシェアする"
               className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-rose-600 to-pink-700 hover:opacity-90 text-white font-bold py-3 rounded-xl text-sm transition shadow-lg"
             >
               {cardCopied ? '✅ カードをコピーしました！Xに貼り付けてシェアしよう' : '🖼️ 脈あり度カードを画像コピー→Xへ'}
@@ -877,6 +879,7 @@ export default function ToolPage() {
                   )}
                   <button
                     onClick={() => handleShareCard(result.score)}
+                    aria-label="スコアタブで脈あり度カードを画像コピーしてXにシェアする"
                     className="mt-4 flex items-center justify-center gap-2 w-full bg-gradient-to-r from-rose-600 to-pink-700 hover:opacity-90 text-white font-bold py-3 rounded-xl text-sm transition shadow-lg"
                   >
                     {cardCopied ? '✅ コピー完了！Xに貼り付けてシェア' : '🖼️ 結果カードを画像コピー→Xへ'}
@@ -993,6 +996,7 @@ export default function ToolPage() {
                   <p className="text-xs text-slate-600 text-center pt-2">💬 送りたい文をコピーして、そのままLINEに貼り付けよう</p>
                   {/* 返信まとめコピーボタン */}
                   <button
+                    aria-label="3パターンの返信例文をまとめてクリップボードにコピーする"
                     onClick={() => {
                       const text = result.replies.map((r, i) => {
                         const labels = ["【積極的】", "【様子見】", "【断る】"];
