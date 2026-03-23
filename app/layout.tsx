@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
-const geist = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 
 const SITE_URL = "https://kokuhaku-line-ai.vercel.app";
 const TITLE = "告白LINE返信AI | 好きな子のLINEをAIが分析。脈あり度・返信例文・告白タイミングを判定";
@@ -29,6 +27,15 @@ export const metadata: Metadata = {
     images: ["/og.png"],
   },
   metadataBase: new URL(SITE_URL),
+};
+
+const breadcrumbLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": SITE_URL },
+    { "@type": "ListItem", "position": 2, "name": "告白LINE返信AIツール", "item": `${SITE_URL}/tool` },
+  ],
 };
 
 const jsonLd = {
@@ -97,10 +104,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <script
           type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
+        />
+        <script
+          type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${geist.variable} antialiased`}>
+      <body className="antialiased">
         {children}
         <Analytics />
       </body>
