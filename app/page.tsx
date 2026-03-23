@@ -136,12 +136,14 @@ function QuickDiagnosis() {
               <div className="flex gap-2">
                 <button
                   onClick={() => toggle(i, true)}
+                  aria-label={`${i + 1}番目の質問「${q.q}」に「はい」と答える`}
                   className={`flex-1 py-2 rounded-lg text-sm font-bold transition-all ${answers[i] === true ? "bg-pink-500 text-white" : "bg-pink-900/40 text-pink-300 hover:bg-pink-800/60"}`}
                 >
                   はい
                 </button>
                 <button
                   onClick={() => toggle(i, false)}
+                  aria-label={`${i + 1}番目の質問「${q.q}」に「いいえ」と答える`}
                   className={`flex-1 py-2 rounded-lg text-sm font-bold transition-all ${answers[i] === false ? "bg-slate-600 text-white" : "bg-pink-900/40 text-pink-300 hover:bg-pink-800/60"}`}
                 >
                   いいえ
@@ -172,6 +174,7 @@ function QuickDiagnosis() {
             {/* シェアカードボタン */}
             <button
               onClick={() => handleShareCard(pct)}
+              aria-label="脈あり度カードを画像としてクリップボードにコピーしてXでシェアする"
               className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-rose-600 to-pink-700 hover:opacity-90 text-white font-bold py-3 rounded-xl text-sm transition shadow-lg"
             >
               {cardCopied ? '✅ コピー完了！Xに貼り付けてシェアしよう' : '🖼️ 脈あり度カードを画像コピー→Xへ'}
@@ -187,7 +190,7 @@ function QuickDiagnosis() {
             <Link href="/tool" className="block bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold px-8 py-3 rounded-xl transition">
               LINEの文章をAIに解析してもらう（3回無料）→
             </Link>
-            <button onClick={reset} className="text-xs text-pink-600 hover:text-pink-400 underline">
+            <button onClick={reset} aria-label="クイック脈あり自己診断をリセットしてもう一度最初から診断する" className="text-xs text-pink-600 hover:text-pink-400 underline">
               もう一度診断する
             </button>
           </div>
@@ -231,12 +234,14 @@ export default function Home() {
         <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
           <Link
             href="/tool"
+            aria-label="告白LINE返信AIツールを開く（3回無料）"
             className="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition"
           >
             今すぐ恋愛AIに相談する（3回無料）→
           </Link>
           <button
             onClick={startCheckout}
+            aria-label="月額980円プレミアムプランの申し込みモーダルを開く"
             className="border border-pink-400 text-pink-300 hover:bg-pink-900/40 font-bold px-8 py-4 rounded-xl text-lg transition"
           >
             月額¥980で無制限+高精度
@@ -588,6 +593,7 @@ export default function Home() {
               </ul>
               <button
                 onClick={startCheckout}
+                aria-label="プレミアムプラン月額980円の申し込みを開始する"
                 className="w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:opacity-90 text-white font-black py-3 rounded-xl transition"
               >
                 今すぐ始める（¥980/月）
@@ -933,11 +939,11 @@ export default function Home() {
         </div>
       </footer>
       {showPayjp && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4" role="dialog" aria-modal="true" aria-labelledby="premium-modal-title">
           <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-xl relative">
-            <button onClick={() => setShowPayjp(false)} className="absolute top-3 right-3 text-gray-400 text-xl">✕</button>
+            <button onClick={() => setShowPayjp(false)} aria-label="プレミアムプランモーダルを閉じる" className="absolute top-3 right-3 text-gray-400 text-xl">✕</button>
             <div className="text-3xl mb-3 text-center">💌</div>
-            <h2 className="text-lg font-bold mb-2 text-center">プレミアムプラン</h2>
+            <h2 id="premium-modal-title" className="text-lg font-bold mb-2 text-center">プレミアムプラン</h2>
             <p className="text-sm text-gray-500 mb-4 text-center">LINE解析 無制限+高精度</p>
             <KomojuButton planId="standard" planLabel="プレミアムプラン ¥980/月" className="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 disabled:opacity-50" />
           </div>

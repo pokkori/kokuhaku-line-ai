@@ -453,6 +453,7 @@ function ScoreTrendGraph({ history }: { history: ScoreHistory[] }) {
       </div>
       <button
         onClick={() => { localStorage.removeItem(HISTORY_KEY); window.location.reload(); }}
+        aria-label="脈あり度診断履歴をすべてリセットして削除する"
         className="text-xs text-pink-800 hover:text-pink-600 w-full text-center mt-2"
       >🗑 履歴をリセット</button>
     </div>
@@ -586,8 +587,8 @@ export default function ToolPage() {
       <div className="relative inline-block">
         <button
           onClick={() => copy(text, keyName)}
+          aria-label="テキストをクリップボードにコピーする"
           className="text-xs text-slate-500 hover:text-slate-300 shrink-0 pb-1 transition"
-          title="コピー"
         >
           {copied === keyName ? "✓" : "コピー"}
         </button>
@@ -624,6 +625,7 @@ export default function ToolPage() {
                   setContext(preset.context);
                   setPartnerTypes([...preset.partnerTypes]);
                 }}
+                aria-label={`シチュエーション「${preset.label.replace(/^.{2}/, "")}」のサンプルデータを入力欄にセットする`}
                 className="text-left text-xs bg-pink-900/40 hover:bg-pink-800/60 border border-pink-700/40 hover:border-pink-500 text-pink-200 hover:text-white px-3 py-2.5 rounded-xl transition-all"
               >
                 <span className="text-base mr-1.5">{preset.icon}</span>
@@ -655,7 +657,7 @@ export default function ToolPage() {
           </div>
         </div>
         <div>
-          <label className="block text-sm font-bold mb-2 text-slate-300">好きな子のLINE（コピペしてください）</label>
+          <label htmlFor="line-input" className="block text-sm font-bold mb-2 text-slate-300">好きな子のLINE（コピペしてください）</label>
           {/* 感情プリセットボタン */}
           <div className="flex flex-wrap gap-2 mb-3">
             {[
@@ -669,6 +671,7 @@ export default function ToolPage() {
                 key={preset.label}
                 type="button"
                 onClick={() => setLine(preset.text)}
+                aria-label={`プリセット「${preset.label.replace(/^.{2}/, "")}」のサンプルテキストを入力欄にセットする`}
                 className="text-xs bg-pink-900/60 hover:bg-pink-800/80 border border-pink-700/50 hover:border-pink-500 text-pink-200 hover:text-white px-3 py-1.5 rounded-full transition-all"
               >
                 {preset.label}
@@ -676,6 +679,8 @@ export default function ToolPage() {
             ))}
           </div>
           <textarea
+            id="line-input"
+            aria-label="解析したいLINEのトーク内容を入力してください"
             className="w-full bg-pink-950/60 border border-pink-700/50 rounded-xl p-4 text-sm text-white placeholder-pink-400/50 resize-none focus:outline-none focus:border-pink-400 h-40"
             placeholder={"例）\n彼女: 「今日バイトだよー」\n自分: 「お疲れ！何時まで？」\n彼女: 「9時まで笑 なんで？」\n自分: 「いや別に笑」\n彼女: 「気になる笑」"}
             value={line}
@@ -683,9 +688,11 @@ export default function ToolPage() {
           />
         </div>
         <div>
-          <label className="block text-sm font-bold mb-2 text-slate-300">関係性・状況（任意）</label>
+          <label htmlFor="context-input" className="block text-sm font-bold mb-2 text-slate-300">関係性・状況（任意）</label>
           <input
+            id="context-input"
             type="text"
+            aria-label="相手との関係性や状況を入力してください（任意）"
             className="w-full bg-pink-950/60 border border-pink-700/50 rounded-xl p-4 text-sm text-white placeholder-pink-400/50 focus:outline-none focus:border-pink-400"
             placeholder="例：クラスメートで知り合って1ヶ月、まだ連絡先交換したばかり"
             value={context}
@@ -706,6 +713,8 @@ export default function ToolPage() {
                   key={pt.id}
                   type="button"
                   onClick={() => togglePartnerType(pt.id)}
+                  aria-label={`相手のタイプ「${pt.label.replace(/^.{2}/, "")}」を${active ? "選択解除" : "選択"}する`}
+                  aria-pressed={active}
                   className={`text-xs px-3 py-1.5 rounded-full border transition-all font-medium ${
                     active
                       ? "bg-pink-500 border-pink-400 text-white shadow-md shadow-pink-900/40"
@@ -733,6 +742,7 @@ export default function ToolPage() {
         <button
           onClick={analyze}
           disabled={loading || !line.trim() || (!isPremium && remaining === 0)}
+          aria-label="入力したLINEの内容をAIで解析して脈あり度を判定する"
           className="w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-black py-4 rounded-xl text-lg transition disabled:opacity-40 disabled:cursor-not-allowed shadow-lg shadow-pink-900/50"
         >
           {loading ? "AIが解析中…" : "解析する"}
@@ -759,7 +769,7 @@ export default function ToolPage() {
         {showPaywall && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
             <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-xl text-center relative">
-              <button onClick={() => setShowPaywall(false)} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl font-bold">×</button>
+              <button onClick={() => setShowPaywall(false)} aria-label="無料枠上限モーダルを閉じる" className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl font-bold">×</button>
               <div className="text-3xl mb-3">⭐</div>
               <h2 className="text-lg font-bold mb-2">無料枠を使い切りました</h2>
               <p className="text-sm text-gray-500 mb-4">プレミアムプランで全機能を使えます</p>
@@ -768,7 +778,7 @@ export default function ToolPage() {
                 planLabel="プレミアム ¥980/月を始める"
                 className="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               />
-              <button onClick={() => setShowPaywall(false)} className="text-xs text-gray-400 hover:text-gray-600 mt-3 block w-full">閉じる</button>
+              <button onClick={() => setShowPaywall(false)} aria-label="無料枠上限モーダルを閉じてツール画面に戻る" className="text-xs text-gray-400 hover:text-gray-600 mt-3 block w-full">閉じる</button>
             </div>
           </div>
         )}
@@ -831,11 +841,14 @@ export default function ToolPage() {
           <>
           <div className="bg-pink-950/60 rounded-2xl border border-pink-700/40 overflow-hidden">
             {/* Tab nav */}
-            <div className="flex overflow-x-auto border-b border-pink-800/50">
+            <div className="flex overflow-x-auto border-b border-pink-800/50" role="tablist" aria-label="解析結果タブ">
               {TABS.map((t) => (
                 <button
                   key={t.id}
                   onClick={() => setTab(t.id)}
+                  role="tab"
+                  aria-selected={tab === t.id}
+                  aria-label={`${t.label}タブを表示する`}
                   className={`px-4 py-3 text-xs font-bold whitespace-nowrap transition ${tab === t.id ? "text-pink-300 border-b-2 border-pink-400" : "text-pink-500/60 hover:text-pink-300"}`}
                 >
                   {t.label}
@@ -846,6 +859,7 @@ export default function ToolPage() {
               <button
                 onClick={analyze}
                 disabled={loading || !line.trim()}
+                aria-label="別のパターンでAI解析を再実行する"
                 className="text-sm text-slate-400 underline hover:text-slate-200 disabled:opacity-40"
               >
                 🔄 別のパターンで再生成
@@ -918,8 +932,9 @@ export default function ToolPage() {
                               setSavedNotif(isSaved ? null : mainLine);
                               setTimeout(() => setSavedNotif(null), 2000);
                             }}
+                            aria-label={isSaved ? "この返信例文をお気に入りから削除する" : "この返信例文をお気に入りに保存する"}
+                            aria-pressed={isSaved}
                             className={`text-xs px-2 py-0.5 rounded-full transition font-bold ${isSaved ? "bg-pink-500/20 text-pink-300 border border-pink-500/40" : "text-slate-500 hover:text-pink-400 border border-slate-600/40"}`}
-                            title={isSaved ? "お気に入りから削除" : "お気に入りに保存"}
                           >
                             {isSaved ? "💖 保存済み" : "♡ 保存"}
                           </button>
@@ -931,8 +946,8 @@ export default function ToolPage() {
                         <div className="flex justify-end items-end gap-2">
                           <button
                             onClick={() => copy(mainLine, `reply-${i}`)}
+                            aria-label={`${i + 1}番目の返信例文をクリップボードにコピーする`}
                             className="text-xs text-slate-500 hover:text-slate-300 shrink-0 pb-1 transition"
-                            title="コピー"
                           >
                             {copied === `reply-${i}` ? "✓" : "コピー"}
                           </button>
@@ -1146,11 +1161,11 @@ export default function ToolPage() {
         <Link href="/" className="hover:underline">トップへ戻る</Link>
       </footer>
       {showPayjp && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4" role="dialog" aria-modal="true" aria-labelledby="tool-premium-modal-title">
           <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-xl relative">
-            <button onClick={() => setShowPayjp(false)} className="absolute top-3 right-3 text-gray-400 text-xl">✕</button>
+            <button onClick={() => setShowPayjp(false)} aria-label="プレミアムプランモーダルを閉じる" className="absolute top-3 right-3 text-gray-400 text-xl">✕</button>
             <div className="text-3xl mb-3 text-center">💌</div>
-            <h2 className="text-lg font-bold mb-2 text-center">プレミアムプラン</h2>
+            <h2 id="tool-premium-modal-title" className="text-lg font-bold mb-2 text-center">プレミアムプラン</h2>
             <p className="text-sm text-gray-500 mb-4 text-center">LINE解析 無制限+高精度</p>
             <KomojuButton planId="standard" planLabel="プレミアムプラン ¥980/月" className="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 disabled:opacity-50" />
           </div>
