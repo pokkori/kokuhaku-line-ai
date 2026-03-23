@@ -1,7 +1,8 @@
 "use client";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import Link from "next/link";
 import KomojuButton from "@/components/KomojuButton";
+import { updateStreak, loadStreak, getStreakMilestoneMessage, type StreakData } from "@/lib/streak";
 
 // Canvas APIで脈あり度シェアカード画像を生成
 function generateShareCard(score: number): string {
@@ -71,7 +72,7 @@ const QUICK_QUIZ: { q: string; yes: number; no: number }[] = [
   { q: "自分の話（好き・趣味・プライベート）をしてくれる", yes: 13, no: 0 },
 ];
 
-function QuickDiagnosis() {
+function QuickDiagnosis({ onDiagnosisComplete }: { onDiagnosisComplete?: () => void }) {
   const [answers, setAnswers] = useState<(boolean | null)[]>(Array(QUICK_QUIZ.length).fill(null));
   const [showResult, setShowResult] = useState(false);
   const [cardCopied, setCardCopied] = useState(false);
@@ -110,7 +111,10 @@ function QuickDiagnosis() {
     next[i] = val;
     setAnswers(next);
     if (next.filter(a => a !== null).length === QUICK_QUIZ.length) {
-      setTimeout(() => setShowResult(true), 300);
+      setTimeout(() => {
+        setShowResult(true);
+        onDiagnosisComplete?.();
+      }, 300);
     }
   };
 
@@ -202,9 +206,22 @@ function QuickDiagnosis() {
 
 export default function Home() {
   const [showPayjp, setShowPayjp] = useState(false);
+  const [streak, setStreak] = useState<StreakData | null>(null);
+  const [streakMsg, setStreakMsg] = useState<string | null>(null);
+
+  useEffect(() => {
+    setStreak(loadStreak("kokuhaku"));
+  }, []);
 
   function startCheckout() {
     setShowPayjp(true);
+  }
+
+  function handleDiagnosisComplete() {
+    const s = updateStreak("kokuhaku");
+    setStreak(s);
+    const msg = getStreakMilestoneMessage(s.count);
+    if (msg) setStreakMsg(msg);
   }
 
   return (
@@ -221,6 +238,12 @@ export default function Home() {
         <h1 className="text-4xl md:text-5xl font-black mb-4 leading-tight">
           気になるあの人の本音を、<br />AIが解読します💕
         </h1>
+        {streak && streak.count > 0 && (
+          <div className="mt-2 inline-flex items-center gap-2 bg-pink-50 border border-pink-200 rounded-full px-3 py-1 text-sm">
+            <span>{streak.count}日連続利用中</span>
+          </div>
+        )}
+        {streakMsg && <div className="text-orange-600 font-bold text-sm text-center">{streakMsg}</div>}
         <p className="text-2xl md:text-3xl font-bold text-pink-300 mb-6">
           返信に迷ったら30秒で答えが出る
         </p>
@@ -350,7 +373,7 @@ export default function Home() {
 
       {/* クイック脈あり自己診断 */}
       <section className="py-14 px-4 bg-pink-950/30">
-        <QuickDiagnosis />
+        <QuickDiagnosis onDiagnosisComplete={handleDiagnosisComplete} />
       </section>
 
       {/* Pain points */}
