@@ -44,10 +44,10 @@ function generateShareCard(score: number): string {
 
   // 判定テキスト
   const judgment = score >= 70
-    ? '💕 告白チャンス！今すぐ行動しよう'
+    ? ' 告白チャンス！今すぐ行動しよう'
     : score >= 40
-    ? '🌸 脈あり気配あり もう少しで行ける'
-    : '💭 まずは距離を縮めるところから';
+    ? ' 脈あり気配あり もう少しで行ける'
+    : ' まずは距離を縮めるところから';
   ctx.fillStyle = '#ad1457';
   ctx.font = '40px sans-serif';
   ctx.fillText(judgment, 600, 460);
@@ -78,41 +78,41 @@ type Result = {
 } | null;
 
 const PARTNER_TYPES = [
-  { id: "older", label: "📱 年上（5歳以上）" },
-  { id: "same", label: "👫 同世代" },
-  { id: "younger", label: "👶 年下（3歳以下）" },
-  { id: "workplace", label: "🏢 職場の人" },
-  { id: "school", label: "🎓 学校の知人" },
-  { id: "app", label: "📲 マッチングアプリ" },
+  { id: "older", label: " 年上（5歳以上）" },
+  { id: "same", label: " 同世代" },
+  { id: "younger", label: " 年下（3歳以下）" },
+  { id: "workplace", label: " 職場の人" },
+  { id: "school", label: " 学校の知人" },
+  { id: "app", label: " マッチングアプリ" },
 ] as const;
 type PartnerTypeId = (typeof PARTNER_TYPES)[number]["id"];
 
 // シチュエーション別クイックテンプレート
 const SITUATION_PRESETS = [
   {
-    label: "💘 初めてのデートに誘う",
-    icon: "💘",
+    label: " 初めてのデートに誘う",
+    icon: "",
     line: "「週末って暇ですか？もしよかったら一緒にどこか行きませんか？」",
     context: "マッチングアプリで知り合って2週間、毎日LINEしている",
     partnerTypes: ["app"] as PartnerTypeId[],
   },
   {
-    label: "💬 告白する",
-    icon: "💬",
+    label: " 告白する",
+    icon: "",
     line: "「ずっと伝えたかったんだけど、あなたのことが好きです。付き合ってください」",
     context: "3ヶ月同じサークルで活動している同期",
     partnerTypes: ["school"] as PartnerTypeId[],
   },
   {
-    label: "🌙 関係を深める",
-    icon: "🌙",
+    label: " 関係を深める",
+    icon: "",
     line: "「最近どう？久しぶりに会いたいな」という感じのLINEが来た",
     context: "元同僚で半年ぶりに連絡が来た",
     partnerTypes: ["workplace"] as PartnerTypeId[],
   },
   {
-    label: "😰 既読スルー後",
-    icon: "😰",
+    label: " 既読スルー後",
+    icon: "",
     line: "2日前のLINEに既読がついたまま返信が来ない",
     context: "付き合って3ヶ月の彼氏/彼女",
     partnerTypes: ["same"] as PartnerTypeId[],
@@ -141,13 +141,13 @@ function parseResult(text: string): Result {
 
 function ScoreRing({ score }: { score: number }) {
   const color = score >= 70 ? "#ec4899" : score >= 40 ? "#f59e0b" : "#ef4444";
-  const label = score >= 70 ? "脈ありです！💓" : score >= 40 ? "まだわからない…" : "厳しいかも…";
-  const hearts = score >= 70 ? ["💕", "💖", "💗"] : score >= 40 ? ["💛"] : [];
+  const label = score >= 70 ? "脈ありです！" : score >= 40 ? "まだわからない…" : "厳しいかも…";
+  const hearts = score >= 70 ? ["", "", ""] : score >= 40 ? [""] : [];
   const badge = score >= 70
-    ? { text: "告白Go! 🔥", bg: "bg-pink-500", action: "今すぐ告白のチャンスです！返信例文タブを参考に気持ちを伝えましょう。" }
+    ? { text: "告白Go! ", bg: "bg-pink-500", action: "今すぐ告白のチャンスです！返信例文タブを参考に気持ちを伝えましょう。" }
     : score >= 40
-    ? { text: "もう少し！💛", bg: "bg-amber-500", action: "もう少しLINEを重ねて距離を縮めましょう。返信例文で会話を盛り上げて。" }
-    : { text: "関係深化優先 💪", bg: "bg-red-600", action: "まずは共通の話題や会う機会を増やしましょう。焦らず関係を育てることが大切です。" };
+    ? { text: "もう少し！", bg: "bg-amber-500", action: "もう少しLINEを重ねて距離を縮めましょう。返信例文で会話を盛り上げて。" }
+    : { text: "関係深化優先 ", bg: "bg-red-600", action: "まずは共通の話題や会う機会を増やしましょう。焦らず関係を育てることが大切です。" };
   const isPulse = score >= 70;
 
   // スコア帯に応じたグラデーション背景
@@ -162,7 +162,7 @@ function ScoreRing({ score }: { score: number }) {
       {/* 背景装飾ハート（高スコア時） */}
       {isPulse && (
         <div className="absolute inset-0 pointer-events-none select-none">
-          {["💓","💗","💕"].map((h, i) => (
+          {["","",""].map((h, i) => (
             <span key={i} className="absolute text-4xl opacity-10 animate-ping"
               style={{ top: `${[15,55,30][i]}%`, left: `${[10,80,50][i]}%`, animationDelay: `${i * 0.4}s`, animationDuration: "2s" }}>{h}</span>
           ))}
@@ -172,7 +172,7 @@ function ScoreRing({ score }: { score: number }) {
       {/* OGPカード風スコア表示 */}
       <div className="text-center relative z-10 px-4 w-full">
         {isPulse && (
-          <span className="absolute -top-4 left-1/2 -translate-x-1/2 text-3xl animate-ping opacity-75">💓</span>
+          <span className="absolute -top-4 left-1/2 -translate-x-1/2 text-3xl animate-ping opacity-75"></span>
         )}
         {/* スコアメーター（円弧風） */}
         <div className="relative inline-flex items-center justify-center mb-2">
@@ -219,7 +219,7 @@ function ScoreRing({ score }: { score: number }) {
 
       {/* 次のアクション */}
       <div className="w-full px-4 bg-pink-950/60 backdrop-blur-sm border border-pink-800/50 rounded-xl p-3 mt-1">
-        <p className="text-xs text-pink-200 font-bold mb-1">💡 次にやること</p>
+        <p className="text-xs text-pink-200 font-bold mb-1"> 次にやること</p>
         <p className="text-xs text-pink-300">{badge.action}</p>
       </div>
     </div>
@@ -228,13 +228,13 @@ function ScoreRing({ score }: { score: number }) {
 
 type Tab = "score" | "analysis" | "replies" | "confession" | "timing" | "history" | "planner";
 const TABS: { id: Tab; label: string }[] = [
-  { id: "score", label: "📊 判定" },
-  { id: "replies", label: "💬 返信例文" },
-  { id: "analysis", label: "🔍 心理分析" },
-  { id: "confession", label: "💌 告白文" },
-  { id: "timing", label: "📅 タイミング" },
-  { id: "planner", label: "📋 作戦" },
-  { id: "history", label: "📈 推移" },
+  { id: "score", label: " 判定" },
+  { id: "replies", label: " 返信例文" },
+  { id: "analysis", label: " 心理分析" },
+  { id: "confession", label: " 告白文" },
+  { id: "timing", label: " タイミング" },
+  { id: "planner", label: " 作戦" },
+  { id: "history", label: " 推移" },
 ];
 
 type ScoreHistory = { score: number; date: string; context?: string };
@@ -427,10 +427,10 @@ function ScoreTrendGraph({ history }: { history: ScoreHistory[] }) {
             aria-label="脈あり度推移グラフを画像コピーしてXにシェアする"
             className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-rose-700 to-pink-800 hover:opacity-90 text-white font-bold py-2.5 rounded-xl text-xs transition shadow-md"
           >
-            {graphCopied ? '✅ グラフ画像コピー完了！Xに貼り付けてシェアしよう' : '📊 脈あり度推移グラフを画像コピー→Xへ'}
+            {graphCopied ? 'OK グラフ画像コピー完了！Xに貼り付けてシェアしよう' : ' 脈あり度推移グラフを画像コピー→Xへ'}
           </button>
           <a
-            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`【脈あり度推移】${history.length}回診断した結果\n平均${avg}% ${trend > 0 ? `↑${trend}%上昇中` : trend < 0 ? `↓${trend}%` : "安定中"}💕\n最新: ${latest.score}%\n#告白LINE #脈あり #恋愛\nhttps://kokuhaku-line-ai.vercel.app`)}`}
+            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`【脈あり度推移】${history.length}回診断した結果\n平均${avg}% ${trend > 0 ? `↑${trend}%上昇中` : trend < 0 ? `↓${trend}%` : "安定中"}\n最新: ${latest.score}%\n#告白LINE #脈あり #恋愛\nhttps://kokuhaku-line-ai.vercel.app`)}`}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 w-full bg-black hover:bg-gray-800 text-white font-bold py-2.5 rounded-xl text-xs transition"
@@ -456,7 +456,7 @@ function ScoreTrendGraph({ history }: { history: ScoreHistory[] }) {
         onClick={() => { localStorage.removeItem(HISTORY_KEY); window.location.reload(); }}
         aria-label="脈あり度診断履歴をすべてリセットして削除する"
         className="text-xs text-pink-800 hover:text-pink-600 w-full text-center mt-2"
-      >🗑 履歴をリセット</button>
+      > 履歴をリセット</button>
     </div>
   );
 }
@@ -569,7 +569,7 @@ export default function ToolPage() {
       setCompletionVisible(true);
       setTimeout(() => setCompletionVisible(false), 4000);
     } catch {
-      setError("少し時間を置いてもう一度お試しください 🙏");
+      setError("少し時間を置いてもう一度お試しください ");
     }
     setLoading(false);
   }
@@ -591,11 +591,11 @@ export default function ToolPage() {
           aria-label="テキストをクリップボードにコピーする"
           className="text-xs text-slate-500 hover:text-slate-300 shrink-0 pb-1 transition"
         >
-          {copied === keyName ? "✓" : "コピー"}
+          {copied === keyName ? "OK" : "コピー"}
         </button>
         {copied === keyName && (
           <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-green-600 text-white text-xs rounded-lg px-2 py-1 whitespace-nowrap shadow-lg animate-bounce">
-            ✅ コピー完了！
+            OK コピー完了！
           </div>
         )}
       </div>
@@ -605,17 +605,17 @@ export default function ToolPage() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-pink-950 via-rose-950 to-pink-950 text-white">
       <nav className="bg-pink-950/80 border-b border-pink-800/50 px-6 py-4 flex justify-between items-center backdrop-blur-sm">
-        <Link href="/" className="font-bold text-pink-300">💕 恋愛コーチAI</Link>
+        <Link href="/" className="font-bold text-pink-300"> 恋愛コーチAI</Link>
         {!isPremium && remaining !== null && (
           <span className="text-xs text-slate-400">残り無料 {remaining}回</span>
         )}
-        {isPremium && <span className="text-xs text-blue-400 font-bold">✓ プレミアム</span>}
+        {isPremium && <span className="text-xs text-blue-400 font-bold">OK プレミアム</span>}
       </nav>
 
       <div className="max-w-2xl mx-auto px-4 py-10 space-y-6">
         {/* シチュエーション別クイック選択 */}
         <div>
-          <p className="text-sm font-bold text-pink-300 mb-2">💕 シチュエーションから選ぶ（ワンタップで入力）</p>
+          <p className="text-sm font-bold text-pink-300 mb-2"> シチュエーションから選ぶ（ワンタップで入力）</p>
           <div className="grid grid-cols-2 gap-2">
             {SITUATION_PRESETS.map((preset) => (
               <button
@@ -640,7 +640,7 @@ export default function ToolPage() {
         <div className="rounded-2xl overflow-hidden border border-slate-700 shadow-lg">
           {/* LINEグリーンヘッダー */}
           <div className="bg-green-500 px-4 py-3 flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-white/30 flex items-center justify-center text-sm font-bold">💚</div>
+            <div className="w-8 h-8 rounded-full bg-white/30 flex items-center justify-center text-sm font-bold"></div>
             <div>
               <p className="text-white font-bold text-sm">LINE トーク</p>
               <p className="text-green-100 text-xs">気になる相手のLINEを下に貼り付けよう</p>
@@ -649,7 +649,7 @@ export default function ToolPage() {
           {/* サンプルトーク */}
           <div className="bg-slate-900 px-4 py-3 space-y-2">
             <div className="flex items-end gap-2">
-              <div className="w-7 h-7 rounded-full bg-slate-600 flex items-center justify-center text-xs shrink-0">😊</div>
+              <div className="w-7 h-7 rounded-full bg-slate-600 flex items-center justify-center text-xs shrink-0"></div>
               <div className="bg-white text-gray-800 rounded-2xl rounded-tl-sm px-3 py-2 text-xs max-w-[70%]">「今日暇だったりする？笑」</div>
             </div>
             <div className="flex items-end justify-end gap-2">
@@ -662,11 +662,11 @@ export default function ToolPage() {
           {/* 感情プリセットボタン */}
           <div className="flex flex-wrap gap-2 mb-3">
             {[
-              { label: "😊 好意サイン", text: "最近よく連絡くれるし、二人でご飯行こうって言ってくれた。脈ありかな…" },
-              { label: "💬 既読スルー", text: "既読ついたのに3日間返信がない。どうすればいい？" },
-              { label: "🤔 曖昧な返信", text: "「いつか行こうね」って言われたけど、具体的な日程を言ってくれない" },
-              { label: "😰 告白前", text: "明日告白しようと思ってるんだけど、このLINEの文面で大丈夫かな？" },
-              { label: "💔 振られた後", text: "先日告白して振られたけど、「友達として仲良くしたい」って言われた" },
+              { label: " 好意サイン", text: "最近よく連絡くれるし、二人でご飯行こうって言ってくれた。脈ありかな…" },
+              { label: " 既読スルー", text: "既読ついたのに3日間返信がない。どうすればいい？" },
+              { label: " 曖昧な返信", text: "「いつか行こうね」って言われたけど、具体的な日程を言ってくれない" },
+              { label: " 告白前", text: "明日告白しようと思ってるんだけど、このLINEの文面で大丈夫かな？" },
+              { label: " 振られた後", text: "先日告白して振られたけど、「友達として仲良くしたい」って言われた" },
             ].map((preset) => (
               <button
                 key={preset.label}
@@ -753,13 +753,13 @@ export default function ToolPage() {
           <div className="bg-pink-950/60 border border-pink-700/50 rounded-xl p-5 text-center">
             <div className="inline-block w-8 h-8 border-4 border-pink-500 border-t-transparent rounded-full animate-spin mb-3"></div>
             <p className="text-pink-300 font-medium text-sm mb-1">AIが解析中...</p>
-            <p className="text-xs text-pink-400">💕 LINE文面分析 → 🔍 脈あり度判定 → 💬 返信パターン生成</p>
+            <p className="text-xs text-pink-400"> LINE文面分析 →  脈あり度判定 →  返信パターン生成</p>
             <p className="text-xs text-pink-600 mt-1">通常5〜10秒かかります</p>
           </div>
         )}
         {loading && rawText && (
           <div className="bg-pink-950/60 border border-pink-700/50 rounded-xl p-4">
-            <p className="text-xs text-pink-400 mb-2 font-bold animate-pulse">💕 AIが解析中...</p>
+            <p className="text-xs text-pink-400 mb-2 font-bold animate-pulse"> AIが解析中...</p>
             <p className="text-sm text-pink-100 leading-relaxed whitespace-pre-wrap">{rawText}</p>
           </div>
         )}
@@ -771,7 +771,7 @@ export default function ToolPage() {
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
             <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-xl text-center relative">
               <button onClick={() => setShowPaywall(false)} aria-label="無料枠上限モーダルを閉じる" className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl font-bold">×</button>
-              <div className="text-3xl mb-3">⭐</div>
+              <div className="text-3xl mb-3"></div>
               <h2 className="text-lg font-bold mb-2">無料枠を使い切りました</h2>
               <p className="text-sm text-gray-500 mb-4">プレミアムプランで全機能を使えます</p>
               <KomojuButton
@@ -789,7 +789,7 @@ export default function ToolPage() {
           <div className={`transition-all duration-500 overflow-hidden ${completionVisible ? "max-h-32 opacity-100" : "max-h-0 opacity-0"}`}>
             <div className="bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-2xl px-5 py-4 shadow-lg mb-3">
               <div className="flex items-center gap-3">
-                <span className="text-2xl animate-heart-pop">✅</span>
+                <span className="text-2xl animate-heart-pop">OK</span>
                 <div>
                   <p className="font-bold text-sm">解析完了！</p>
                   <div className="flex items-center gap-2 mt-1">
@@ -816,20 +816,20 @@ export default function ToolPage() {
               aria-label="脈あり度診断結果カードを画像コピーしてXにシェアする"
               className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-rose-600 to-pink-700 hover:opacity-90 text-white font-bold py-3 rounded-xl text-sm transition shadow-lg"
             >
-              {cardCopied ? '✅ カードをコピーしました！Xに貼り付けてシェアしよう' : '🖼️ 脈あり度カードを画像コピー→Xへ'}
+              {cardCopied ? 'OK カードをコピーしました！Xに貼り付けてシェアしよう' : ' 脈あり度カードを画像コピー→Xへ'}
             </button>
             {/* Xシェアボタン — 脈あり度スコア入り */}
             <a
-              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`告白LINE AI診断で脈あり${result.score}%でした！💕\n#告白LINE #脈あり診断\nhttps://kokuhaku-line-ai.vercel.app`)}`}
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`告白LINE AI診断で脈あり${result.score}%でした！\n#告白LINE #脈あり診断\nhttps://kokuhaku-line-ai.vercel.app`)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:opacity-90 text-white font-bold py-3 rounded-xl text-sm transition"
             >
-              💓 脈あり{result.score}%をXでシェアする
+               脈あり{result.score}%をXでシェアする
             </a>
             {/* 占いAIバナー */}
             <div className="p-4 bg-gradient-to-r from-pink-900/30 to-rose-900/30 border border-pink-500/30 rounded-xl text-center">
-              <p className="text-pink-300 text-sm font-medium mb-2">🔮 運命の相手との相性も気になる？</p>
+              <p className="text-pink-300 text-sm font-medium mb-2"> 運命の相手との相性も気になる？</p>
               <p className="text-slate-400 text-xs mb-3">タロット・星座・数秘術で恋愛運・出会い運を AI が鑑定します</p>
               <a href="https://uranai-ai-sigma.vercel.app" target="_blank" rel="noopener noreferrer"
                  className="inline-block px-4 py-2 bg-pink-600 hover:bg-pink-700 text-white text-sm rounded-lg transition-colors">
@@ -864,7 +864,7 @@ export default function ToolPage() {
                 aria-label="別のパターンでAI解析を再実行する"
                 className="text-sm text-slate-400 underline hover:text-slate-200 disabled:opacity-40"
               >
-                🔄 別のパターンで再生成
+                 別のパターンで再生成
               </button>
             </div>
 
@@ -882,12 +882,12 @@ export default function ToolPage() {
                     aria-label="スコアタブで脈あり度カードを画像コピーしてXにシェアする"
                     className="mt-4 flex items-center justify-center gap-2 w-full bg-gradient-to-r from-rose-600 to-pink-700 hover:opacity-90 text-white font-bold py-3 rounded-xl text-sm transition shadow-lg"
                   >
-                    {cardCopied ? '✅ コピー完了！Xに貼り付けてシェア' : '🖼️ 結果カードを画像コピー→Xへ'}
+                    {cardCopied ? 'OK コピー完了！Xに貼り付けてシェア' : ' 結果カードを画像コピー→Xへ'}
                   </button>
-                  <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`告白LINE AI診断で脈あり${result.score}%でした！💕\n#告白LINE #脈あり診断\nhttps://kokuhaku-line-ai.vercel.app`)}`}
+                  <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`告白LINE AI診断で脈あり${result.score}%でした！\n#告白LINE #脈あり診断\nhttps://kokuhaku-line-ai.vercel.app`)}`}
                     target="_blank" rel="noopener noreferrer"
                     className="mt-2 flex items-center justify-center gap-2 w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:opacity-90 text-white font-bold py-3 rounded-xl text-sm transition-opacity">
-                    脈あり{result.score}%をXでシェア 🔥
+                    脈あり{result.score}%をXでシェア 
                   </a>
                 </div>
               )}
@@ -906,9 +906,9 @@ export default function ToolPage() {
                   {/* シナリオ分岐ラベル */}
                   <div className="flex flex-wrap gap-2 pb-1">
                     {[
-                      { label: "💘 積極的に受け入れる", color: "bg-pink-500/20 border-pink-500/50 text-pink-300" },
-                      { label: "💛 まだ考えたい（様子見）", color: "bg-amber-500/20 border-amber-500/50 text-amber-300" },
-                      { label: "🤍 丁寧に断る", color: "bg-slate-500/20 border-slate-500/50 text-slate-300" },
+                      { label: " 積極的に受け入れる", color: "bg-pink-500/20 border-pink-500/50 text-pink-300" },
+                      { label: " まだ考えたい（様子見）", color: "bg-amber-500/20 border-amber-500/50 text-amber-300" },
+                      { label: " 丁寧に断る", color: "bg-slate-500/20 border-slate-500/50 text-slate-300" },
                     ].map((s) => (
                       <span key={s.label} className={`text-xs px-2.5 py-1 rounded-full border font-medium ${s.color}`}>{s.label}</span>
                     ))}
@@ -939,11 +939,11 @@ export default function ToolPage() {
                             aria-pressed={isSaved}
                             className={`text-xs px-2 py-0.5 rounded-full transition font-bold ${isSaved ? "bg-pink-500/20 text-pink-300 border border-pink-500/40" : "text-slate-500 hover:text-pink-400 border border-slate-600/40"}`}
                           >
-                            {isSaved ? "💖 保存済み" : "♡ 保存"}
+                            {isSaved ? " 保存済み" : " 保存"}
                           </button>
                         </div>
                         {savedNotif === mainLine && (
-                          <div className="text-center text-xs text-pink-300 animate-bounce">💖 お気に入りに保存しました！</div>
+                          <div className="text-center text-xs text-pink-300 animate-bounce"> お気に入りに保存しました！</div>
                         )}
                         {/* LINE吹き出し（右側・自分の送信） */}
                         <div className="flex justify-end items-end gap-2">
@@ -952,14 +952,14 @@ export default function ToolPage() {
                             aria-label={`${i + 1}番目の返信例文をクリップボードにコピーする`}
                             className="text-xs text-slate-500 hover:text-slate-300 shrink-0 pb-1 transition"
                           >
-                            {copied === `reply-${i}` ? "✓" : "コピー"}
+                            {copied === `reply-${i}` ? "OK" : "コピー"}
                           </button>
                           <div className={`relative max-w-[85%] ${bgColors[i] ?? "bg-pink-500"} text-white rounded-2xl rounded-tr-sm px-4 py-3 shadow-md`}>
                             <p className="text-sm leading-relaxed">{mainLine}</p>
                             {/* 吹き出し三角 */}
                             <div className={`absolute top-3 -right-2 w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-l-8 ${bgColors[i] === "bg-pink-500" ? "border-l-pink-500" : bgColors[i] === "bg-blue-500" ? "border-l-blue-500" : "border-l-purple-500"}`} />
                           </div>
-                          <div className="w-8 h-8 rounded-full bg-slate-600 flex items-center justify-center text-xs shrink-0">😊</div>
+                          <div className="w-8 h-8 rounded-full bg-slate-600 flex items-center justify-center text-xs shrink-0"></div>
                         </div>
                         {/* 補足説明（グレーテキスト） */}
                         {subLines && (
@@ -971,7 +971,7 @@ export default function ToolPage() {
                   {/* お気に入り返信一覧 */}
                   {savedReplies.length > 0 && (
                     <div className="mt-4 border-t border-pink-800/40 pt-4">
-                      <p className="text-xs font-bold text-pink-300 mb-2">💖 お気に入りの返信</p>
+                      <p className="text-xs font-bold text-pink-300 mb-2"> お気に入りの返信</p>
                       <div className="space-y-2">
                         {savedReplies.map((reply, i) => (
                           <div key={i} className="flex items-start gap-2 bg-pink-950/40 border border-pink-800/30 rounded-xl px-3 py-2">
@@ -980,20 +980,20 @@ export default function ToolPage() {
                               onClick={() => copy(reply, `saved-${i}`)}
                               className="text-xs text-slate-500 hover:text-slate-300 shrink-0 transition"
                             >
-                              {copied === `saved-${i}` ? "✓" : "コピー"}
+                              {copied === `saved-${i}` ? "OK" : "コピー"}
                             </button>
                             <button
                               onClick={() => { const updated = toggleSavedReply(reply); setSavedReplies(updated); }}
                               className="text-xs text-slate-600 hover:text-red-400 shrink-0 transition"
                             >
-                              ✕
+                              
                             </button>
                           </div>
                         ))}
                       </div>
                     </div>
                   )}
-                  <p className="text-xs text-slate-600 text-center pt-2">💬 送りたい文をコピーして、そのままLINEに貼り付けよう</p>
+                  <p className="text-xs text-slate-600 text-center pt-2"> 送りたい文をコピーして、そのままLINEに貼り付けよう</p>
                   {/* 返信まとめコピーボタン */}
                   <button
                     aria-label="3パターンの返信例文をまとめてクリップボードにコピーする"
@@ -1006,7 +1006,7 @@ export default function ToolPage() {
                     }}
                     className="w-full mt-2 py-2.5 border border-pink-700/40 text-pink-400 hover:text-pink-200 hover:bg-pink-900/30 text-xs font-bold rounded-xl transition"
                   >
-                    {copied === "all-replies" ? "✓ コピー完了！" : "📋 3パターンをまとめてコピー（SNSシェア用）"}
+                    {copied === "all-replies" ? "OK コピー完了！" : " 3パターンをまとめてコピー（SNSシェア用）"}
                   </button>
                 </div>
               )}
@@ -1027,7 +1027,7 @@ export default function ToolPage() {
                   </div>
                 ) : (
                   <div className="text-center py-8">
-                    <div className="text-4xl mb-4">🔒</div>
+                    <div className="text-4xl mb-4"></div>
                     <p className="text-slate-400 text-sm mb-4">告白文テンプレはプレミアムプラン（¥980/月）限定機能です</p>
                     <KomojuButton
                       planId="standard"
@@ -1047,23 +1047,23 @@ export default function ToolPage() {
                   <p className="text-xs text-pink-400 mb-4">脈あり度{result.score}%に基づいた、次の一手を提案します。</p>
                   {/* 次の会話ネタ3選 */}
                   <div>
-                    <p className="text-xs font-bold text-pink-300 mb-2">💬 次に使える会話ネタ3選</p>
+                    <p className="text-xs font-bold text-pink-300 mb-2"> 次に使える会話ネタ3選</p>
                     <div className="space-y-2">
                       {((): { icon: string; text: string; action: string }[] => {
                         if (result.score >= 70) return [
-                          { icon: "🎯", text: "「今度の週末、一緒に〇〇行かない？」とデートに誘う", action: "積極的" },
-                          { icon: "📸", text: "共通の趣味・話題で「これ見たとき〇〇思い出した」と送る", action: "自然" },
-                          { icon: "🌙", text: "夜に「最近どう？」と軽く連絡して会話の糸口を作る", action: "ゆっくり" },
+                          { icon: "", text: "「今度の週末、一緒に〇〇行かない？」とデートに誘う", action: "積極的" },
+                          { icon: "", text: "共通の趣味・話題で「これ見たとき〇〇思い出した」と送る", action: "自然" },
+                          { icon: "", text: "夜に「最近どう？」と軽く連絡して会話の糸口を作る", action: "ゆっくり" },
                         ];
                         if (result.score >= 40) return [
-                          { icon: "😊", text: "相手の好きなものについて「詳しく教えて！」と聞く", action: "距離縮め" },
-                          { icon: "🎭", text: "2人が関係する出来事・ニュースをネタに会話する", action: "共通点" },
-                          { icon: "☕", text: "「〇〇に行ったんだけどよかったよ」と間接的にデートを提案", action: "間接的" },
+                          { icon: "", text: "相手の好きなものについて「詳しく教えて！」と聞く", action: "距離縮め" },
+                          { icon: "", text: "2人が関係する出来事・ニュースをネタに会話する", action: "共通点" },
+                          { icon: "", text: "「〇〇に行ったんだけどよかったよ」と間接的にデートを提案", action: "間接的" },
                         ];
                         return [
-                          { icon: "🌱", text: "共通の友達を通じて自然な接点を作る", action: "基盤作り" },
-                          { icon: "📖", text: "相手の趣味・興味分野の話題から始める", action: "興味を示す" },
-                          { icon: "👥", text: "グループでの集まりで接点を増やす", action: "焦らない" },
+                          { icon: "", text: "共通の友達を通じて自然な接点を作る", action: "基盤作り" },
+                          { icon: "", text: "相手の趣味・興味分野の話題から始める", action: "興味を示す" },
+                          { icon: "", text: "グループでの集まりで接点を増やす", action: "焦らない" },
                         ];
                       })().map((item, i) => (
                         <div key={i} className="flex items-start gap-3 bg-pink-950/50 border border-pink-800/40 rounded-xl p-3">
@@ -1078,7 +1078,7 @@ export default function ToolPage() {
                   </div>
                   {/* 告白成功チェックリスト */}
                   <div>
-                    <p className="text-xs font-bold text-pink-300 mb-2">✅ 告白成功率を上げる5つのチェックリスト</p>
+                    <p className="text-xs font-bold text-pink-300 mb-2">OK 告白成功率を上げる5つのチェックリスト</p>
                     <div className="space-y-1.5">
                       {[
                         { check: result.score >= 50, label: "脈あり度50%以上", detail: result.score >= 50 ? "クリア！告白のチャンスあり" : `現在${result.score}%。もう少し距離を縮めよう` },
@@ -1088,7 +1088,7 @@ export default function ToolPage() {
                         { check: false, label: "告白する場所・タイミングを決めた", detail: "「いつか」は「永遠に来ない」。具体的に決めよう" },
                       ].map((item, i) => (
                         <div key={i} className={`flex items-start gap-2 px-3 py-2 rounded-lg ${item.check ? "bg-green-900/20 border border-green-700/30" : "bg-pink-950/40 border border-pink-800/30"}`}>
-                          <span className={`shrink-0 text-sm ${item.check ? "text-green-400" : "text-pink-700"}`}>{item.check ? "✅" : "⬜"}</span>
+                          <span className={`shrink-0 text-sm ${item.check ? "text-green-400" : "text-pink-700"}`}>{item.check ? "OK" : "⬜"}</span>
                           <div>
                             <p className={`text-xs font-bold ${item.check ? "text-green-300" : "text-pink-300"}`}>{item.label}</p>
                             <p className="text-[11px] text-pink-500/80">{item.detail}</p>
@@ -1099,7 +1099,7 @@ export default function ToolPage() {
                   </div>
                   {/* 次のLINEを送るベスト時間 */}
                   <div className="bg-pink-950/50 border border-pink-800/40 rounded-xl p-3">
-                    <p className="text-xs font-bold text-pink-300 mb-2">🕐 次のLINEを送るベストタイミング</p>
+                    <p className="text-xs font-bold text-pink-300 mb-2"> 次のLINEを送るベストタイミング</p>
                     <div className="grid grid-cols-3 gap-2">
                       {[
                         { time: "21:00-22:00", label: "夜", reason: "1日の終わりでリラックス中。返信率最高", star: true },
@@ -1108,7 +1108,7 @@ export default function ToolPage() {
                       ].map((t, i) => (
                         <div key={i} className={`text-center p-2 rounded-lg ${t.star ? "bg-pink-500/20 border border-pink-500/40" : "bg-pink-950/60 border border-pink-800/30"}`}>
                           <p className={`text-xs font-black ${t.star ? "text-pink-300" : "text-pink-500"}`}>{t.time}</p>
-                          <p className={`text-[10px] font-bold ${t.star ? "text-pink-200" : "text-pink-600"}`}>{t.label}{t.star && " 🔥"}</p>
+                          <p className={`text-[10px] font-bold ${t.star ? "text-pink-200" : "text-pink-600"}`}>{t.label}{t.star && " "}</p>
                           <p className="text-[9px] text-pink-700 leading-tight mt-0.5">{t.reason}</p>
                         </div>
                       ))}
@@ -1124,12 +1124,12 @@ export default function ToolPage() {
           </div>
           {/* 次のアクション3選 */}
           <div className="mt-4 bg-pink-950/30 border border-pink-500/30 rounded-xl p-4">
-            <p className="text-sm font-bold text-pink-300 mb-3">💓 次にやるべきこと3選</p>
+            <p className="text-sm font-bold text-pink-300 mb-3"> 次にやるべきこと3選</p>
             <ol className="space-y-2">
               {[
-                { icon: "💬", text: "「返信例文」タブのパターンを1つ選んで今すぐ送ってみる" },
-                { icon: "📅", text: "「告白タイミング」タブを確認して具体的な日程を決める" },
-                { icon: "📝", text: "相手の返信内容・反応を記録して次の分析に活かす" },
+                { icon: "", text: "「返信例文」タブのパターンを1つ選んで今すぐ送ってみる" },
+                { icon: "", text: "「告白タイミング」タブを確認して具体的な日程を決める" },
+                { icon: "", text: "相手の返信内容・反応を記録して次の分析に活かす" },
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-3 text-sm text-pink-100">
                   <span className="text-base leading-none">{item.icon}</span>
@@ -1139,14 +1139,14 @@ export default function ToolPage() {
             </ol>
             {/* A8.net アフィリエイト — 告白後のデートに備えて体型ケア */}
             <div className="mt-4 pt-3 border-t border-pink-700/30">
-              <p className="text-xs text-pink-400 mb-2">💪 告白後のデートに備えて</p>
+              <p className="text-xs text-pink-400 mb-2"> 告白後のデートに備えて</p>
               <a
                 href="https://px.a8.net/svt/ejp?a8mat=4AZIOF+8OKLDE+4EPM+63OY9"
                 target="_blank"
                 rel="noopener noreferrer sponsored"
                 className="flex items-center gap-3 bg-pink-800/40 hover:bg-pink-800/60 border border-pink-600/40 rounded-xl px-4 py-3 transition-colors"
               >
-                <span className="text-2xl">🧘‍♀️</span>
+                <span className="text-2xl">‍️</span>
                 <div>
                   <p className="text-sm font-bold text-pink-200">SOELUオンラインヨガで体型ケア</p>
                   <p className="text-xs text-pink-400">告白後のデートに向けて、自宅でヨガ・フィットネス</p>
@@ -1167,8 +1167,8 @@ export default function ToolPage() {
       {showPayjp && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4" role="dialog" aria-modal="true" aria-labelledby="tool-premium-modal-title">
           <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-xl relative">
-            <button onClick={() => setShowPayjp(false)} aria-label="プレミアムプランモーダルを閉じる" className="absolute top-3 right-3 text-gray-400 text-xl">✕</button>
-            <div className="text-3xl mb-3 text-center">💌</div>
+            <button onClick={() => setShowPayjp(false)} aria-label="プレミアムプランモーダルを閉じる" className="absolute top-3 right-3 text-gray-400 text-xl"></button>
+            <div className="text-3xl mb-3 text-center"></div>
             <h2 id="tool-premium-modal-title" className="text-lg font-bold mb-2 text-center">プレミアムプラン</h2>
             <p className="text-sm text-gray-500 mb-4 text-center">LINE解析 無制限+高精度</p>
             <KomojuButton planId="standard" planLabel="プレミアムプラン ¥980/月" className="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 disabled:opacity-50" />

@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Error({ reset }: { reset: () => void }) {
   return (
     <main className="min-h-screen bg-slate-950 flex flex-col items-center justify-center text-center px-4">
-      <div className="text-6xl mb-4">⚠️</div>
+      <div className="text-6xl mb-4">!</div>
       <h1 className="text-2xl font-bold text-white mb-2">エラーが発生しました</h1>
       <p className="text-slate-400 mb-8">しばらく時間をおいてから再度お試しください。</p>
       <div className="flex gap-4">

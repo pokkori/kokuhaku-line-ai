@@ -20,7 +20,7 @@ export default function Image() {
           fontFamily: "sans-serif",
         }}
       >
-        <div style={{ fontSize: 80, marginBottom: 16 }}>💬</div>
+        <div style={{ fontSize: 80, marginBottom: 16 }}></div>
         <div style={{ fontSize: 52, fontWeight: 700, color: "#93c5fd", marginBottom: 16, textAlign: "center" }}>
           告白LINE返信AI
         </div>
@@ -28,7 +28,7 @@ export default function Image() {
           好きな子のLINEをコピペするだけ
         </div>
         <div style={{ fontSize: 24, color: "#60a5fa", marginTop: 12, textAlign: "center" }}>
-          脈あり度・返信例文・告白タイミングを判定 🎯
+          脈あり度・返信例文・告白タイミングを判定 
         </div>
         <div
           style={{
