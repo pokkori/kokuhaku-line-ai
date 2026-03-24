@@ -38,10 +38,10 @@ function generateShareCard(score: number): string {
   ctx.fillText('脈あり度診断結果', 600, 380);
 
   const judgment = score >= 70
-    ? '💕 告白チャンス！今すぐ行動しよう'
+    ? ' 告白チャンス！今すぐ行動しよう'
     : score >= 40
-    ? '🌸 脈あり気配あり もう少しで行ける'
-    : '💭 まずは距離を縮めるところから';
+    ? ' 脈あり気配あり もう少しで行ける'
+    : ' まずは距離を縮めるところから';
   ctx.fillStyle = '#ad1457';
   ctx.font = '40px sans-serif';
   ctx.fillText(judgment, 600, 460);
@@ -121,7 +121,7 @@ function QuickDiagnosis({ onDiagnosisComplete }: { onDiagnosisComplete?: () => v
   const reset = () => { setAnswers(Array(QUICK_QUIZ.length).fill(null)); setShowResult(false); };
 
   const color = pct >= 70 ? "#ec4899" : pct >= 40 ? "#f59e0b" : "#ef4444";
-  const label = pct >= 70 ? "脈あり度 高め！💓 告白のチャンスです" : pct >= 40 ? "まだわからない… もう少し様子を見よう" : "厳しいかも… 関係を深めるところから";
+  const label = pct >= 70 ? "脈あり度 高め！ 告白のチャンスです" : pct >= 40 ? "まだわからない… もう少し様子を見よう" : "厳しいかも… 関係を深めるところから";
 
   return (
     <div className="max-w-2xl mx-auto">
@@ -181,15 +181,15 @@ function QuickDiagnosis({ onDiagnosisComplete }: { onDiagnosisComplete?: () => v
               aria-label="脈あり度カードを画像としてクリップボードにコピーしてXでシェアする"
               className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-rose-600 to-pink-700 hover:opacity-90 text-white font-bold py-3 rounded-xl text-sm transition shadow-lg"
             >
-              {cardCopied ? '✅ コピー完了！Xに貼り付けてシェアしよう' : '🖼️ 脈あり度カードを画像コピー→Xへ'}
+              {cardCopied ? 'OK コピー完了！Xに貼り付けてシェアしよう' : ' 脈あり度カードを画像コピー→Xへ'}
             </button>
             <a
-              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`告白LINE AI簡易診断で脈あり${pct}%でした！💕\n#告白LINE #脈あり診断\nhttps://kokuhaku-line-ai.vercel.app`)}`}
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`告白LINE AI簡易診断で脈あり${pct}%でした！\n#告白LINE #脈あり診断\nhttps://kokuhaku-line-ai.vercel.app`)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="block text-center bg-black hover:bg-gray-800 text-white font-bold px-8 py-3 rounded-xl transition text-sm"
             >
-              💓 脈あり{pct}%をXでシェア
+               脈あり{pct}%をXでシェア
             </a>
             <Link href="/tool" className="block bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold px-8 py-3 rounded-xl transition">
               LINEの文章をAIに解析してもらう（3回無料）→
@@ -229,14 +229,14 @@ export default function Home() {
       {/* Hero */}
       <section className="pt-20 pb-16 px-4 text-center">
         <div className="inline-block bg-pink-800/60 border border-pink-500/40 text-pink-200 text-xs font-bold px-3 py-1 rounded-full mb-6">
-          💕 恋愛・婚活コーチAI — 脈あり判定 × 返信例文 × マッチングアプリ対応 — 無料3回
+           恋愛・婚活コーチAI — 脈あり判定 × 返信例文 × マッチングアプリ対応 — 無料3回
         </div>
         <div className="inline-flex items-center gap-2 bg-white/10 rounded-full px-4 py-2 text-sm mb-4">
-          <span>💬</span>
+          <span></span>
           <span>累計 <strong>8,400件+</strong> の返信を生成しました</span>
         </div>
         <h1 className="text-4xl md:text-5xl font-black mb-4 leading-tight">
-          気になるあの人の本音を、<br />AIが解読します💕
+          気になるあの人の本音を、<br />AIが解読します
         </h1>
         {streak && streak.count > 0 && (
           <div className="mt-2 inline-flex items-center gap-2 bg-pink-50 border border-pink-200 rounded-full px-3 py-1 text-sm">
@@ -270,15 +270,15 @@ export default function Home() {
             月額¥980で無制限+高精度
           </button>
         </div>
-        <div className="bg-pink-50 border border-pink-200 rounded-2xl p-5 mb-6 text-left max-w-md mx-auto">
-          <p className="text-xs text-pink-500 font-semibold mb-2">💬 マッチングアプリでこんなメッセージが来たら？</p>
+        <div className="rounded-2xl p-5 mb-6 text-left max-w-md mx-auto" style={{ background: 'rgba(255,240,245,0.12)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)', border: '1px solid rgba(255,182,193,0.25)' }}>
+          <p className="text-xs text-pink-500 font-semibold mb-2"> マッチングアプリでこんなメッセージが来たら？</p>
           <div className="bg-white rounded-xl p-3 mb-2 shadow-sm border border-pink-100">
             <p className="text-sm text-gray-700">「週末って暇ですか？もしよかったら…」</p>
-            <p className="text-xs text-gray-400 mt-1 text-right">マッチング相手から 22:47 ✓✓</p>
+            <p className="text-xs text-gray-400 mt-1 text-right">マッチング相手から 22:47 OKOK</p>
           </div>
           <p className="text-xs text-pink-400 text-center">↓ AIが脈あり判定＋最適な返信を提案</p>
           <div className="bg-pink-500 rounded-xl p-3 mt-2 text-right">
-            <p className="text-sm text-white">「いいですね！どんなところ好きですか？😊」</p>
+            <p className="text-sm text-white">「いいですね！どんなところ好きですか？」</p>
             <p className="text-xs text-pink-200 mt-1">脈あり度82%・AI提案文（3パターン）</p>
           </div>
         </div>
@@ -292,7 +292,7 @@ export default function Home() {
               こんな経験、ありませんか？
             </div>
           </div>
-          <div className="bg-pink-900/20 border border-pink-700/30 rounded-2xl p-6 mb-4">
+          <div className="rounded-2xl p-6 mb-4" style={{ background: 'rgba(131,24,67,0.18)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(190,24,93,0.30)' }}>
             <p className="text-pink-100 text-sm leading-relaxed mb-3">
               好きな人からLINEが来た。でも、返信しようとすると手が止まる。
             </p>
@@ -307,11 +307,11 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             {[
-              { emoji: "💬", stat: "脈あり度", desc: "0〜100%で数値化。「本当に好かれているか」が可視化される" },
-              { emoji: "💌", stat: "返信案3通り", desc: "状況に合わせた「送って大丈夫な文」をそのまま使える" },
-              { emoji: "📅", stat: "告白タイミング", desc: "「今すぐ」か「もう少し待つか」を明確に提示" },
+              { emoji: "", stat: "脈あり度", desc: "0〜100%で数値化。「本当に好かれているか」が可視化される" },
+              { emoji: "", stat: "返信案3通り", desc: "状況に合わせた「送って大丈夫な文」をそのまま使える" },
+              { emoji: "", stat: "告白タイミング", desc: "「今すぐ」か「もう少し待つか」を明確に提示" },
             ].map((f) => (
-              <div key={f.stat} className="bg-pink-900/30 border border-pink-700/40 rounded-xl p-4 text-center">
+              <div key={f.stat} className="rounded-xl p-4 text-center" style={{ background: 'rgba(131,24,67,0.25)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(190,24,93,0.35)' }}>
                 <div className="text-2xl mb-2">{f.emoji}</div>
                 <p className="font-bold text-pink-300 text-sm mb-1">{f.stat}</p>
                 <p className="text-xs text-pink-200 leading-relaxed">{f.desc}</p>
@@ -332,8 +332,8 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-3 gap-3">
             {[
-              { score: 87, label: "脈ありです！💓", color: "#ec4899", bg: "from-pink-900/60 to-rose-900/40", badge: "告白Go! 🔥", result: "デート成功" },
-              { score: 55, label: "まだわからない…", color: "#f59e0b", bg: "from-amber-900/40 to-pink-900/30", badge: "もう少し！💛", result: "関係継続中" },
+              { score: 87, label: "脈ありです！", color: "#ec4899", bg: "from-pink-900/60 to-rose-900/40", badge: "告白Go! ", result: "デート成功" },
+              { score: 55, label: "まだわからない…", color: "#f59e0b", bg: "from-amber-900/40 to-pink-900/30", badge: "もう少し！", result: "関係継続中" },
               { score: 23, label: "厳しいかも…", color: "#ef4444", bg: "from-red-900/40 to-pink-950/40", badge: "関係深化優先", result: "戦略変更" },
             ].map((item, i) => (
               <div key={i} className={`bg-gradient-to-br ${item.bg} border border-pink-700/30 rounded-2xl p-4 text-center`}>
@@ -382,11 +382,11 @@ export default function Home() {
           <h2 className="text-2xl font-bold text-center mb-10">こんな悩み、ありませんか？</h2>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { emoji: "😰", title: "返信が来ない…", body: "マッチングアプリで既読から2時間。これって脈なし？関係を続けるべき？不安で他のことが手につかない" },
-              { emoji: "🤔", title: "何て返せばいい？", body: "「うん」「そうだね」みたいな短い返信。デートに誘いたいけど、婚活で距離感を間違えたくない" },
-              { emoji: "💍", title: "次のステップに進めない", body: "いい感じな気はするけど、真剣な関係にどう進むか。婚活なら余計に失敗できないと感じる" },
+              { emoji: "", title: "返信が来ない…", body: "マッチングアプリで既読から2時間。これって脈なし？関係を続けるべき？不安で他のことが手につかない" },
+              { emoji: "", title: "何て返せばいい？", body: "「うん」「そうだね」みたいな短い返信。デートに誘いたいけど、婚活で距離感を間違えたくない" },
+              { emoji: "", title: "次のステップに進めない", body: "いい感じな気はするけど、真剣な関係にどう進むか。婚活なら余計に失敗できないと感じる" },
             ].map((p) => (
-              <div key={p.title} className="bg-pink-900/30 border border-pink-800/30 rounded-2xl p-6">
+              <div key={p.title} className="rounded-2xl p-6" style={{ background: 'rgba(131,24,67,0.22)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(157,23,77,0.30)' }}>
                 <div className="text-3xl mb-3">{p.emoji}</div>
                 <h3 className="font-bold text-lg mb-2">{p.title}</h3>
                 <p className="text-slate-400 text-sm leading-relaxed">{p.body}</p>
@@ -432,14 +432,14 @@ export default function Home() {
           <h2 className="text-2xl font-bold text-center mb-10">AIが教えてくれること</h2>
           <div className="grid md:grid-cols-2 gap-6">
             {[
-              { emoji: "❤️‍🔥", title: "脈あり度スコア", body: "0〜100%で数値化。会話のトーン・返信速度・絵文字の使い方など複合的に判断" },
-              { emoji: "💌", title: "返信例文3パターン", body: "「距離を縮める返信」「自然なデート誘い」「余韻を残す一言」など状況別に生成" },
-              { emoji: "📅", title: "告白タイミング分析", body: "「今すぐOK」「あと2週間」「もう少し仲良くなってから」とタイミングを具体的に提示" },
-              { emoji: "💬", title: "告白文テンプレ", body: "LINE・直接・電話、シチュエーション別の告白文をそのまま使えるレベルで生成" },
-              { emoji: "💔", title: "付き合い後の悩みも", body: "喧嘩した後どう仲直りする？ マンネリ打開策は？ 関係をより深めるためのアドバイスをAIが提案" },
-              { emoji: "💍", title: "婚活・マッチングアプリ対応", body: "Pairs・タップル・with・Omiai等のやり取りも全対応。婚活の距離感・デートの誘い方・将来の話し方をAIが提案" },
+              { emoji: "‍", title: "脈あり度スコア", body: "0〜100%で数値化。会話のトーン・返信速度・絵文字の使い方など複合的に判断" },
+              { emoji: "", title: "返信例文3パターン", body: "「距離を縮める返信」「自然なデート誘い」「余韻を残す一言」など状況別に生成" },
+              { emoji: "", title: "告白タイミング分析", body: "「今すぐOK」「あと2週間」「もう少し仲良くなってから」とタイミングを具体的に提示" },
+              { emoji: "", title: "告白文テンプレ", body: "LINE・直接・電話、シチュエーション別の告白文をそのまま使えるレベルで生成" },
+              { emoji: "", title: "付き合い後の悩みも", body: "喧嘩した後どう仲直りする？ マンネリ打開策は？ 関係をより深めるためのアドバイスをAIが提案" },
+              { emoji: "", title: "婚活・マッチングアプリ対応", body: "Pairs・タップル・with・Omiai等のやり取りも全対応。婚活の距離感・デートの誘い方・将来の話し方をAIが提案" },
             ].map((f) => (
-              <div key={f.title} className="bg-pink-900/30 border border-pink-800/30 rounded-2xl p-6 flex gap-4">
+              <div key={f.title} className="rounded-2xl p-6 flex gap-4" style={{ background: 'rgba(131,24,67,0.22)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(157,23,77,0.30)' }}>
                 <div className="text-3xl shrink-0">{f.emoji}</div>
                 <div>
                   <h3 className="font-bold mb-1">{f.title}</h3>
@@ -491,7 +491,7 @@ export default function Home() {
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-10">
             <div className="inline-block bg-pink-800/50 text-pink-300 text-xs font-bold px-4 py-1.5 rounded-full mb-3 border border-pink-700/40">
-              💬 累計8,400件以上の恋愛相談を解決
+               累計8,400件以上の恋愛相談を解決
             </div>
             <h2 className="text-2xl font-bold">使った人の声</h2>
             <div className="flex items-center justify-center gap-1 mt-3">
@@ -537,7 +537,7 @@ export default function Home() {
                 stars: 4,
               },
             ].map((t) => (
-              <div key={t.name} className="bg-pink-900/30 border border-pink-800/30 rounded-2xl p-5">
+              <div key={t.name} className="rounded-2xl p-5" style={{ background: 'rgba(131,24,67,0.22)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(157,23,77,0.30)' }}>
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-2">
                     <div className="flex gap-0.5">
@@ -580,26 +580,26 @@ export default function Home() {
           <p className="text-slate-400 text-sm mb-10">まず無料で試して、気に入ったらアップグレード</p>
           <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
             {/* Free */}
-            <div className="bg-pink-900/40 rounded-2xl p-8 border border-pink-800/40 flex flex-col">
+            <div className="rounded-2xl p-8 flex flex-col" style={{ background: 'rgba(131,24,67,0.32)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(157,23,77,0.35)' }}>
               <div className="mb-4">
                 <h3 className="font-bold text-lg mb-1">無料プラン</h3>
                 <div className="text-4xl font-black mb-1">¥0</div>
                 <p className="text-xs text-slate-400">登録不要・クレカ不要</p>
               </div>
               <ul className="text-slate-400 text-sm space-y-2 mb-6 text-left flex-1">
-                <li className="flex items-start gap-2"><span className="text-green-400 mt-0.5">✓</span><span>1日3回まで無料で解析</span></li>
-                <li className="flex items-start gap-2"><span className="text-green-400 mt-0.5">✓</span><span>脈あり度スコア</span></li>
-                <li className="flex items-start gap-2"><span className="text-green-400 mt-0.5">✓</span><span>返信例文（3パターン）</span></li>
-                <li className="flex items-start gap-2"><span className="text-green-400 mt-0.5">✓</span><span>告白タイミング分析</span></li>
-                <li className="flex items-start gap-2"><span className="text-red-400 mt-0.5">✗</span><span className="text-slate-500">告白文テンプレ（有料のみ）</span></li>
-                <li className="flex items-start gap-2"><span className="text-red-400 mt-0.5">✗</span><span className="text-slate-500">1日3回までの制限あり</span></li>
+                <li className="flex items-start gap-2"><span className="text-green-400 mt-0.5">OK</span><span>1日3回まで無料で解析</span></li>
+                <li className="flex items-start gap-2"><span className="text-green-400 mt-0.5">OK</span><span>脈あり度スコア</span></li>
+                <li className="flex items-start gap-2"><span className="text-green-400 mt-0.5">OK</span><span>返信例文（3パターン）</span></li>
+                <li className="flex items-start gap-2"><span className="text-green-400 mt-0.5">OK</span><span>告白タイミング分析</span></li>
+                <li className="flex items-start gap-2"><span className="text-red-400 mt-0.5">NG</span><span className="text-slate-500">告白文テンプレ（有料のみ）</span></li>
+                <li className="flex items-start gap-2"><span className="text-red-400 mt-0.5">NG</span><span className="text-slate-500">1日3回までの制限あり</span></li>
               </ul>
               <Link href="/tool" className="block w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded-xl transition text-center">
                 無料で試す（3回/日）
               </Link>
             </div>
             {/* Premium */}
-            <div className="bg-gradient-to-b from-pink-950 to-rose-950 rounded-2xl p-8 border-2 border-pink-500 relative flex flex-col">
+            <div className="rounded-2xl p-8 relative flex flex-col" style={{ background: 'rgba(80,10,40,0.60)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)', border: '2px solid rgba(236,72,153,0.55)' }}>
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-pink-500 to-rose-500 text-white text-xs font-black px-4 py-1 rounded-full">おすすめ</div>
               <div className="mb-4">
                 <h3 className="font-bold text-lg mb-1">プレミアムプラン</h3>
@@ -607,12 +607,12 @@ export default function Home() {
                 <p className="text-xs text-pink-300">1日たった約16円</p>
               </div>
               <ul className="text-pink-100 text-sm space-y-2 mb-6 text-left flex-1">
-                <li className="flex items-start gap-2"><span className="text-green-400 mt-0.5">✓</span><span><strong>解析回数 無制限</strong></span></li>
-                <li className="flex items-start gap-2"><span className="text-green-400 mt-0.5">✓</span><span>脈あり度スコア</span></li>
-                <li className="flex items-start gap-2"><span className="text-green-400 mt-0.5">✓</span><span><strong>高精度AI（返信例文 3パターン）</strong></span></li>
-                <li className="flex items-start gap-2"><span className="text-green-400 mt-0.5">✓</span><span>感情分析スコア付き</span></li>
-                <li className="flex items-start gap-2"><span className="text-green-400 mt-0.5">✓</span><span><strong>告白文テンプレート付き</strong></span></li>
-                <li className="flex items-start gap-2"><span className="text-green-400 mt-0.5">✓</span><span>告白タイミング詳細分析</span></li>
+                <li className="flex items-start gap-2"><span className="text-green-400 mt-0.5">OK</span><span><strong>解析回数 無制限</strong></span></li>
+                <li className="flex items-start gap-2"><span className="text-green-400 mt-0.5">OK</span><span>脈あり度スコア</span></li>
+                <li className="flex items-start gap-2"><span className="text-green-400 mt-0.5">OK</span><span><strong>高精度AI（返信例文 3パターン）</strong></span></li>
+                <li className="flex items-start gap-2"><span className="text-green-400 mt-0.5">OK</span><span>感情分析スコア付き</span></li>
+                <li className="flex items-start gap-2"><span className="text-green-400 mt-0.5">OK</span><span><strong>告白文テンプレート付き</strong></span></li>
+                <li className="flex items-start gap-2"><span className="text-green-400 mt-0.5">OK</span><span>告白タイミング詳細分析</span></li>
               </ul>
               <button
                 onClick={startCheckout}
@@ -647,12 +647,12 @@ export default function Home() {
 
       {/* もっと活用する3選 */}
       <section className="py-8 px-4 max-w-lg mx-auto">
-        <h2 className="text-center text-base font-bold text-pink-700 mb-4">💕 告白LINE AIをもっと活用する3選</h2>
+        <h2 className="text-center text-base font-bold text-pink-700 mb-4"> 告白LINE AIをもっと活用する3選</h2>
         <ol className="space-y-3">
           {[
-            { icon: "💌", title: "3パターンの返信を比較する", desc: "A（積極的）・B（自然）・C（ちょっと引く）の3択を状況に合わせて使い分けよう。" },
-            { icon: "📊", title: "脈あり度スコアを積み重ねる", desc: "毎回のLINEでスコアを記録して、相手の気持ちの変化を追ってみよう。" },
-            { icon: "💬", title: "マッチングアプリのやり取りにも活用", desc: "初メッセージ・デートの誘い・未読スルー後など、あらゆる場面でAIに相談できます。" },
+            { icon: "", title: "3パターンの返信を比較する", desc: "A（積極的）・B（自然）・C（ちょっと引く）の3択を状況に合わせて使い分けよう。" },
+            { icon: "", title: "脈あり度スコアを積み重ねる", desc: "毎回のLINEでスコアを記録して、相手の気持ちの変化を追ってみよう。" },
+            { icon: "", title: "マッチングアプリのやり取りにも活用", desc: "初メッセージ・デートの誘い・未読スルー後など、あらゆる場面でAIに相談できます。" },
           ].map((item, i) => (
             <li key={i} className="flex items-start gap-3 rounded-xl p-3"
               style={{ background: "rgba(236,72,153,0.05)", border: "1px solid rgba(236,72,153,0.15)" }}>
@@ -670,11 +670,11 @@ export default function Home() {
       <section className="py-10 px-4">
         <div className="max-w-lg mx-auto">
           <div className="bg-pink-50 rounded-xl p-6 border border-pink-200">
-            <h3 className="font-bold text-pink-800 text-lg">📈 相手の気持ちを毎日追跡</h3>
+            <h3 className="font-bold text-pink-800 text-lg"> 相手の気持ちを毎日追跡</h3>
             <p className="text-pink-600 mt-2 text-sm">毎日LINEを診断するたびに脈あり%の推移グラフが更新されます。<br/>「先週より5%上昇」「傾向は上向き」など関係性の変化をAIが分析。</p>
             <div className="flex gap-4 mt-4">
               <div className="text-center">
-                <div className="text-3xl font-bold text-pink-700">🔥7</div>
+                <div className="text-3xl font-bold text-pink-700">7</div>
                 <div className="text-xs text-pink-500">日連続記録中</div>
               </div>
               <div className="text-center">
@@ -782,42 +782,42 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-4">
             {[
               {
-                icon: "💬",
+                icon: "",
                 title: "短い返信が続いている",
                 example: "「うん」「そうだね」しか返ってこない",
                 action: "→ 相手の関心事を引き出す返信案を生成",
                 color: "bg-pink-900/30 border-pink-800/40",
               },
               {
-                icon: "😰",
+                icon: "",
                 title: "既読スルーされた",
                 example: "送ってから2日経っても既読のまま...",
                 action: "→ 自然な既読スルー後のフォロー文を提案",
                 color: "bg-rose-900/30 border-rose-800/40",
               },
               {
-                icon: "💕",
+                icon: "",
                 title: "デートに誘いたい",
                 example: "「また今度ね」で終わってしまう",
                 action: "→ 自然な流れでデートにつなげる返信を提案",
                 color: "bg-pink-900/30 border-pink-800/40",
               },
               {
-                icon: "💔",
+                icon: "",
                 title: "喧嘩した後",
                 example: "怒らせてしまった。どう仲直りする？",
                 action: "→ 関係修復のための最適な一言を提案",
                 color: "bg-rose-900/30 border-rose-800/40",
               },
               {
-                icon: "📲",
+                icon: "",
                 title: "マッチングアプリ",
                 example: "最初のメッセージから返信が来ない",
                 action: "→ マッチング相手別の返信戦略を提案",
                 color: "bg-pink-900/30 border-pink-800/40",
               },
               {
-                icon: "💍",
+                icon: "",
                 title: "真剣な関係に進めたい",
                 example: "婚活で次のステップに進めない",
                 action: "→ 婚活向け距離の縮め方・関係深化文を提案",
@@ -849,7 +849,7 @@ export default function Home() {
 
       {/* マッチングアプリ アフィリエイト */}
       <section className="py-10 px-4 max-w-2xl mx-auto">
-        <h2 className="text-sm font-bold text-pink-500 text-center mb-4">💕 出会いを増やすならこちらも（PR）</h2>
+        <h2 className="text-sm font-bold text-pink-500 text-center mb-4"> 出会いを増やすならこちらも（PR）</h2>
         <div className="space-y-3">
           <a
             href="https://px.a8.net/svt/ejp?a8mat=4AZIOF+8OKLDE+4EPM+63OY9"
@@ -857,7 +857,7 @@ export default function Home() {
             rel="noopener noreferrer sponsored"
             className="flex items-center gap-3 bg-pink-800/30 hover:bg-pink-800/50 border border-pink-600/40 rounded-xl px-4 py-3 transition-colors"
           >
-            <span className="text-2xl">💎</span>
+            <span className="text-2xl"></span>
             <div className="flex-1">
               <p className="text-sm font-bold text-pink-200">Pairs（ペアーズ）— 累計2,000万組以上のカップル誕生</p>
               <p className="text-xs text-pink-400">真剣な恋活・婚活向けマッチングアプリ。AIの返信テクニックと組み合わせよう</p>
@@ -870,7 +870,7 @@ export default function Home() {
             rel="noopener noreferrer sponsored"
             className="flex items-center gap-3 bg-pink-800/30 hover:bg-pink-800/50 border border-pink-600/40 rounded-xl px-4 py-3 transition-colors"
           >
-            <span className="text-2xl">🌸</span>
+            <span className="text-2xl"></span>
             <div className="flex-1">
               <p className="text-sm font-bold text-pink-200">SOELU オンラインヨガ — デートに向けて体型ケア</p>
               <p className="text-xs text-pink-400">告白後のデートに備えて。自宅でできるヨガ・フィットネス。初月無料</p>
@@ -933,7 +933,7 @@ export default function Home() {
       {/* X Share */}
       <section className="py-6 px-6 text-center">
         <a
-          href={"https://twitter.com/intent/tweet?text=" + encodeURIComponent("告白LINE返信AI — 好きな人からのLINEをAIが分析！脈あり度スコア＋返信パターン3通りを即提案💕 マッチングアプリ・婚活にも → https://kokuhaku-line-ai.vercel.app #告白LINE #恋愛AI #マッチングアプリ")}
+          href={"https://twitter.com/intent/tweet?text=" + encodeURIComponent("告白LINE返信AI — 好きな人からのLINEをAIが分析！脈あり度スコア＋返信パターン3通りを即提案 マッチングアプリ・婚活にも → https://kokuhaku-line-ai.vercel.app #告白LINE #恋愛AI #マッチングアプリ")}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 bg-black hover:bg-gray-800 text-white font-bold py-3 px-6 rounded-xl text-sm transition-colors"
@@ -964,8 +964,8 @@ export default function Home() {
       {showPayjp && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4" role="dialog" aria-modal="true" aria-labelledby="premium-modal-title">
           <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-xl relative">
-            <button onClick={() => setShowPayjp(false)} aria-label="プレミアムプランモーダルを閉じる" className="absolute top-3 right-3 text-gray-400 text-xl">✕</button>
-            <div className="text-3xl mb-3 text-center">💌</div>
+            <button onClick={() => setShowPayjp(false)} aria-label="プレミアムプランモーダルを閉じる" className="absolute top-3 right-3 text-gray-400 text-xl"></button>
+            <div className="text-3xl mb-3 text-center"></div>
             <h2 id="premium-modal-title" className="text-lg font-bold mb-2 text-center">プレミアムプラン</h2>
             <p className="text-sm text-gray-500 mb-4 text-center">LINE解析 無制限+高精度</p>
             <KomojuButton planId="standard" planLabel="プレミアムプラン ¥980/月" className="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 disabled:opacity-50" />
