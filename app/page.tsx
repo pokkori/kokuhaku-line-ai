@@ -38,10 +38,10 @@ function generateShareCard(score: number): string {
   ctx.fillText('脈あり度診断結果', 600, 380);
 
   const judgment = score >= 70
-    ? ' 告白チャンス！今すぐ行動しよう'
+    ? '告白チャンス！今すぐ行動しよう'
     : score >= 40
-    ? ' 脈あり気配あり もう少しで行ける'
-    : ' まずは距離を縮めるところから';
+    ? '脈あり気配あり もう少しで行ける'
+    : 'まずは距離を縮めるところから';
   ctx.fillStyle = '#ad1457';
   ctx.font = '40px sans-serif';
   ctx.fillText(judgment, 600, 460);
@@ -181,7 +181,7 @@ function QuickDiagnosis({ onDiagnosisComplete }: { onDiagnosisComplete?: () => v
               aria-label="脈あり度カードを画像としてクリップボードにコピーしてXでシェアする"
               className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-rose-600 to-pink-700 hover:opacity-90 text-white font-bold py-3 rounded-xl text-sm transition shadow-lg"
             >
-              {cardCopied ? 'OK コピー完了！Xに貼り付けてシェアしよう' : ' 脈あり度カードを画像コピー→Xへ'}
+              {cardCopied ? 'コピー完了! Xに貼り付けてシェアしよう' : '脈あり度カードを画像コピー → Xへ'}
             </button>
             <a
               href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`告白LINE AI簡易診断で脈あり${pct}%でした！\n#告白LINE #脈あり診断\nhttps://kokuhaku-line-ai.vercel.app`)}`}
@@ -189,7 +189,7 @@ function QuickDiagnosis({ onDiagnosisComplete }: { onDiagnosisComplete?: () => v
               rel="noopener noreferrer"
               className="block text-center bg-black hover:bg-gray-800 text-white font-bold px-8 py-3 rounded-xl transition text-sm"
             >
-               脈あり{pct}%をXでシェア
+              脈あり{pct}%をXでシェア
             </a>
             <Link href="/tool" className="block bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold px-8 py-3 rounded-xl transition">
               LINEの文章をAIに解析してもらう（3回無料）→
@@ -225,22 +225,37 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-pink-950 via-rose-900 to-pink-900 text-white">
+    <main className="min-h-screen text-white relative" style={{ background: "radial-gradient(ellipse at 20% 50%, rgba(120,80,200,0.18) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(200,80,180,0.12) 0%, transparent 50%), radial-gradient(ellipse at 50% 80%, rgba(80,100,220,0.1) 0%, transparent 50%), #0B0B1E" }}>
+      {/* Floating particles */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0" aria-hidden="true">
+        {[
+          { size: 4, x: '10%', y: '20%', dur: '6s', delay: '0s' },
+          { size: 3, x: '85%', y: '15%', dur: '8s', delay: '1s' },
+          { size: 5, x: '70%', y: '60%', dur: '7s', delay: '2s' },
+          { size: 3, x: '25%', y: '75%', dur: '9s', delay: '0.5s' },
+          { size: 4, x: '50%', y: '40%', dur: '10s', delay: '3s' },
+          { size: 6, x: '90%', y: '80%', dur: '7s', delay: '1.5s' },
+        ].map((p, i) => (
+          <div key={i} className="absolute rounded-full animate-pulse" style={{ width: p.size, height: p.size, left: p.x, top: p.y, background: 'rgba(168,85,247,0.3)', animationDuration: p.dur, animationDelay: p.delay }} />
+        ))}
+      </div>
       {/* Hero */}
       <section className="pt-20 pb-16 px-4 text-center">
         <div className="inline-block bg-pink-800/60 border border-pink-500/40 text-pink-200 text-xs font-bold px-3 py-1 rounded-full mb-6">
-           恋愛・婚活コーチAI — 脈あり判定 × 返信例文 × マッチングアプリ対応 — 無料3回
+          恋愛・婚活コーチAI -- 脈あり判定 x 返信例文 x マッチングアプリ対応 -- 無料3回
         </div>
-        <div className="inline-flex items-center gap-2 bg-white/10 rounded-full px-4 py-2 text-sm mb-4">
-          <span></span>
-          <span>累計 <strong>8,400件+</strong> の返信を生成しました</span>
+        <div className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm mb-4" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><polyline points="20,6 9,17 4,12"/></svg>
+          <span className="text-slate-300">累計 <strong className="text-white">8,400件+</strong> の返信を生成しました</span>
         </div>
         <h1 className="text-4xl md:text-5xl font-black mb-4 leading-tight">
-          気になるあの人の本音を、<br />AIが解読します
+          気になるあの人の本音を、<br />
+          <span style={{ background: "linear-gradient(135deg, #E9D5FF, #FFFFFF, #FBCFE8)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>AIが解読します</span>
         </h1>
         {streak && streak.count > 0 && (
-          <div className="mt-2 inline-flex items-center gap-2 bg-pink-50 border border-pink-200 rounded-full px-3 py-1 text-sm">
-            <span>{streak.count}日連続利用中</span>
+          <div className="mt-2 inline-flex items-center gap-2 rounded-full px-3 py-1 text-sm" style={{ background: "rgba(236,72,153,0.1)", border: "1px solid rgba(236,72,153,0.25)" }}>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="inline -mt-0.5" aria-hidden="true"><path d="M8 1L10 6H15L11 9.5L12.5 15L8 11.5L3.5 15L5 9.5L1 6H6L8 1Z" fill="#f472b6" /></svg>
+            <span className="text-pink-300">{streak.count}日連続利用中</span>
           </div>
         )}
         {streakMsg && <div className="text-orange-600 font-bold text-sm text-center">{streakMsg}</div>}
@@ -258,7 +273,8 @@ export default function Home() {
           <Link
             href="/tool"
             aria-label="告白LINE返信AIツールを開く（3回無料）"
-            className="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition"
+            className="text-white font-bold px-8 py-4 rounded-2xl text-lg transition-all duration-200 hover:-translate-y-0.5 active:scale-[0.97] min-h-[52px] inline-block"
+            style={{ background: "linear-gradient(135deg, #A855F7, #EC4899)", boxShadow: "0 0 30px rgba(168,85,247,0.4), 0 0 60px rgba(236,72,153,0.15)" }}
           >
             今すぐ恋愛AIに相談する（3回無料）→
           </Link>
@@ -307,12 +323,12 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             {[
-              { emoji: "", stat: "脈あり度", desc: "0〜100%で数値化。「本当に好かれているか」が可視化される" },
-              { emoji: "", stat: "返信案3通り", desc: "状況に合わせた「送って大丈夫な文」をそのまま使える" },
-              { emoji: "", stat: "告白タイミング", desc: "「今すぐ」か「もう少し待つか」を明確に提示" },
+              { emoji: "heart", stat: "脈あり度", desc: "0〜100%で数値化。「本当に好かれているか」が可視化される" },
+              { emoji: "chat", stat: "返信案3通り", desc: "状況に合わせた「送って大丈夫な文」をそのまま使える" },
+              { emoji: "clock", stat: "告白タイミング", desc: "「今すぐ」か「もう少し待つか」を明確に提示" },
             ].map((f) => (
               <div key={f.stat} className="rounded-xl p-4 text-center" style={{ background: 'rgba(131,24,67,0.25)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(190,24,93,0.35)' }}>
-                <div className="text-2xl mb-2">{f.emoji}</div>
+                <div className="mb-2">{f.emoji === "heart" ? <svg width="24" height="24" viewBox="0 0 24 24" fill="#ec4899" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg> : f.emoji === "chat" ? <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ec4899" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg> : <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ec4899" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>}</div>
                 <p className="font-bold text-pink-300 text-sm mb-1">{f.stat}</p>
                 <p className="text-xs text-pink-200 leading-relaxed">{f.desc}</p>
               </div>
@@ -382,12 +398,12 @@ export default function Home() {
           <h2 className="text-2xl font-bold text-center mb-10">こんな悩み、ありませんか？</h2>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { emoji: "", title: "返信が来ない…", body: "マッチングアプリで既読から2時間。これって脈なし？関係を続けるべき？不安で他のことが手につかない" },
-              { emoji: "", title: "何て返せばいい？", body: "「うん」「そうだね」みたいな短い返信。デートに誘いたいけど、婚活で距離感を間違えたくない" },
-              { emoji: "", title: "次のステップに進めない", body: "いい感じな気はするけど、真剣な関係にどう進むか。婚活なら余計に失敗できないと感じる" },
+              { emoji: "phone", title: "返信が来ない...", body: "マッチングアプリで既読から2時間。これって脈なし？関係を続けるべき？不安で他のことが手につかない" },
+              { emoji: "question", title: "何て返せばいい？", body: "「うん」「そうだね」みたいな短い返信。デートに誘いたいけど、婚活で距離感を間違えたくない" },
+              { emoji: "arrow", title: "次のステップに進めない", body: "いい感じな気はするけど、真剣な関係にどう進むか。婚活なら余計に失敗できないと感じる" },
             ].map((p) => (
               <div key={p.title} className="rounded-2xl p-6" style={{ background: 'rgba(131,24,67,0.22)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(157,23,77,0.30)' }}>
-                <div className="text-3xl mb-3">{p.emoji}</div>
+                <div className="mb-3">{p.emoji === "phone" ? <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f472b6" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg> : p.emoji === "question" ? <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f472b6" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> : <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f472b6" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19,12 12,19 5,12"/></svg>}</div>
                 <h3 className="font-bold text-lg mb-2">{p.title}</h3>
                 <p className="text-slate-400 text-sm leading-relaxed">{p.body}</p>
               </div>
@@ -432,15 +448,22 @@ export default function Home() {
           <h2 className="text-2xl font-bold text-center mb-10">AIが教えてくれること</h2>
           <div className="grid md:grid-cols-2 gap-6">
             {[
-              { emoji: "‍", title: "脈あり度スコア", body: "0〜100%で数値化。会話のトーン・返信速度・絵文字の使い方など複合的に判断" },
-              { emoji: "", title: "返信例文3パターン", body: "「距離を縮める返信」「自然なデート誘い」「余韻を残す一言」など状況別に生成" },
-              { emoji: "", title: "告白タイミング分析", body: "「今すぐOK」「あと2週間」「もう少し仲良くなってから」とタイミングを具体的に提示" },
-              { emoji: "", title: "告白文テンプレ", body: "LINE・直接・電話、シチュエーション別の告白文をそのまま使えるレベルで生成" },
-              { emoji: "", title: "付き合い後の悩みも", body: "喧嘩した後どう仲直りする？ マンネリ打開策は？ 関係をより深めるためのアドバイスをAIが提案" },
-              { emoji: "", title: "婚活・マッチングアプリ対応", body: "Pairs・タップル・with・Omiai等のやり取りも全対応。婚活の距離感・デートの誘い方・将来の話し方をAIが提案" },
+              { emoji: "gauge", title: "脈あり度スコア", body: "0〜100%で数値化。会話のトーン・返信速度・絵文字の使い方など複合的に判断" },
+              { emoji: "pen", title: "返信例文3パターン", body: "「距離を縮める返信」「自然なデート誘い」「余韻を残す一言」など状況別に生成" },
+              { emoji: "cal", title: "告白タイミング分析", body: "「今すぐOK」「あと2週間」「もう少し仲良くなってから」とタイミングを具体的に提示" },
+              { emoji: "doc", title: "告白文テンプレ", body: "LINE・直接・電話、シチュエーション別の告白文をそのまま使えるレベルで生成" },
+              { emoji: "refresh", title: "付き合い後の悩みも", body: "喧嘩した後どう仲直りする？ マンネリ打開策は？ 関係をより深めるためのアドバイスをAIが提案" },
+              { emoji: "app", title: "婚活・マッチングアプリ対応", body: "Pairs・タップル・with・Omiai等のやり取りも全対応。婚活の距離感・デートの誘い方・将来の話し方をAIが提案" },
             ].map((f) => (
               <div key={f.title} className="rounded-2xl p-6 flex gap-4" style={{ background: 'rgba(131,24,67,0.22)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(157,23,77,0.30)' }}>
-                <div className="text-3xl shrink-0">{f.emoji}</div>
+                <div className="shrink-0">{
+                  f.emoji === "gauge" ? <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f472b6" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M12 2a10 10 0 110 20 10 10 0 010-20z"/><path d="M12 6v6l4 2"/></svg> :
+                  f.emoji === "pen" ? <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f472b6" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg> :
+                  f.emoji === "cal" ? <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f472b6" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> :
+                  f.emoji === "doc" ? <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f472b6" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg> :
+                  f.emoji === "refresh" ? <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f472b6" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><polyline points="23,4 23,10 17,10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg> :
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f472b6" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
+                }</div>
                 <div>
                   <h3 className="font-bold mb-1">{f.title}</h3>
                   <p className="text-slate-400 text-sm leading-relaxed">{f.body}</p>
@@ -639,7 +662,7 @@ export default function Home() {
       </section>
 
       {/* スティッキーモバイルCTA */}
-      <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-pink-950 to-rose-950 border-t border-pink-700/50 px-4 py-3 z-40 sm:hidden shadow-lg">
+      <div className="fixed bottom-0 left-0 right-0 px-4 py-3 z-40 sm:hidden" style={{ background: "rgba(15,15,26,0.9)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)", borderTop: "1px solid rgba(236,72,153,0.2)" }}>
         <Link href="/tool" className="block w-full bg-gradient-to-r from-pink-500 to-rose-500 text-white font-black text-center py-3.5 rounded-xl text-sm transition-colors">
           今すぐ恋愛AIに相談する（3回無料）→
         </Link>
@@ -647,19 +670,19 @@ export default function Home() {
 
       {/* もっと活用する3選 */}
       <section className="py-8 px-4 max-w-lg mx-auto">
-        <h2 className="text-center text-base font-bold text-pink-700 mb-4"> 告白LINE AIをもっと活用する3選</h2>
+        <h2 className="text-center text-base font-bold text-pink-300 mb-4">告白LINE AIをもっと活用する3選</h2>
         <ol className="space-y-3">
           {[
-            { icon: "", title: "3パターンの返信を比較する", desc: "A（積極的）・B（自然）・C（ちょっと引く）の3択を状況に合わせて使い分けよう。" },
-            { icon: "", title: "脈あり度スコアを積み重ねる", desc: "毎回のLINEでスコアを記録して、相手の気持ちの変化を追ってみよう。" },
-            { icon: "", title: "マッチングアプリのやり取りにも活用", desc: "初メッセージ・デートの誘い・未読スルー後など、あらゆる場面でAIに相談できます。" },
+            { title: "3パターンの返信を比較する", desc: "A（積極的）・B（自然）・C（ちょっと引く）の3択を状況に合わせて使い分けよう。" },
+            { title: "脈あり度スコアを積み重ねる", desc: "毎回のLINEでスコアを記録して、相手の気持ちの変化を追ってみよう。" },
+            { title: "マッチングアプリのやり取りにも活用", desc: "初メッセージ・デートの誘い・未読スルー後など、あらゆる場面でAIに相談できます。" },
           ].map((item, i) => (
             <li key={i} className="flex items-start gap-3 rounded-xl p-3"
               style={{ background: "rgba(236,72,153,0.05)", border: "1px solid rgba(236,72,153,0.15)" }}>
-              <span style={{ fontSize: "22px", lineHeight: "1" }}>{item.icon}</span>
+              <span className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 mt-0.5 text-sm font-black text-pink-300" style={{ background: "rgba(236,72,153,0.15)" }}>{i + 1}</span>
               <div>
-                <div className="text-pink-800 font-bold text-sm">{i + 1}. {item.title}</div>
-                <div className="text-pink-600 text-xs mt-0.5 opacity-80">{item.desc}</div>
+                <div className="text-pink-300 font-bold text-sm">{item.title}</div>
+                <div className="text-pink-500/70 text-xs mt-0.5">{item.desc}</div>
               </div>
             </li>
           ))}
@@ -669,17 +692,17 @@ export default function Home() {
       {/* 毎日追跡セクション */}
       <section className="py-10 px-4">
         <div className="max-w-lg mx-auto">
-          <div className="bg-pink-50 rounded-xl p-6 border border-pink-200">
-            <h3 className="font-bold text-pink-800 text-lg"> 相手の気持ちを毎日追跡</h3>
-            <p className="text-pink-600 mt-2 text-sm">毎日LINEを診断するたびに脈あり%の推移グラフが更新されます。<br/>「先週より5%上昇」「傾向は上向き」など関係性の変化をAIが分析。</p>
+          <div className="rounded-xl p-6" style={{ background: "rgba(236,72,153,0.08)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", border: "1px solid rgba(236,72,153,0.2)" }}>
+            <h3 className="font-bold text-pink-300 text-lg">相手の気持ちを毎日追跡</h3>
+            <p className="text-pink-400/70 mt-2 text-sm">毎日LINEを診断するたびに脈あり%の推移グラフが更新されます。<br/>「先週より5%上昇」「傾向は上向き」など関係性の変化をAIが分析。</p>
             <div className="flex gap-4 mt-4">
               <div className="text-center">
-                <div className="text-3xl font-bold text-pink-700">7</div>
-                <div className="text-xs text-pink-500">日連続記録中</div>
+                <div className="text-3xl font-bold text-pink-400">7</div>
+                <div className="text-xs text-pink-500/70">日連続記録中</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-pink-700">↗72%</div>
-                <div className="text-xs text-pink-500">今週の脈あり率</div>
+                <div className="text-3xl font-bold text-pink-400">↗72%</div>
+                <div className="text-xs text-pink-500/70">今週の脈あり率</div>
               </div>
             </div>
           </div>
@@ -782,42 +805,36 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-4">
             {[
               {
-                icon: "",
                 title: "短い返信が続いている",
                 example: "「うん」「そうだね」しか返ってこない",
                 action: "→ 相手の関心事を引き出す返信案を生成",
                 color: "bg-pink-900/30 border-pink-800/40",
               },
               {
-                icon: "",
                 title: "既読スルーされた",
                 example: "送ってから2日経っても既読のまま...",
                 action: "→ 自然な既読スルー後のフォロー文を提案",
                 color: "bg-rose-900/30 border-rose-800/40",
               },
               {
-                icon: "",
                 title: "デートに誘いたい",
                 example: "「また今度ね」で終わってしまう",
                 action: "→ 自然な流れでデートにつなげる返信を提案",
                 color: "bg-pink-900/30 border-pink-800/40",
               },
               {
-                icon: "",
                 title: "喧嘩した後",
                 example: "怒らせてしまった。どう仲直りする？",
                 action: "→ 関係修復のための最適な一言を提案",
                 color: "bg-rose-900/30 border-rose-800/40",
               },
               {
-                icon: "",
                 title: "マッチングアプリ",
                 example: "最初のメッセージから返信が来ない",
                 action: "→ マッチング相手別の返信戦略を提案",
                 color: "bg-pink-900/30 border-pink-800/40",
               },
               {
-                icon: "",
                 title: "真剣な関係に進めたい",
                 example: "婚活で次のステップに進めない",
                 action: "→ 婚活向け距離の縮め方・関係深化文を提案",
@@ -826,7 +843,7 @@ export default function Home() {
             ].map((s, i) => (
               <div key={i} className={`${s.color} border rounded-xl p-4`}>
                 <div className="flex items-start gap-3">
-                  <span className="text-2xl">{s.icon}</span>
+                  <span className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 text-sm font-black text-pink-300" style={{ background: "rgba(236,72,153,0.15)" }}>{i + 1}</span>
                   <div>
                     <p className="font-bold text-white text-sm mb-1">{s.title}</p>
                     <p className="text-xs text-pink-400 mb-2 italic">「{s.example}」</p>
@@ -849,7 +866,7 @@ export default function Home() {
 
       {/* マッチングアプリ アフィリエイト */}
       <section className="py-10 px-4 max-w-2xl mx-auto">
-        <h2 className="text-sm font-bold text-pink-500 text-center mb-4"> 出会いを増やすならこちらも（PR）</h2>
+        <h2 className="text-sm font-bold text-pink-500 text-center mb-4">出会いを増やすならこちらも（PR）</h2>
         <div className="space-y-3">
           <a
             href="https://px.a8.net/svt/ejp?a8mat=4AZIOF+8OKLDE+4EPM+63OY9"
@@ -857,7 +874,7 @@ export default function Home() {
             rel="noopener noreferrer sponsored"
             className="flex items-center gap-3 bg-pink-800/30 hover:bg-pink-800/50 border border-pink-600/40 rounded-xl px-4 py-3 transition-colors"
           >
-            <span className="text-2xl"></span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f472b6" strokeWidth="2" strokeLinecap="round" className="shrink-0" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
             <div className="flex-1">
               <p className="text-sm font-bold text-pink-200">Pairs（ペアーズ）— 累計2,000万組以上のカップル誕生</p>
               <p className="text-xs text-pink-400">真剣な恋活・婚活向けマッチングアプリ。AIの返信テクニックと組み合わせよう</p>
@@ -870,7 +887,7 @@ export default function Home() {
             rel="noopener noreferrer sponsored"
             className="flex items-center gap-3 bg-pink-800/30 hover:bg-pink-800/50 border border-pink-600/40 rounded-xl px-4 py-3 transition-colors"
           >
-            <span className="text-2xl"></span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f472b6" strokeWidth="2" strokeLinecap="round" className="shrink-0" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
             <div className="flex-1">
               <p className="text-sm font-bold text-pink-200">SOELU オンラインヨガ — デートに向けて体型ケア</p>
               <p className="text-xs text-pink-400">告白後のデートに備えて。自宅でできるヨガ・フィットネス。初月無料</p>
@@ -944,7 +961,7 @@ export default function Home() {
           Xでシェアする
         </a>
       </section>
-      <footer className="border-t border-slate-800 py-6 text-center text-xs text-slate-500 pb-24 sm:pb-6">
+      <footer className="py-6 text-center text-xs text-slate-500 pb-24 sm:pb-6" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
         <div className="space-x-4 mb-4">
           <Link href="/legal" className="hover:underline">特定商取引法に基づく表記</Link>
           <Link href="/terms" className="hover:underline">利用規約</Link>
