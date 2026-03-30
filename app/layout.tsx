@@ -1,9 +1,17 @@
 import type { Metadata } from "next";
+import { Noto_Sans_JP } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GoogleAdScript } from "@/components/GoogleAdScript";
 import "./globals.css";
 import { InstallPrompt } from "@/components/InstallPrompt";
 
+const notoSansJP = Noto_Sans_JP({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  display: "swap",
+  variable: "--font-noto-sans-jp",
+});
 
 const SITE_URL = "https://kokuhaku-line-ai.vercel.app";
 const TITLE = "告白LINE返信AI | 好きな子のLINEをAIが分析。脈あり度・返信例文・告白タイミングを判定";
@@ -103,7 +111,7 @@ const jsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ja">
+    <html lang="ja" className={notoSansJP.variable}>
       <head>
         <script
           type="application/ld+json"
@@ -118,6 +126,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {children}
         <InstallPrompt />
         <Analytics />
+        <SpeedInsights />
         <GoogleAdScript />
       </body>
     </html>

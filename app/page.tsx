@@ -7,6 +7,7 @@ import { StreakBanner } from "@/components/StreakBanner";
 import { UsageCounter } from "@/components/UsageCounter";
 import { ShareButtons } from "@/components/ShareButtons";
 import { AdBanner } from "@/components/AdBanner";
+import { CrossSell } from "@/components/CrossSell";
 
 // Canvas APIで脈あり度シェアカード画像を生成
 function generateShareCard(score: number): string {
@@ -283,8 +284,9 @@ export default function Home() {
             className="text-white font-bold px-8 py-4 rounded-2xl text-lg transition-all duration-200 hover:-translate-y-0.5 active:scale-[0.97] min-h-[52px] inline-block"
             style={{ background: "linear-gradient(135deg, #A855F7, #EC4899)", boxShadow: "0 0 30px rgba(168,85,247,0.4), 0 0 60px rgba(236,72,153,0.15)" }}
           >
-            今すぐ恋愛AIに相談する（3回無料）→
+            無料でモテる返信を生成 →
           </Link>
+          <p className="text-xs opacity-60 mt-2">※LINEスクショを貼るだけ</p>
           <button
             onClick={startCheckout}
             aria-label="月額980円プレミアムプランの申し込みモーダルを開く"
@@ -958,6 +960,8 @@ export default function Home() {
       <section className="py-6 px-6 text-center">
         <ShareButtons url="https://kokuhaku-line-ai.vercel.app" text="告白LINE返信AIを使ってみた！" hashtags="告白LINE返信AI" />
       </section>
+      <CrossSell currentService="告白LINE返信AI" />
+
       <footer className="py-6 text-center text-xs text-slate-500 pb-24 sm:pb-6" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
         <div className="space-x-4 mb-4">
           <Link href="/legal" className="hover:underline">特定商取引法に基づく表記</Link>
