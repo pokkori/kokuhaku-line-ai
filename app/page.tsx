@@ -8,6 +8,7 @@ import { UsageCounter } from "@/components/UsageCounter";
 import { ShareButtons } from "@/components/ShareButtons";
 import { AdBanner } from "@/components/AdBanner";
 import { CrossSell } from "@/components/CrossSell";
+import { TrustBadge } from "@/components/TrustBadge";
 
 // Canvas APIで脈あり度シェアカード画像を生成
 function generateShareCard(score: number): string {
@@ -277,6 +278,7 @@ export default function Home() {
           <span>登録不要・クレカ不要で<strong>今すぐ</strong>使えます</span>
         </div>
         <div className="max-w-xs mx-auto mb-4"><UsageCounter /></div>
+        <TrustBadge />
         <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
           <Link
             href="/tool"
