@@ -3,6 +3,8 @@ import { useState, useCallback, useEffect } from "react";
 import Link from "next/link";
 import KomojuButton from "@/components/KomojuButton";
 import { updateStreak, loadStreak, getStreakMilestoneMessage, type StreakData } from "@/lib/streak";
+import { StreakBanner } from "@/components/StreakBanner";
+import { UsageCounter } from "@/components/UsageCounter";
 import { ShareButtons } from "@/components/ShareButtons";
 import { AdBanner } from "@/components/AdBanner";
 
@@ -241,6 +243,8 @@ export default function Home() {
           <div key={i} className="absolute rounded-full animate-pulse" style={{ width: p.size, height: p.size, left: p.x, top: p.y, background: 'rgba(168,85,247,0.3)', animationDuration: p.dur, animationDelay: p.delay }} />
         ))}
       </div>
+      <StreakBanner />
+
       {/* Hero */}
       <section className="pt-20 pb-16 px-4 text-center">
         <div className="inline-block bg-pink-800/60 border border-pink-500/40 text-pink-200 text-xs font-bold px-3 py-1 rounded-full mb-6">
@@ -271,6 +275,7 @@ export default function Home() {
           <span className="inline-block w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
           <span>登録不要・クレカ不要で<strong>今すぐ</strong>使えます</span>
         </div>
+        <div className="max-w-xs mx-auto mb-4"><UsageCounter /></div>
         <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
           <Link
             href="/tool"

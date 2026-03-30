@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import { GoogleAdScript } from "@/components/GoogleAdScript";
 import "./globals.css";
+import { InstallPrompt } from "@/components/InstallPrompt";
 
 
 const SITE_URL = "https://kokuhaku-line-ai.vercel.app";
@@ -115,6 +116,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="antialiased min-h-screen text-white" style={{ background: '#0B0B1E' }}>
         {children}
+        <InstallPrompt />
         <Analytics />
         <GoogleAdScript />
       </body>
