@@ -3,6 +3,8 @@ import { useState, useCallback, useEffect } from "react";
 import Link from "next/link";
 import KomojuButton from "@/components/KomojuButton";
 import { updateStreak, loadStreak, getStreakMilestoneMessage, type StreakData } from "@/lib/streak";
+import { ShareButtons } from "@/components/ShareButtons";
+import { AdBanner } from "@/components/AdBanner";
 
 // Canvas APIで脈あり度シェアカード画像を生成
 function generateShareCard(score: number): string {
@@ -947,19 +949,9 @@ export default function Home() {
         }) }}
       />
 
-      {/* X Share */}
+      {/* シェアセクション */}
       <section className="py-6 px-6 text-center">
-        <a
-          href={"https://twitter.com/intent/tweet?text=" + encodeURIComponent("告白LINE返信AI — 好きな人からのLINEをAIが分析！脈あり度スコア＋返信パターン3通りを即提案 マッチングアプリ・婚活にも → https://kokuhaku-line-ai.vercel.app #告白LINE #恋愛AI #マッチングアプリ")}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 bg-black hover:bg-gray-800 text-white font-bold py-3 px-6 rounded-xl text-sm transition-colors"
-        >
-          <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
-            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-          </svg>
-          Xでシェアする
-        </a>
+        <ShareButtons url="https://kokuhaku-line-ai.vercel.app" text="告白LINE返信AIを使ってみた！" hashtags="告白LINE返信AI" />
       </section>
       <footer className="py-6 text-center text-xs text-slate-500 pb-24 sm:pb-6" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
         <div className="space-x-4 mb-4">
@@ -978,6 +970,7 @@ export default function Home() {
           </div>
         </div>
       </footer>
+      <AdBanner slot="" />
       {showPayjp && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4" role="dialog" aria-modal="true" aria-labelledby="premium-modal-title">
           <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-xl relative">
