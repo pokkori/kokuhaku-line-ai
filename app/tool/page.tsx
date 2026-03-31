@@ -1146,7 +1146,7 @@ export default function ToolPage() {
                 rel="noopener noreferrer sponsored"
                 className="flex items-center gap-3 bg-pink-800/40 hover:bg-pink-800/60 border border-pink-600/40 rounded-xl px-4 py-3 transition-colors"
               >
-                <span className="text-2xl">‍️</span>
+                <span className="text-2xl font-bold text-pink-300">yoga</span>
                 <div>
                   <p className="text-sm font-bold text-pink-200">SOELUオンラインヨガで体型ケア</p>
                   <p className="text-xs text-pink-400">告白後のデートに向けて、自宅でヨガ・フィットネス</p>

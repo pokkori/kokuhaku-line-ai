@@ -16,9 +16,9 @@ export const KEYWORDS: Record<string, KeywordData> = {
     h1: "告白 OK 返信 例文 LINE",
     description: "告白されたときのOK返信例文をAIが提案。相手の気持ちを大切にした自然な返し方を作成します。",
     features: [
-      { icon: "💌", title: "OK返信例文生成", text: "相手の告白文に合わせたナチュラルなOKの返信文をAIが即時生成" },
-      { icon: "💬", title: "トーン調整", text: "かわいい・クール・真剣など、自分のキャラクターに合ったトーンで文章を調整" },
-      { icon: "🌸", title: "関係スタート提案", text: "OKした後の最初のデート提案まで含めた返信文をサポート" },
+      { icon: "letter", title: "OK返信例文生成", text: "相手の告白文に合わせたナチュラルなOKの返信文をAIが即時生成" },
+      { icon: "chat", title: "トーン調整", text: "かわいい・クール・真剣など、自分のキャラクターに合ったトーンで文章を調整" },
+      { icon: "flower", title: "関係スタート提案", text: "OKした後の最初のデート提案まで含めた返信文をサポート" },
     ],
     faqs: [
       { q: "告白OKのLINE返信で気をつけることは？", a: "相手の気持ちに正直に応えること、自分の気持ちも伝えること、次のステップを示すことが大切です。AIが自然な文章を提案します。" },
@@ -32,9 +32,9 @@ export const KEYWORDS: Record<string, KeywordData> = {
     h1: "告白 断り方 LINE 例文",
     description: "告白を丁寧に断るLINE例文をAIが作成。相手を傷つけず関係を保てる断り方の文章を提案します。",
     features: [
-      { icon: "🙏", title: "丁寧な断り文生成", text: "相手への感謝と配慮を忘れない、品のある断り文をAIが作成" },
-      { icon: "🤝", title: "関係継続型断り方", text: "友人関係を維持したい場合の断り方をシチュエーション別に提案" },
-      { icon: "💡", title: "理由別カスタマイズ", text: "「好きな人がいる」「今は恋愛できない」など理由に合わせた文章を生成" },
+      { icon: "pray", title: "丁寧な断り文生成", text: "相手への感謝と配慮を忘れない、品のある断り文をAIが作成" },
+      { icon: "hand", title: "関係継続型断り方", text: "友人関係を維持したい場合の断り方をシチュエーション別に提案" },
+      { icon: "idea", title: "理由別カスタマイズ", text: "「好きな人がいる」「今は恋愛できない」など理由に合わせた文章を生成" },
     ],
     faqs: [
       { q: "告白の断り方で一番大切なことは？", a: "相手の勇気を尊重しながら、はっきりと自分の気持ちを伝えることです。曖昧な返事は相手を余計に傷つけます。" },
@@ -48,9 +48,9 @@ export const KEYWORDS: Record<string, KeywordData> = {
     h1: "告白 LINE タイミング 方法",
     description: "LINEで告白するベストタイミングと方法を解説。成功率を上げる告白LINEの送り時と文章のポイントをAIが提案します。",
     features: [
-      { icon: "⏰", title: "タイミング診断", text: "相手との関係性・連絡頻度から告白のベストタイミングをAIが判断" },
-      { icon: "📝", title: "告白文作成サポート", text: "伝わりやすく自分らしい告白文をAIが一緒に作成" },
-      { icon: "🎯", title: "成功率向上アドバイス", text: "告白前にすべき準備と告白後の理想的な流れをAIが提案" },
+      { icon: "clock", title: "タイミング診断", text: "相手との関係性・連絡頻度から告白のベストタイミングをAIが判断" },
+      { icon: "note", title: "告白文作成サポート", text: "伝わりやすく自分らしい告白文をAIが一緒に作成" },
+      { icon: "target", title: "成功率向上アドバイス", text: "告白前にすべき準備と告白後の理想的な流れをAIが提案" },
     ],
     faqs: [
       { q: "LINEで告白するベストなタイミングは？", a: "楽しいデートや会話の後、相手がリラックスしている夜間、特別なイベントの前後などが成功率の高いタイミングです。" },
@@ -64,9 +64,9 @@ export const KEYWORDS: Record<string, KeywordData> = {
     h1: "告白 前 LINE 内容 例",
     description: "告白する前のLINEの送り方と内容例を解説。告白成功につながる事前のアプローチ方法をAIがサポートします。",
     features: [
-      { icon: "🌱", title: "事前アプローチ文生成", text: "告白前の雰囲気作りに最適なLINEの内容と流れをAIが提案" },
-      { icon: "💞", title: "関係深化サポート", text: "告白に向けて関係を深めるための会話テーマ・送るべきメッセージを具体的に提示" },
-      { icon: "📊", title: "脈あり確認診断", text: "告白前の相手の反応から脈あり度を確認。タイミングの見極めをサポート" },
+      { icon: "leaf", title: "事前アプローチ文生成", text: "告白前の雰囲気作りに最適なLINEの内容と流れをAIが提案" },
+      { icon: "heart", title: "関係深化サポート", text: "告白に向けて関係を深めるための会話テーマ・送るべきメッセージを具体的に提示" },
+      { icon: "chart", title: "脈あり確認診断", text: "告白前の相手の反応から脈あり度を確認。タイミングの見極めをサポート" },
     ],
     faqs: [
       { q: "告白前にどんなLINEを送ればいい？", a: "共通の話題・相手が楽しめる内容を中心に、自然な会話の流れを作ることが大切です。急に重い内容は避けましょう。" },
@@ -80,9 +80,9 @@ export const KEYWORDS: Record<string, KeywordData> = {
     h1: "好きな人 LINE 送り方 例",
     description: "好きな人へのLINEの送り方と例文を解説。自然に距離を縮める会話のきっかけと内容をAIが提案します。",
     features: [
-      { icon: "💝", title: "最初のLINE例文", text: "自然なきっかけで送れる最初のLINE文例をシチュエーション別に提案" },
-      { icon: "🔄", title: "会話継続テク", text: "話が途切れない質問の入れ方や話題の広げ方をAIがアドバイス" },
-      { icon: "📱", title: "送信頻度アドバイス", text: "相手の返信テンポに合わせた理想的な連絡頻度をAIが提案" },
+      { icon: "gift", title: "最初のLINE例文", text: "自然なきっかけで送れる最初のLINE文例をシチュエーション別に提案" },
+      { icon: "loop", title: "会話継続テク", text: "話が途切れない質問の入れ方や話題の広げ方をAIがアドバイス" },
+      { icon: "phone", title: "送信頻度アドバイス", text: "相手の返信テンポに合わせた理想的な連絡頻度をAIが提案" },
     ],
     faqs: [
       { q: "好きな人への最初のLINEはどう送る？", a: "共通の話題や出来事を糸口に、返信しやすい質問を含めた内容がベストです。AIが状況に合った最初のメッセージを提案します。" },
@@ -96,9 +96,9 @@ export const KEYWORDS: Record<string, KeywordData> = {
     h1: "告白 断られた後 LINE 関係",
     description: "告白を断られた後のLINEの送り方と関係の立て直し方を解説。友人関係の維持から逆転を狙う方法までAIがサポートします。",
     features: [
-      { icon: "🌈", title: "関係修復メッセージ", text: "断られた後も自然に関係を続けられるLINEの内容をAIが提案" },
-      { icon: "💪", title: "逆転アドバイス", text: "断られた後から逆転するためのアプローチ戦略をAIが分析・提案" },
-      { icon: "🔮", title: "適切な距離感アドバイス", text: "相手が不快にならない連絡頻度と内容の見極め方をサポート" },
+      { icon: "repair", title: "関係修復メッセージ", text: "断られた後も自然に関係を続けられるLINEの内容をAIが提案" },
+      { icon: "strong", title: "逆転アドバイス", text: "断られた後から逆転するためのアプローチ戦略をAIが分析・提案" },
+      { icon: "compass", title: "適切な距離感アドバイス", text: "相手が不快にならない連絡頻度と内容の見極め方をサポート" },
     ],
     faqs: [
       { q: "断られた後もLINEしていい？", a: "しばらく間を置いてから自然な内容で連絡するのが基本です。すぐに連絡すると重いと思われる可能性があります。" },
@@ -112,9 +112,9 @@ export const KEYWORDS: Record<string, KeywordData> = {
     h1: "LINEで告白 文章 例文",
     description: "LINEで告白する文章と例文を解説。気持ちが伝わる告白メッセージをAIが一緒に作成します。",
     features: [
-      { icon: "✍️", title: "告白文作成AI", text: "自分の言葉で気持ちが伝わる告白文をAIが対話形式で一緒に作成" },
-      { icon: "🎭", title: "スタイル別例文", text: "ストレート・ロマンチック・ユーモアなど複数スタイルの告白文を提案" },
-      { icon: "✅", title: "送信前チェック", text: "告白文を送る前のチェックポイントをAIがリストアップ。後悔しない告白をサポート" },
+      { icon: "write", title: "告白文作成AI", text: "自分の言葉で気持ちが伝わる告白文をAIが対話形式で一緒に作成" },
+      { icon: "style", title: "スタイル別例文", text: "ストレート・ロマンチック・ユーモアなど複数スタイルの告白文を提案" },
+      { icon: "check", title: "送信前チェック", text: "告白文を送る前のチェックポイントをAIがリストアップ。後悔しない告白をサポート" },
     ],
     faqs: [
       { q: "LINEの告白文はどう書けばいい？", a: "シンプルに自分の気持ちを伝えることが一番です。「あなたのことが好き」という核心を中心に、具体的なエピソードを添えると伝わりやすいです。" },
@@ -128,9 +128,9 @@ export const KEYWORDS: Record<string, KeywordData> = {
     h1: "彼氏 彼女 距離縮める LINE",
     description: "気になる相手との距離を縮めるLINEの送り方を解説。自然に親密度を上げる会話テクニックをAIが提案します。",
     features: [
-      { icon: "🤗", title: "距離縮めLINEテク", text: "相手が心を開きやすいLINEの内容・タイミング・頻度をAIが提案" },
-      { icon: "🗣️", title: "会話ネタ提供", text: "相手の興味・趣味に合わせた話題をAIが提案。会話が弾む内容を無限生成" },
-      { icon: "📅", title: "会う約束への誘導", text: "LINEからリアルの関係へ発展させるための自然な流れをAIがサポート" },
+      { icon: "hug", title: "距離縮めLINEテク", text: "相手が心を開きやすいLINEの内容・タイミング・頻度をAIが提案" },
+      { icon: "talk", title: "会話ネタ提供", text: "相手の興味・趣味に合わせた話題をAIが提案。会話が弾む内容を無限生成" },
+      { icon: "calendar", title: "会う約束への誘導", text: "LINEからリアルの関係へ発展させるための自然な流れをAIがサポート" },
     ],
     faqs: [
       { q: "LINEで距離を縮めるコツは？", a: "相手が答えやすい質問を入れる、共通の話題を探す、相手のテンポに合わせるなどが効果的です。" },
@@ -144,9 +144,9 @@ export const KEYWORDS: Record<string, KeywordData> = {
     h1: "職場 好きな人 LINE 送り方",
     description: "職場の好きな人へのLINEの送り方を解説。仕事関係を壊さない自然なアプローチ方法をAIがサポートします。",
     features: [
-      { icon: "💼", title: "職場恋愛特化アドバイス", text: "仕事上の関係に配慮しながら恋愛に発展させる方法をAIが提案" },
-      { icon: "📱", title: "仕事→プライベートLINE移行", text: "業務連絡から個人的な会話へ自然に発展させるトーク例を提示" },
-      { icon: "⚠️", title: "リスク管理", text: "職場恋愛のリスクを最小化しながらアプローチする方法をAIがアドバイス" },
+      { icon: "work", title: "職場恋愛特化アドバイス", text: "仕事上の関係に配慮しながら恋愛に発展させる方法をAIが提案" },
+      { icon: "phone", title: "仕事→プライベートLINE移行", text: "業務連絡から個人的な会話へ自然に発展させるトーク例を提示" },
+      { icon: "warn", title: "リスク管理", text: "職場恋愛のリスクを最小化しながらアプローチする方法をAIがアドバイス" },
     ],
     faqs: [
       { q: "職場の人へのLINEはどう送ればいい？", a: "最初は仕事に関連した自然なきっかけから始めるのが鉄則。プライベートな内容に移行するタイミングをAIが提案します。" },
@@ -160,9 +160,9 @@ export const KEYWORDS: Record<string, KeywordData> = {
     h1: "マッチングアプリ 告白 LINE 例文",
     description: "マッチングアプリで出会った相手への告白LINE例文を解説。オンラインから本物の恋愛へ発展させる文章をAIが提案します。",
     features: [
-      { icon: "📲", title: "マッチングアプリ特化テク", text: "マッチング後の最初のメッセージから告白までの流れをAIがサポート" },
-      { icon: "🎯", title: "早期関係構築", text: "短期間で信頼関係を築くための会話内容と頻度をAIが最適化" },
-      { icon: "🌟", title: "リアル移行サポート", text: "アプリ内→LINE→実際のデートへの自然な移行方法をAIが提案" },
+      { icon: "app", title: "マッチングアプリ特化テク", text: "マッチング後の最初のメッセージから告白までの流れをAIがサポート" },
+      { icon: "target", title: "早期関係構築", text: "短期間で信頼関係を築くための会話内容と頻度をAIが最適化" },
+      { icon: "star", title: "リアル移行サポート", text: "アプリ内→LINE→実際のデートへの自然な移行方法をAIが提案" },
     ],
     faqs: [
       { q: "マッチングアプリから告白するタイミングは？", a: "実際に会って数回デートした後が一般的です。アプリ内・LINE内で告白する場合の注意点もAIが解説します。" },
@@ -255,7 +255,7 @@ export default async function KeywordPage({
         <div style={{ maxWidth: "800px", margin: "0 auto" }}>
           {/* Hero */}
           <div style={{ textAlign: "center", marginBottom: "3rem" }}>
-            <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>💌</div>
+            <div style={{ fontSize: "3rem", marginBottom: "1rem", color: "#f43f5e", fontWeight: "bold" }}>AI</div>
             <h1 style={{ fontSize: "clamp(1.5rem, 4vw, 2.5rem)", fontWeight: "bold", marginBottom: "1rem", background: "linear-gradient(90deg, #f43f5e, #fb923c)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
               {data.h1}
             </h1>
