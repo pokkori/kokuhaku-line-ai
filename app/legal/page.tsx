@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function LegalPage() {
   const items = [
     ["販売事業者", "新美諭"],
-    ["運営責任者", "ポッコリラボ 代表 新美"],
+    ["運営責任者", "ポッコリラボ 代表 新美諭"],
     ["所在地", "非公開（請求があれば遅滞なく開示します）"],
     ["電話番号", "090-6093-5290"],
     ["メールアドレス", "levonadesign@gmail.com（X: @levona_design）"],
