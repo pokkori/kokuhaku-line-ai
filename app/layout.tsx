@@ -40,6 +40,27 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL(SITE_URL),
   manifest: "/manifest.json",
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "告白LINEの返信はAIが自動で作ってくれますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい。相手からのLINEメッセージを入力するだけで、あなたの気持ちや状況に合わせた返信文をAIが自動生成します。" } },
+    { "@type": "Question", "name": "どんな状況に対応していますか？", "acceptedAnswer": { "@type": "Answer", "text": "片思い・告白・デート誘い・脈あり確認・自然な距離縮め・関係修復など、恋愛LINEの様々な場面に対応しています。" } },
+    { "@type": "Question", "name": "生成された返信文をそのまま使っても大丈夫ですか？", "acceptedAnswer": { "@type": "Answer", "text": "AIが生成した文章はたたき台としてお使いください。あなたのキャラクターや言葉遣いに合わせて調整することをおすすめします。" } },
+    { "@type": "Question", "name": "入力した内容は保存されますか？", "acceptedAnswer": { "@type": "Answer", "text": "入力内容はAI生成のみに使用し、サーバーに保存されません。プライバシーは保護されています。" } },
+    { "@type": "Question", "name": "使用回数に制限はありますか？", "acceptedAnswer": { "@type": "Answer", "text": "無料プランでは1日に利用できる生成回数に上限があります。無制限に使いたい方はプレミアムプランをご利用ください。" } },
+    { "@type": "Question", "name": "スマートフォンから使えますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい、スマートフォン・タブレット・PCのすべてのデバイスに対応したWebアプリです。" } },
+    { "@type": "Question", "name": "男性でも女性でも使えますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい、男性・女性どちらでもご利用いただけます。相手の性別や関係性を入力することでより適切な返信文が生成されます。" } },
+    { "@type": "Question", "name": "返信文のトーン（カジュアル/真剣）は選べますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい、フレンドリー・真剣・甘め・冷静など複数のトーンから選択できます。シーンに合わせてお選びください。" } },
+    { "@type": "Question", "name": "何文字くらいの返信文が生成されますか？", "acceptedAnswer": { "@type": "Answer", "text": "状況に応じて短め（〜50文字）・普通（50〜150文字）・長め（150文字〜）を選択できます。LINEらしい自然な長さで生成します。" } },
+    { "@type": "Question", "name": "告白以外のLINE相談にも使えますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい、デート後のお礼LINE・既読スルーへの対応・関係をより深める一言など、告白以外の場面でも幅広くお使いいただけます。" } }
+  ]
 };
 
 const breadcrumbLd = {
@@ -241,6 +262,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ja" className={notoSansJP.variable}>
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
