@@ -744,6 +744,7 @@ export default function ToolPage() {
           onClick={analyze}
           disabled={loading || !line.trim() || (!isPremium && remaining === 0)}
           aria-label="入力したLINEの内容をAIで解析して脈あり度を判定する"
+          aria-busy={loading}
           className="w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-black py-4 rounded-xl text-lg transition disabled:opacity-40 disabled:cursor-not-allowed shadow-lg shadow-pink-900/50"
         >
           {loading ? "AIが解析中…" : "解析する"}
@@ -764,7 +765,7 @@ export default function ToolPage() {
           </div>
         )}
 
-        {error && <p className="text-red-400 text-sm text-center">{error}</p>}
+        {error && <p role="alert" className="text-red-400 text-sm text-center">{error}</p>}
 
         {/* Paywall */}
         {showPaywall && (
@@ -823,6 +824,7 @@ export default function ToolPage() {
               href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`告白LINE AI診断で脈あり${result.score}%でした！\n#告白LINE #脈あり診断\nhttps://kokuhaku-line-ai.vercel.app`)}`}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`脈あり${result.score}%の診断結果をXにシェアする`}
               className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:opacity-90 text-white font-bold py-3 rounded-xl text-sm transition"
             >
                脈あり{result.score}%をXでシェアする
@@ -886,8 +888,9 @@ export default function ToolPage() {
                   </button>
                   <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`告白LINE AI診断で脈あり${result.score}%でした！\n#告白LINE #脈あり診断\nhttps://kokuhaku-line-ai.vercel.app`)}`}
                     target="_blank" rel="noopener noreferrer"
+                    aria-label={`脈あり${result.score}%の診断結果をXにシェアする`}
                     className="mt-2 flex items-center justify-center gap-2 w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:opacity-90 text-white font-bold py-3 rounded-xl text-sm transition-opacity">
-                    脈あり{result.score}%をXでシェア 
+                    脈あり{result.score}%をXでシェア
                   </a>
                 </div>
               )}
@@ -978,15 +981,17 @@ export default function ToolPage() {
                             <p className="text-xs text-pink-200 flex-1 leading-relaxed">{reply}</p>
                             <button
                               onClick={() => copy(reply, `saved-${i}`)}
+                              aria-label={`お気に入り${i + 1}番目の返信文をクリップボードにコピーする`}
                               className="text-xs text-slate-500 hover:text-slate-300 shrink-0 transition"
                             >
                               {copied === `saved-${i}` ? "OK" : "コピー"}
                             </button>
                             <button
                               onClick={() => { const updated = toggleSavedReply(reply); setSavedReplies(updated); }}
+                              aria-label={`お気に入り${i + 1}番目の返信文を削除する`}
                               className="text-xs text-slate-600 hover:text-red-400 shrink-0 transition"
                             >
-                              
+
                             </button>
                           </div>
                         ))}
