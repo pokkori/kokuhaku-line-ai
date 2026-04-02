@@ -747,7 +747,7 @@ export default function ToolPage() {
           aria-busy={loading}
           className="w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-black py-4 rounded-xl text-lg transition disabled:opacity-40 disabled:cursor-not-allowed shadow-lg shadow-pink-900/50"
         >
-          {loading ? "AIが解析中…" : "解析する"}
+          {loading ? "AIが解析中…" : "無料でAI解析する"}
         </button>
 
         {loading && !rawText && (
