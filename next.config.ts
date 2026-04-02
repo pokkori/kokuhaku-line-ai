@@ -11,6 +11,9 @@ const cspValue = [
 ].join("; ");
 
 const nextConfig: NextConfig = {
+  experimental: {
+    viewTransition: true,
+  },
   poweredByHeader: false,
   async headers() {
     return [
