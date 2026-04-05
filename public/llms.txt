@@ -1,26 +1,27 @@
 # 告白LINE返信AI
+> 告白・恋愛LINEへの返信文をAIが生成するコミュニケーション支援ツール
 
-> 好きな人への告白LINEや返信・脈あり度診断をAIがサポートする恋愛サポートサービス
+## サービス概要
+- **カテゴリ**: 恋愛AI
+- **URL**: https://kokuhaku-line-ai.vercel.app
+- **提供形態**: Webブラウザで利用可能（登録不要で試せます）
+- **開発**: Claude Code + Next.js 16 + Vercel
 
-## 概要
-告白のLINE文章を考えるのが難しい方や、相手から来たLINEの返し方に悩む方のためのAIサービスです。脈あり度クイック診断で相手の気持ちを分析し、状況に合わせた最適な告白文・返信文をAIが生成します。旧「脈あり解読AI」の機能も統合しており、LINEのやり取りパターンから脈あり度をパーセンテージで診断できます。
+## 主要ページ
+- [トップページ](https://kokuhaku-line-ai.vercel.app/): メイン機能・サービス説明
+- [ツール](https://kokuhaku-line-ai.vercel.app/tool): AI機能の利用画面（一部サービス）
+- [プライバシーポリシー](https://kokuhaku-line-ai.vercel.app/privacy): 個人情報の取り扱い
+- [特定商取引法に基づく表記](https://kokuhaku-line-ai.vercel.app/legal): 法的情報
 
-## 対象ユーザー
-好きな人への告白を考えている方、相手のLINEの意図が読めず悩んでいる方、脈あり度を客観的に知りたい方
+## 利用シーン
+告白・恋愛LINEへの返信文をAIが生成するコミュニケーション支援ツール
 
-## 主な機能
-- 脈あり度クイック診断（6つの質問でパーセンテージ表示）
-- 状況別・関係性別の告白LINE文章の自動生成
-- 相手から来たLINEへの最適な返信文の生成
-- 診断結果のSNSシェア機能（画像カード生成）
+## 技術スタック
+- フロントエンド: Next.js 16, React 19, TypeScript, Tailwind CSS
+- AI: Claude claude-sonnet-4-6 (Anthropic)
+- バックエンド: Vercel Edge Functions, Supabase
+- 決済: KOMOJU（クレジットカード・コンビニ払い対応）
 
-## 使い方
-1. 脈あり度診断の6つの質問に答えて現状を把握する
-2. 告白・返信したい状況・相手との関係性を入力する
-3. AIが最適な告白文または返信文を生成し、そのままコピーして使える
-
-## 料金
-無料で3回まで利用可能。プレミアムプランで無制限。
-
-## URL
-https://kokuhaku-line-ai.vercel.app
+## robots.txt
+AIクローラーによるインデックスを歓迎します。
+GPTBot, ClaudeBot, PerplexityBot, Googlebot-Extended のアクセスを許可しています。
