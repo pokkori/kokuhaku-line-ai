@@ -241,6 +241,39 @@ type ScoreHistory = { score: number; date: string; context?: string };
 const HISTORY_KEY = "kokuhaku_score_history";
 const SAVED_REPLIES_KEY = "kokuhaku_saved_replies";
 
+// ===== 相手別プロフィール管理（最大5人）=====
+type PartnerProfile = {
+  id: string;
+  name: string;
+  history: ScoreHistory[];
+  savedReplies: string[];
+};
+const PARTNERS_KEY = "kokuhaku_partners_v2";
+const ACTIVE_PARTNER_KEY = "kokuhaku_active_v2";
+const MAX_PARTNERS = 5;
+
+function loadPartners(): PartnerProfile[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = localStorage.getItem(PARTNERS_KEY);
+    if (raw) return JSON.parse(raw);
+    // 旧形式から移行（初回のみ）
+    const oldHistory: ScoreHistory[] = (() => { try { return JSON.parse(localStorage.getItem(HISTORY_KEY) ?? "[]"); } catch { return []; } })();
+    const oldReplies: string[] = (() => { try { return JSON.parse(localStorage.getItem(SAVED_REPLIES_KEY) ?? "[]"); } catch { return []; } })();
+    return [{ id: "1", name: "相手1", history: oldHistory, savedReplies: oldReplies }];
+  } catch { return [{ id: "1", name: "相手1", history: [], savedReplies: [] }]; }
+}
+function persistPartners(partners: PartnerProfile[]) {
+  localStorage.setItem(PARTNERS_KEY, JSON.stringify(partners));
+}
+function loadActivePartnerId(): string {
+  if (typeof window === "undefined") return "1";
+  return localStorage.getItem(ACTIVE_PARTNER_KEY) ?? "1";
+}
+function persistActivePartnerId(id: string) {
+  localStorage.setItem(ACTIVE_PARTNER_KEY, id);
+}
+
 function loadSavedReplies(): string[] {
   if (typeof window === "undefined") return [];
   try { return JSON.parse(localStorage.getItem(SAVED_REPLIES_KEY) ?? "[]"); } catch { return []; }
@@ -461,6 +494,63 @@ function ScoreTrendGraph({ history }: { history: ScoreHistory[] }) {
   );
 }
 
+function PartnerSelector({
+  partners, activeId, onSelect, onAdd, onDelete,
+}: {
+  partners: PartnerProfile[];
+  activeId: string;
+  onSelect: (id: string) => void;
+  onAdd: () => void;
+  onDelete: (id: string) => void;
+}) {
+  return (
+    <div className="bg-pink-950/60 border border-pink-800/40 rounded-xl p-3">
+      <p className="text-xs font-bold text-pink-400 mb-2">気になる相手を選ぶ（最大{MAX_PARTNERS}人）</p>
+      <div className="flex flex-wrap gap-2">
+        {partners.map((p) => (
+          <button
+            key={p.id}
+            type="button"
+            onClick={() => onSelect(p.id)}
+            aria-pressed={p.id === activeId}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
+              p.id === activeId
+                ? "bg-pink-500 text-white shadow-md shadow-pink-900/50"
+                : "bg-pink-900/40 text-pink-300 hover:bg-pink-800/60 border border-pink-700/40"
+            }`}
+          >
+            {p.name}
+            {p.history.length > 0 && (
+              <span className="text-[10px] opacity-70">({p.history.length}回)</span>
+            )}
+          </button>
+        ))}
+        {partners.length < MAX_PARTNERS && (
+          <button
+            type="button"
+            onClick={onAdd}
+            className="px-3 py-1.5 rounded-full text-xs font-bold bg-pink-900/20 text-pink-600 hover:bg-pink-800/40 border border-pink-800/50 border-dashed transition-all"
+          >
+            + 追加
+          </button>
+        )}
+      </div>
+      {partners.length > 1 && (
+        <button
+          type="button"
+          onClick={() => {
+            const name = partners.find(p => p.id === activeId)?.name ?? "";
+            if (window.confirm(`「${name}」のデータを削除しますか？`)) onDelete(activeId);
+          }}
+          className="mt-2 text-[10px] text-pink-800 hover:text-pink-600 transition-all block"
+        >
+          現在の相手を削除
+        </button>
+      )}
+    </div>
+  );
+}
+
 export default function ToolPage() {
   const [line, setLine] = useState("");
   const [context, setContext] = useState("");
@@ -479,6 +569,8 @@ export default function ToolPage() {
   const [savedReplies, setSavedReplies] = useState<string[]>([]);
   const [savedNotif, setSavedNotif] = useState<string | null>(null);
   const [cardCopied, setCardCopied] = useState(false);
+  const [partners, setPartners] = useState<PartnerProfile[]>([{ id: "1", name: "相手1", history: [], savedReplies: [] }]);
+  const [activePartnerId, setActivePartnerId] = useState<string>("1");
 
   const handleShareCard = useCallback(async (score: number) => {
     try {
@@ -509,8 +601,18 @@ export default function ToolPage() {
     );
   }
   useEffect(() => {
-    setScoreHistory(loadScoreHistory());
-    setSavedReplies(loadSavedReplies());
+    const loadedPartners = loadPartners();
+    setPartners(loadedPartners);
+    const aid = loadActivePartnerId();
+    const activeP = loadedPartners.find(p => p.id === aid) ?? loadedPartners[0];
+    if (activeP) {
+      setActivePartnerId(activeP.id);
+      setScoreHistory(activeP.history);
+      setSavedReplies(activeP.savedReplies);
+    } else {
+      setScoreHistory(loadScoreHistory());
+      setSavedReplies(loadSavedReplies());
+    }
     fetch("/api/auth/status").then((r) => r.json()).then((d) => {
       setIsPremium(d.premium);
       setRemaining(d.remaining);
@@ -561,8 +663,19 @@ export default function ToolPage() {
       const parsed = parseResult(fullText);
       setResult(parsed);
       if (parsed) {
-        const updated = saveScoreHistory(parsed.score, context);
-        setScoreHistory(updated);
+        const entry: ScoreHistory = {
+          score: parsed.score,
+          date: new Date().toLocaleDateString("ja-JP", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" }),
+          context: context.slice(0, 20) || undefined,
+        };
+        const updatedPartners = partners.map(p =>
+          p.id === activePartnerId
+            ? { ...p, history: [...p.history, entry].slice(-10) }
+            : p
+        );
+        persistPartners(updatedPartners);
+        setPartners(updatedPartners);
+        setScoreHistory(updatedPartners.find(p => p.id === activePartnerId)?.history ?? []);
       }
       setTab("replies");
       // 達成感バナー表示
@@ -576,6 +689,41 @@ export default function ToolPage() {
 
   const [showPayjp, setShowPayjp] = useState(false);
   const startCheckout = () => setShowPayjp(true);
+
+  function handleSelectPartner(id: string) {
+    const p = partners.find(p => p.id === id);
+    if (!p) return;
+    setActivePartnerId(id);
+    persistActivePartnerId(id);
+    setScoreHistory(p.history);
+    setSavedReplies(p.savedReplies);
+    setResult(null);
+    setRawText("");
+    setTab("replies");
+  }
+
+  function handleAddPartner() {
+    if (partners.length >= MAX_PARTNERS) return;
+    const newP: PartnerProfile = { id: Date.now().toString(), name: `相手${partners.length + 1}`, history: [], savedReplies: [] };
+    const updated = [...partners, newP];
+    persistPartners(updated);
+    setPartners(updated);
+    handleSelectPartner(newP.id);
+  }
+
+  function handleDeletePartner(id: string) {
+    const updated = partners.filter(p => p.id !== id);
+    if (updated.length === 0) return;
+    persistPartners(updated);
+    setPartners(updated);
+    const next = updated[0];
+    setActivePartnerId(next.id);
+    persistActivePartnerId(next.id);
+    setScoreHistory(next.history);
+    setSavedReplies(next.savedReplies);
+    setResult(null);
+    setRawText("");
+  }
 
   function copy(text: string, key: string) {
     navigator.clipboard.writeText(text);
@@ -613,6 +761,15 @@ export default function ToolPage() {
       </nav>
 
       <div className="max-w-2xl mx-auto px-4 py-10 space-y-6">
+        {/* 相手別プロフィール切り替え */}
+        <PartnerSelector
+          partners={partners}
+          activeId={activePartnerId}
+          onSelect={handleSelectPartner}
+          onAdd={handleAddPartner}
+          onDelete={handleDeletePartner}
+        />
+
         {/* シチュエーション別クイック選択 */}
         <div>
           <p className="text-sm font-bold text-pink-300 mb-2"> シチュエーションから選ぶ（ワンタップで入力）</p>
