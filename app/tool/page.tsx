@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import KomojuButton from "@/components/KomojuButton";
 import { track } from '@vercel/analytics';
+import AIResultCard from "@/components/AIResultCard";
 
 // Canvas APIで脈あり度シェアカード画像を生成
 function generateShareCard(score: number): string {
@@ -1053,7 +1054,11 @@ export default function ToolPage() {
               )}
 
               {tab === "analysis" && (
-                <div className="text-sm text-pink-100 leading-relaxed whitespace-pre-wrap">{result.analysis}</div>
+                <AIResultCard
+                  text={result.analysis}
+                  accentColor="#EC4899"
+                  minHeight="120px"
+                />
               )}
 
               {tab === "replies" && (
@@ -1201,7 +1206,11 @@ export default function ToolPage() {
               )}
 
               {tab === "timing" && (
-                <div className="text-sm text-pink-100 leading-relaxed whitespace-pre-wrap">{result.timing}</div>
+                <AIResultCard
+                  text={result.timing}
+                  accentColor="#EC4899"
+                  minHeight="100px"
+                />
               )}
 
               {tab === "planner" && (
