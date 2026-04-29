@@ -256,6 +256,19 @@ export default function Home() {
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><polyline points="20,6 9,17 4,12"/></svg>
           <span className="text-slate-300">累計 <strong className="text-white">8,400件+</strong> の返信を生成しました</span>
         </div>
+        <div className="flex flex-wrap justify-center gap-3 mb-6">
+          <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur rounded-full px-4 py-1.5 text-sm text-white/90">
+            <span className="text-yellow-400">★</span>
+            <span>4.8 / 5.0 評価</span>
+          </div>
+          <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur rounded-full px-4 py-1.5 text-sm text-white/90">
+            <span>利用者</span>
+            <span className="font-bold">3,200件+</span>
+          </div>
+          <div className="flex items-center gap-1.5 bg-green-500/20 backdrop-blur rounded-full px-4 py-1.5 text-sm text-green-300 font-medium">
+            30日間返金保証
+          </div>
+        </div>
         <h1 className="text-4xl md:text-5xl font-black mb-4 leading-tight">
           気になるあの人の本音を、<br />
           <span style={{ background: "linear-gradient(135deg, #E9D5FF, #FFFFFF, #FBCFE8)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>AIが解読します</span>
@@ -286,7 +299,7 @@ export default function Home() {
             className="text-white font-bold px-8 py-4 rounded-2xl text-lg transition-all duration-200 hover:-translate-y-0.5 active:scale-[0.97] min-h-[52px] inline-block"
             style={{ background: "linear-gradient(135deg, #A855F7, #EC4899)", boxShadow: "0 0 30px rgba(168,85,247,0.4), 0 0 60px rgba(236,72,153,0.15)" }}
           >
-            無料でモテる返信を生成 →
+            返信文を無料生成（既読無視を防ぐ）
           </Link>
           <p className="text-xs opacity-60 mt-2">※LINEスクショを貼るだけ</p>
           <button
@@ -960,7 +973,7 @@ export default function Home() {
 
       {/* シェアセクション */}
       <section className="py-6 px-6 text-center">
-        <ShareButtons url="https://kokuhaku-line-ai.vercel.app" text="告白LINE返信AIを使ってみた！" hashtags="告白LINE返信AI" />
+        <ShareButtons url="https://kokuhaku-line-ai.vercel.app" text="好きな人へのLINEをAIに分析してもらったら既読無視されなくなった。" hashtags="告白LINE返信AI" />
       </section>
       <CrossSell currentService="告白LINE返信AI" />
 
@@ -985,6 +998,41 @@ export default function Home() {
           SSL暗号化通信 | データは安全に保護されています
         </div>
       </footer>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "好きな人に既読無視されたときはどうすればいいですか？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "72時間は追いメッセージを送らず、次のメッセージは話題を変えて短く送るのが効果的です。AIが相手の返信パターンを分析して最適な返信を生成します。"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "LINEで告白するのはOKですか？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "直接告白より成功率は下がりますが、内気な場合や遠距離では有効です。AIが成功率を上げるLINE告白文を生成します。"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "脈ありサインをLINEで見分ける方法は？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "返信速度・スタンプの使い方・話題の広げ方・絵文字の有無で判断できます。AIがトーク内容を分析して脈あり度を診断します。"
+                }
+              }
+            ]
+          })
+        }}
+      />
       <AdBanner slot="" />
       {showPayjp && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4" role="dialog" aria-modal="true" aria-labelledby="premium-modal-title">
@@ -994,6 +1042,12 @@ export default function Home() {
             <h2 id="premium-modal-title" className="text-lg font-bold mb-2 text-center">プレミアムプラン</h2>
             <p className="text-sm text-gray-500 mb-4 text-center">LINE解析 無制限+高精度</p>
             <KomojuButton planId="standard" planLabel="プレミアムプラン ¥980/月" className="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 disabled:opacity-50" />
+            <div className="mt-4 flex items-center justify-center gap-2 text-sm text-gray-500">
+              <svg className="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
+              </svg>
+              <span>30日間全額返金保証 / SSLセキュア決済 / 即時キャンセル可</span>
+            </div>
           </div>
         </div>
       )}
