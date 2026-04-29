@@ -9,6 +9,7 @@ import { ShareButtons } from "@/components/ShareButtons";
 import { AdBanner } from "@/components/AdBanner";
 import { CrossSell } from "@/components/CrossSell";
 import { TrustBadge } from "@/components/TrustBadge";
+import { ExitIntentPopup } from "@/components/ExitIntentPopup";
 
 // Canvas APIで脈あり度シェアカード画像を生成
 function generateShareCard(score: number): string {
@@ -1051,6 +1052,11 @@ export default function Home() {
           </div>
         </div>
       )}
+    <ExitIntentPopup
+      serviceUrl="https://kokuhaku-line-ai.vercel.app"
+      message="好きな人への返信、AIに相談しませんか？既読無視を防ぐメッセージを生成します。"
+      ctaText="返信文を無料生成する"
+    />
     </main>
   );
 }

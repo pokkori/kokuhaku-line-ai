@@ -7,6 +7,7 @@ import FeedbackButton from "@/components/FeedbackButton";
 import { GoogleAdScript } from "@/components/GoogleAdScript";
 import "./globals.css";
 import { InstallPrompt } from "@/components/InstallPrompt";
+import { PHProvider } from "./providers";
 
 const notoSansJP = Noto_Sans_JP({
   subsets: ["latin"],
@@ -18,7 +19,7 @@ const notoSansJP = Noto_Sans_JP({
 
 const SITE_URL = "https://kokuhaku-line-ai.vercel.app";
 const TITLE = "告白LINE返信AI | 好きな子のLINEをAIが分析。脈あり度・返信例文・告白タイミングを判定";
-const DESC = "好きな子のLINEをコピペするだけ。AIが脈あり度を0〜100%で判定し、最適な返信例文・告白文・告白タイミングまで生成。3回無料。";
+const DESC = "好きな人のLINEをAIが分析。既読無視を防ぐ返信文を即生成。";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -277,6 +278,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="antialiased min-h-screen text-white" style={{ background: '#0B0B1E' }}>
+        <PHProvider>
         {children}
         <InstallPrompt />
         <FeedbackButton />
@@ -291,6 +293,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             {`(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","${process.env.NEXT_PUBLIC_CLARITY_ID}");`}
           </Script>
         )}
+        </PHProvider>
       </body>
     </html>
   );
